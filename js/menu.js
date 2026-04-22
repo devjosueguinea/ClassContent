@@ -9,7 +9,7 @@ function cargarMenuLateral(containerId) {
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">Ing. Josue Guinea</div>
             <nav class="sidebar-nav">
-                <a href="index.html">Dashboard</a>
+                <a href="index.html">Inicio</a>
                 <a href="clase1.html">
                     Clase 1
                 </a>
