@@ -7,7 +7,7 @@ function cargarMenuLateral(containerId) {
         <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
         <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">Guinea</div>
+            <div class="sidebar-header">Ing. Josue Guinea</div>
             <nav class="sidebar-nav">
                 <a href="index.html">Dashboard</a>
                 <a href="clase1.html">
@@ -20,7 +20,7 @@ function cargarMenuLateral(containerId) {
         </aside>
 
         <div class="mobile-header">
-            <strong>DevAcademy</strong>
+            <strong>Ing. Josue Guinea</strong>
             <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
         </div>
     `;
