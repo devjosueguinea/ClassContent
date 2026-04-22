@@ -14,7 +14,7 @@ function cargarMenuLateral(containerId) {
                     Clase 1
                 </a>
                 <a href="clase2.html">
-                    Clase 1
+                    Clase 2
                 </a>
             </nav>
         </aside>
