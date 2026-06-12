@@ -1,41 +1,92 @@
 /**
  * Inyecta el menú lateral en un contenedor específico
  * @param {string} containerId - El ID del div donde se renderizará el menú
+ * @param {string} moduleNumber - El número del módulo activo
+ * @param {string} classId - El ID de la clase activa (ej. 'clase1')
  */
-function cargarMenuLateral(containerId) {
-    const menuHTML = `
-        <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">Ing. Josue Guinea</div>
-            <nav class="sidebar-nav">
-                <a href="index.html">Inicio</a>
-                <a href="clase1.html">
-                    Clase 1
-                </a>
-                <a href="clase2.html">
-                    Clase 2
-                </a>
-                <a href="clase3.html">
-                    Clase 3
-                </a>
-                <a href="clase4.html">
-                    Clase 4
-                </a>
-                <a href="clase5.html">
-                    Clase 5
-                </a>
-            </nav>
-        </aside>
-
-        <div class="mobile-header">
-            <strong>Ing. Josue Guinea</strong>
-            <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
-        </div>
-    `;
+function cargarMenuLateral(containerId, moduleNumber, classId) {
+    const prefix = "../"; // Al estar en moduloX/, la raíz está en el directorio padre
+    
+    let menuHTML = '';
+    
+    if (moduleNumber === '1') {
+        const clases = [
+            { id: 'clase1', title: 'Clase 1: Fundamentos y SDLC', file: 'clase1.html' },
+            { id: 'clase2', title: 'Clase 2: Requerimientos', file: 'clase2.html' },
+            { id: 'clase3', title: 'Clase 3: Modelado de Datos', file: 'clase3.html' },
+            { id: 'clase4', title: 'Clase 4: Comportamiento', file: 'clase4.html' },
+            { id: 'clase5', title: 'Clase 5: Diagramas de Clase', file: 'clase5.html' },
+            { id: 'clase6', title: 'Clase 6: Relación de Herencia', file: 'clase6.html' }
+        ];
+        
+        let linksHTML = `<a href="${prefix}index.html">← Inicio</a>`;
+        clases.forEach(c => {
+            const activeClass = c.id === classId ? 'class="active-class"' : '';
+            linksHTML += `<a href="${c.file}" ${activeClass}>${c.title}</a>`;
+        });
+        
+        menuHTML = `
+            <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">Diseño de Sistemas</div>
+                <nav class="sidebar-nav">
+                    ${linksHTML}
+                </nav>
+            </aside>
+            <div class="mobile-header">
+                <strong>Diseño de Sistemas</strong>
+                <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+            </div>
+        `;
+    } else if (moduleNumber === '2') {
+        menuHTML = `
+            <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">Desarrollo Web</div>
+                <nav class="sidebar-nav">
+                    <a href="${prefix}index.html">← Inicio</a>
+                    <a href="#" class="active-class">Próximamente</a>
+                </nav>
+            </aside>
+            <div class="mobile-header">
+                <strong>Desarrollo Web</strong>
+                <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+            </div>
+        `;
+    } else if (moduleNumber === '3') {
+        menuHTML = `
+            <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">Bases de Datos</div>
+                <nav class="sidebar-nav">
+                    <a href="${prefix}index.html">← Inicio</a>
+                    <a href="#" class="active-class">Próximamente</a>
+                </nav>
+            </aside>
+            <div class="mobile-header">
+                <strong>Bases de Datos</strong>
+                <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+            </div>
+        `;
+    } else if (moduleNumber === '4') {
+        menuHTML = `
+            <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">Arquitectura de Software</div>
+                <nav class="sidebar-nav">
+                    <a href="${prefix}index.html">← Inicio</a>
+                    <a href="#" class="active-class">Próximamente</a>
+                </nav>
+            </aside>
+            <div class="mobile-header">
+                <strong>Arquitectura</strong>
+                <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+            </div>
+        `;
+    }
 
     const contenedor = document.getElementById(containerId);
-    if (contenedor) {
+    if (contenedor && menuHTML) {
         contenedor.innerHTML = menuHTML;
     }
 }
@@ -52,5 +103,9 @@ function toggleMenu() {
 
 // Ejecutar la función cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
-    cargarMenuLateral('menu-container');
+    const module = document.body.getAttribute('data-module');
+    const activeClass = document.body.getAttribute('data-class');
+    if (module) {
+        cargarMenuLateral('menu-container', module, activeClass);
+    }
 });

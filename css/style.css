@@ -62,6 +62,10 @@ body {
     transition: margin 0.3s ease;
 }
 
+body.no-sidebar .main-content {
+    margin-left: 0;
+}
+
 /* --- Elementos de Navegación Móvil --- */
 .mobile-header {
     display: none;

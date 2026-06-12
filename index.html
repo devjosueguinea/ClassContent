@@ -1,121 +1,185 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Josué Guinea Dev - Inicio</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon" />
-  </head>
-  <body>
-    <div id="menu-container"></div>
 
-    <main class="main-content">
-      <section class="hero-section">
-        <h1>Sistemas de Misión Crítica: El Arte del Software</h1>
-        <p>
-          El desarrollo de software no es solo escribir líneas; es la ingeniería
-          detrás de la civilización moderna.
-        </p>
-        <div style="margin-top: 20px">
-          <span class="tech-tag">Java 21</span>
-          <span class="tech-tag">Spring Boot 3.2</span>
-          <span class="tech-tag">Oracle DB</span>
-          <span class="tech-tag">UML Design</span>
-        </div>
-      </section>
-
-      <div class="grid-info">
-        <div class="card">
-          <h2>☕ El Ecosistema Empresarial</h2>
-          <p>
-            En el mundo corporativo, <strong>Java</strong> sigue siendo el rey
-            gracias a su robustez y escalabilidad. Herramientas como
-            <strong>Spring Boot</strong> han revolucionado la creación de
-            microservicios.
-          </p>
-
-          <div class="code-block">
-            <pre>
-@RestController
-public class DevController {
-    @GetMapping("/status")
-    public String check() {
-        return "System Online: Spring Boot 3.2";
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Josué Guinea Dev - Módulos de Aprendizaje</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon" />
+  <style>
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
     }
-}
-</pre
-            >
-          </div>
-        </div>
 
-        <div class="card">
-          <h2>🗄️ Persistencia de Datos</h2>
-          <p>
-            Sin datos, no hay negocio. Dominar
-            <strong>Oracle Database</strong> implica entender transacciones ACID
-            y optimización de queries complejas para manejar millones de
-            registros.
+    .module-card {
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .module-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .module-icon {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .module-title {
+      font-size: 1.3rem;
+      color: #1e293b;
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    .module-desc {
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      flex-grow: 1;
+    }
+
+    .btn-enter {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 12px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-enter:hover {
+      background-color: #1d4ed8;
+    }
+
+    .btn-disabled {
+      display: inline-block;
+      background-color: #cbd5e1;
+      color: #94a3b8;
+      text-align: center;
+      padding: 12px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body class="no-sidebar">
+  <main class="main-content">
+    <section class="hero-section">
+      <h1>Sistemas de Misión Crítica: Panel de Módulos</h1>
+      <p>
+        Bienvenido al centro de recursos educativos. Explora los diferentes módulos diseñados para guiar tu aprendizaje
+        en la ingeniería de software empresarial, persistencia de datos y desarrollo moderno.
+      </p>
+      <div style="margin-top: 20px">
+        <span class="tech-tag">UML Design</span>
+        <span class="tech-tag">Java 21</span>
+        <span class="tech-tag">Oracle DB</span>
+        <span class="tech-tag">Spring Boot 3</span>
+      </div>
+    </section>
+
+    <div class="module-grid">
+      <!-- Módulo 1 -->
+      <div class="module-card">
+        <div>
+          <div class="module-icon">📐</div>
+          <h2 class="module-title">Módulo 1: Diseño de Sistemas Informáticos</h2>
+          <p class="module-desc">
+            Escribir código sin un plano previo es como intentar construir un edificio sin planos arquitectónicos: el
+            colapso está casi asegurado. Este módulo está diseñado para enseñarte a pensar como un arquitecto de
+            software. Aprenderás a traducir requerimientos de negocio complejos en modelos visuales estandarizados
+            utilizando UML (Unified Modeling Language).
+
+            A lo largo del curso, descubrirás cómo documentar, estructurar y comunicar la arquitectura de una aplicación
+            antes de que se escriba la primera línea de código. Este módulo cierra la brecha entre las necesidades del
+            cliente y el equipo de desarrollo, asegurando que los sistemas creados sean escalables, robustos y
+            mantenibles.
           </p>
-
-          <div class="code-block">
-            <pre style="color: #ce9178">
-SELECT e.nombre, d.departamento 
-FROM empleados e 
-JOIN departamentos d ON e.id = d.id
-WHERE e.rol = 'ARCHITECT';
-</pre
-            >
-          </div>
         </div>
+        <a href="modulo1/clase1.html" class="btn-enter">Ingresar al Módulo</a>
       </div>
 
-      <section class="card" style="margin-top: 30px">
-        <h2>📐 Modelado de Sistemas</h2>
-        <p>
-          Antes de codificar, diseñamos. El modelado UML nos permite visualizar
-          la interacción entre entidades y servicios.
-        </p>
+      <!-- Módulo 2 -->
+      <div class="module-card">
+        <div>
+          <div class="module-icon">☕</div>
+          <h2 class="module-title">Módulo 2: Programación Orientada a Objetos</h2>
+          <p class="module-desc">
+            Este módulo está diseñado para transformar la forma en que piensas, estructuras y escribes código. Dejaremos
+            atrás la programación secuencial para sumergirnos de lleno en el paradigma de Programación Orientada a
+            Objetos (POO) utilizando Java, uno de los lenguajes más robustos, escalables y demandados en la industria
+            del software.
 
-        <div class="grid-info">
-          <div>
-            <h4>Flujo de Autenticación</h4>
-            <div class="code-block diagram-code">
-              <pre>
-[User] --(req)--> [Spring Security]
-                      |
-        (validate) <--|--> [Oracle DB]
-                      |
-[Dashboard] <---(success)---
-</pre
-              >
-            </div>
-          </div>
-
-          <div>
-            <h4>Arquitectura de Clases</h4>
-            <div class="code-block diagram-code">
-              <pre>
-+-------------------+
-|     UserEntity    |
-+-------------------+
-| - id: Long        |
-| - email: String   |
-+-------------------+
-| + login(): void   |
-+-------------------+
-        ▲ (extends)
-+-------------------+
-|   AdminStudent    |
-+-------------------+
-</pre
-              >
-            </div>
-          </div>
+            A lo largo del módulo, aprenderás a modelar problemas del mundo real mediante abstracciones digitales.
+            Dejarás de escribir código suelto para empezar a diseñar sistemas de software reales mediante componentes
+            independientes, reutilizables y fáciles de mantener.
+          </p>
         </div>
-      </section>
-    </main>
+        <span class="btn-disabled">Próximamente</span>
+      </div>
 
-    <script src="js/menu.js"></script>
-  </body>
+      <!-- Módulo 3 -->
+      <div class="module-card">
+        <div>
+          <div class="module-icon">🗄️</div>
+          <h2 class="module-title">Módulo 3: Diseño de Arquitectura de Software</h2>
+          <p class="module-desc">
+            Te damos la bienvenida al módulo de Diseño de Arquitectura de Software!
+
+            En el ecosistema tecnológico actual, las aplicaciones no escalan ni sobreviven por accidente; lo hacen
+            gracias a una base estructural sólida. Este módulo está diseñado para transformarte de un programador que
+            solo escribe código a un arquitecto que diseña soluciones robustas, eficientes y mantenibles.
+
+            Durante este bloque, nos sumergiremos de lleno en el desarrollo de APIs RESTful, el estándar de oro para la
+            comunicación en la web moderna. Utilizaremos Spring Boot, el framework líder en la industria para el
+            ecosistema Java, conocido por su capacidad de simplificar la configuración y acelerar el despliegue de
+            aplicaciones de nivel empresarial.
+          </p>
+        </div>
+        <span class="btn-disabled">Próximamente</span>
+      </div>
+
+      <!-- Módulo 4 -->
+      <div class="module-card">
+        <div>
+          <div class="module-icon">🛡️</div>
+          <h2 class="module-title">Módulo 4: Programación de Componentes de Bases de Datos</h2>
+          <p class="module-desc">
+            Una base de datos no es solo un almacén pasivo de información; es el motor inteligente donde reside el
+            activo más valioso de cualquier organización: sus datos. En este módulo, dejarás atrás las consultas básicas
+            de manipulación de datos para convertirte en un desarrollador de bases de datos backend.
+
+            Utilizando Oracle Database, el estándar de oro para entornos empresariales y sistemas de alta
+            transaccionalidad, aprenderás a programar lógica de negocio directamente en el servidor mediante PL/SQL
+            (Procedural Language/Structured Query Language). Al centralizar la lógica en la base de datos, lograrás que
+            los sistemas creados en los módulos anteriores (como tu aplicación en Java) sean increíblemente rápidos,
+            seguros y eficientes.
+          </p>
+        </div>
+        <span class="btn-disabled">Próximamente</span>
+      </div>
+    </div>
+  </main>
+</body>
+
 </html>

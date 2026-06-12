@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Josué Guinea Dev - Clase 6: Relación de Herencia</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/class.css" />
+  <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+</head>
+
+<body data-module="1" data-class="clase6">
+  <div id="menu-container"></div>
+
+  <main class="main-content">
+    <div class="content-header">
+      <h1>Clase 6: Relación de Herencia (Generalización)</h1>
+      <p>
+        La herencia es uno de los pilares fundamentales de la Programación Orientada a Objetos (POO). En el modelado UML,
+        este concepto se conoce bajo la terminología técnica de <strong>Generalización</strong>. Describe una relación
+        jerárquica de tipo <i>"es un"</i> (is-a) entre una clase más general (superclase) y una clase más específica
+        (subclase).
+      </p>
+    </div>
+
+    <!-- Sección 1: Conceptos Clave -->
+    <section>
+      <h2 class="section-title">Conceptos Fundamentales de la Herencia</h2>
+      <p>
+        La generalización permite estructurar las clases de manera que compartan atributos y comportamientos comunes,
+        evitando la redundancia en el código y facilitando la mantenibilidad.
+      </p>
+
+      <div class="diagram-elements-grid">
+        <div class="concept-card">
+          <h3>Superclase (Clase Padre)</h3>
+          <p>Es la entidad que concentra los atributos y métodos comunes. Puede ser una clase concreta o una
+            <code>clase abstracta</code> (que no se puede instanciar directamente y sirve únicamente como plantilla).</p>
+        </div>
+        <div class="concept-card">
+          <h3>Subclase (Clase Hija)</h3>
+          <p>Es la entidad especializada. Hereda automáticamente los miembros visibles de la superclase y puede agregar
+            sus propios atributos y operaciones únicos, o sobrescribir los existentes.</p>
+        </div>
+        <div class="concept-card">
+          <h3>Símbolo de Representación</h3>
+          <p>Se representa mediante una <strong>línea sólida continua</strong> que finaliza en una punta con forma de
+            <strong>triángulo vacío y cerrado</strong>, el cual apunta directamente hacia la superclase.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 2: Diagrama Gráfico -->
+    <section>
+      <h2 class="section-title">Representación Gráfica de la Herencia en UML</h2>
+      <p>
+        A continuación, se muestra una representación interactiva del diagrama de clases utilizando una jerarquía de
+        vehículos:
+      </p>
+
+      <div class="uml-diagram-container">
+        <div class="uml-diagram-canvas" style="height: 440px;">
+          <!-- SVG Connections Overlay -->
+          <svg class="uml-svg-overlay" style="height: 100%;">
+            <!-- Triangle marker for generalization (pointing up to Vehiculo) -->
+            <path class="uml-marker-triangle" d="M 440,180 L 430,195 L 450,195 Z" />
+            
+            <!-- Connection lines -->
+            <path class="uml-relation-path" d="M 440,195 L 440,225" />
+            <path class="uml-relation-path" d="M 285,225 L 595,225" />
+            <path class="uml-relation-path" d="M 285,225 L 285,280" />
+            <path class="uml-relation-path" d="M 595,225 L 595,280" />
+          </svg>
+
+          <!-- Superclase Vehiculo -->
+          <div class="uml-card-new abstract" style="left: 335px; top: 40px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-stereotype">&lt;&lt;abstract&gt;&gt;</span>
+              <span class="uml-card-new-title">Vehiculo</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div># marca: String</div>
+              <div># precio: double</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ arrancar(): void</div>
+              <div>+ mostrarInfo(): void</div>
+            </div>
+          </div>
+
+          <!-- Subclase Automovil -->
+          <div class="uml-card-new" style="left: 180px; top: 280px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">Automovil</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- cantidadPuertas: int</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ abrirMaletero(): void</div>
+              <div>+ mostrarInfo(): void</div>
+            </div>
+          </div>
+
+          <!-- Subclase Motocicleta -->
+          <div class="uml-card-new" style="left: 490px; top: 280px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">Motocicleta</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- tieneSidecar: boolean</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ hacerCaballito(): void</div>
+              <div>+ mostrarInfo(): void</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 3: Componentes Desplegables -->
+    <section>
+      <h2 class="section-title">Detalles Técnicos Avanzados</h2>
+      <p>Despliega los siguientes temas para profundizar en el comportamiento de la herencia a nivel de compilación y diseño:</p>
+
+      <details class="details-styled">
+        <summary>
+          <span><strong>1. Modificadores de Acceso y Visibilidad (#)</strong></span>
+        </summary>
+        <div class="details-content">
+          Para permitir que una subclase acceda a los atributos de la superclase sin exponerlos al exterior del objeto, se utiliza la visibilidad <strong>protegida (protected)</strong>, representada con el símbolo de almohadilla (<code>#</code>). Si fueran privados (<code>-</code>), la subclase no podría acceder a ellos directamente.
+        </div>
+      </details>
+
+      <details class="details-styled">
+        <summary>
+          <span><strong>2. Sobrescritura de Métodos (Overriding)</strong></span>
+        </summary>
+        <div class="details-content">
+          La sobrescritura ocurre cuando una subclase proporciona una implementación específica de un método que ya está definido en su superclase. En Java, esto se documenta y valida mediante la anotación <code>@Override</code>, garantizando el polimorfismo dinámico.
+        </div>
+      </details>
+
+      <details class="details-styled">
+        <summary>
+          <span><strong>3. Herencia Múltiple y Simulación</strong></span>
+        </summary>
+        <div class="details-content">
+          En UML se permite que una clase herede de más de una superclase. Sin embargo, lenguajes como Java prohíben la herencia múltiple directa de clases para evitar la ambigüedad (el "problema del diamante"). Java solventa esto permitiendo la herencia simple de clases combinada con la implementación múltiple de <strong>Interfaces</strong>.
+        </div>
+      </details>
+    </section>
+
+    <!-- Sección 4: Conceptos Complementarios: Constructor y toString() -->
+    <section>
+      <h2 class="section-title">Conceptos Complementarios: Constructor y toString()</h2>
+      <p>
+        Para dominar la implementación práctica de la herencia en lenguajes como Java, es fundamental comprender el rol de los constructores y la representación textual de los objetos:
+      </p>
+
+      <div class="diagram-elements-grid">
+        <div class="concept-card">
+          <h3>El Constructor</h3>
+          <p>Es un método especial encargado de <strong>inicializar</strong> el estado de un objeto cuando se crea con la palabra clave <code>new</code>. En herencia, la subclase debe invocar al constructor de la superclase utilizando la instrucción <code>super()</code> en su primera línea, garantizando que los atributos heredados se inicialicen correctamente.</p>
+        </div>
+        
+        <div class="concept-card">
+          <h3>Método toString()</h3>
+          <p>Heredado de la superclase raíz de Java (<code>Object</code>). Por defecto, imprimir un objeto muestra su tipo y hashcode (ej. <code>Vehiculo@4f2a7a</code>). Al <strong>sobrescribir</strong> este método, definimos una cadena de texto personalizada y legible con los atributos del objeto, lo cual es de vital importancia para la <strong>depuración y auditoría (debugging)</strong> de software.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 5: Ejemplo en Código -->
+    <section>
+      <h2 class="section-title">Traducción de UML a Código (Java)</h2>
+      <p>Así es como se traduce el diagrama gráfico anterior en código de programación estructurado en Java, incluyendo constructores y la sobrescritura de toString():</p>
+
+      <div class="code-block">
+        <span class="diagram-code">// Definition of Abstract Superclass</span><br>
+        public abstract class Vehiculo {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;protected String marca;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;protected double precio;<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;public Vehiculo(String marca, double precio) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.marca = marca;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.precio = precio;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;public void arrancar() {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Vehículo arrancando...");<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;@Override<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;public String toString() {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Vehiculo[Marca: " + marca + ", Precio: " + precio + "]";<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;public abstract void mostrarInfo();<br>
+        }<br>
+        <br>
+        <span class="diagram-code">// Subclass extending Superclass</span><br>
+        public class Automovil extends Vehiculo {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;private int cantidadPuertas;<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;public Automovil(String marca, double precio, int cantidadPuertas) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(marca, precio);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.cantidadPuertas = cantidadPuertas;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;@Override<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;public void mostrarInfo() {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Auto Marca: " + marca + ", Puertas: " + cantidadPuertas);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;@Override<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;public String toString() {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Automovil[" + super.toString() + ", Puertas: " + cantidadPuertas + "]";<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        }
+      </div>
+    </section>
+
+    <!-- Sección 5: Enlace a Video Explicativo -->
+    <section>
+      <h2 class="section-title">Material de Soporte Audiovisual</h2>
+      <p>Te sugerimos visualizar el siguiente video complementario para afianzar el conocimiento práctico de la herencia:</p>
+      
+      <div class="video-card">
+        <div class="video-icon">🎥</div>
+        <div>
+          <h3 style="margin: 0 0 8px 0; color: #9d174d;">Tutorial: Concepto de Herencia en POO</h3>
+          <p style="margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            Mira un desglose paso a paso de cómo se definen las jerarquías de herencia, la inicialización de superconstructores y la reutilización de código.
+          </p>
+          <a href="https://youtu.be/MuD-t7c-qc8?si=mVPrRpHPw84b97V0" target="_blank" class="btn-video">Reproducir Video Explicativo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 6: Quiz Evaluativo -->
+    <section class="quiz-container">
+      <div class="quiz-header">
+        <h3>Cuestionario sobre Relaciones de Herencia</h3>
+        <p>Responde las siguientes 5 preguntas de autoevaluación para consolidar tu aprendizaje técnico.</p>
+      </div>
+
+      <form id="quizForm">
+        <!-- Pregunta 1 -->
+        <div class="quiz-question" data-question-id="1">
+          <div class="question-text">1. ¿Cuál es el término formal en la especificación UML para referirse a la relación de herencia?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="a"> A) Asociación de Clase
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="b"> B) Composición Estructural
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="c"> C) Generalización
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="d"> D) Realización
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="quiz-question" data-question-id="2">
+          <div class="question-text">2. ¿Qué elemento gráfico identifica la herencia en un diagrama de clases UML?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="a"> A) Una línea punteada con una flecha abierta.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="b"> B) Una línea sólida con un rombo vacío.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="c"> C) Una línea sólida terminada en un triángulo cerrado y vacío que apunta a la superclase.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="d"> D) Una línea punteada terminada en un triángulo cerrado vacío.
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="quiz-question" data-question-id="3">
+          <div class="question-text">3. Si declaramos un atributo con visibilidad protegida (#) en la superclase:</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="a"> A) No puede ser accedido bajo ninguna circunstancia por la subclase.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="b"> B) Es accesible de forma directa por sus subclases, pero privado para clases ajenas a la jerarquía.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="c"> C) Se vuelve público para todo el programa.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="d"> D) Requiere instanciación estática.
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="quiz-question" data-question-id="4">
+          <div class="question-text">4. ¿Cómo restringe Java el problema de la herencia múltiple de clases?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="a"> A) Admite múltiples palabras clave "extends" separadas por comas.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="b"> B) Prohíbe la herencia múltiple directa de clases, permitiendo en su lugar implementar múltiples Interfaces.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="c"> C) Permite que una clase hija herede solo de clases abstractas.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="d"> D) Requiere el uso del modificador static en la herencia.
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 5 -->
+        <div class="quiz-question" data-question-id="5">
+          <div class="question-text">5. ¿Cuál es el rol de la anotación @Override en el código de una subclase?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="a"> A) Impedir que el método sea modificado en clases hijas.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="b"> B) Declarar que un método es estático.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="c"> C) Indicar de forma explícita la sobrescritura de un método heredado de la superclase.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="d"> D) Forzar a que la clase sea abstracta.
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <div class="quiz-result-card" id="quizResult">
+          <h4>Resultado de la Calificación</h4>
+          <div class="quiz-result-score" id="scoreValue">0/5</div>
+          <p id="resultFeedbackText"></p>
+        </div>
+
+        <div class="quiz-action-bar">
+          <button type="button" class="btn-quiz btn-reset" onclick="reiniciarCuestionario()">Reiniciar</button>
+          <button type="button" class="btn-quiz" onclick="calificarCuestionario()">Calificar Cuestionario</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="../js/menu.js"></script>
+  <script>
+    // Respuestas correctas del cuestionario
+    const respuestasCorrectas = {
+      q1: 'c', // Generalización
+      q2: 'c', // Línea sólida con triángulo cerrado vacío
+      q3: 'b', // Accesible por subclases, protegido del exterior
+      q4: 'b', // Prohíbe herencia múltiple de clases, permite interfaces
+      q5: 'c'  // Sobrescritura de método heredado
+    };
+
+    // Explicación de cada pregunta
+    const explicaciones = {
+      q1: {
+        correct: '¡Excelente! En terminología técnica UML, la herencia se conoce formalmente como Generalización.',
+        incorrect: 'Incorrecto. La herencia se mapea formalmente como una relación de Generalización en UML.'
+      },
+      q2: {
+        correct: '¡Correcto! Se dibuja como una línea sólida terminada en un triángulo cerrado vacío que apunta hacia la clase base.',
+        incorrect: 'Incorrecto. La representación es una línea sólida con un triángulo vacío cerrado apuntando a la superclase.'
+      },
+      q3: {
+        correct: '¡Perfecto! Los miembros protegidos (#) son visibles para las subclases en la cadena de herencia, pero ocultos para otras clases.',
+        incorrect: 'Incorrecto. La visibilidad protegida está diseñada exactamente para ser accesible por las subclases y privada ante el resto de clases externas.'
+      },
+      q4: {
+        correct: '¡Muy bien! Java utiliza herencia simple de clases para evitar ambigüedades, y permite interfaces múltiples para lograr polimorfismo.',
+        incorrect: 'Incorrecto. Java restringe la herencia múltiple directa de clases. Se debe usar la implementación múltiple de interfaces.'
+      },
+      q5: {
+        correct: '¡Impecable! La anotación @Override le indica al compilador que la subclase está reimplementando un método heredado.',
+        incorrect: 'Incorrecto. Se utiliza para marcar explícitamente que un método sobrescribe un comportamiento de la superclase.'
+      }
+    };
+
+    function calificarCuestionario() {
+      const form = document.getElementById('quizForm');
+      let puntuacion = 0;
+      const totalPreguntas = Object.keys(respuestasCorrectas).length;
+
+      for (let i = 1; i <= totalPreguntas; i++) {
+        const name = 'q' + i;
+        const opciones = form.querySelectorAll(`input[name="${name}"]`);
+        const seleccionada = form.querySelector(`input[name="${name}"]:checked`);
+        const questionDiv = form.querySelector(`.quiz-question[data-question-id="${i}"]`);
+        const feedbackDiv = questionDiv.querySelector('.feedback-explanation');
+
+        // Deshabilitar opciones
+        opciones.forEach(opt => {
+          opt.closest('.quiz-option').classList.add('disabled');
+        });
+
+        if (seleccionada) {
+          const respuestaUsuario = seleccionada.value;
+          const esCorrecta = respuestaUsuario === respuestasCorrectas[name];
+
+          if (esCorrecta) {
+            puntuacion++;
+            seleccionada.closest('.quiz-option').classList.add('correct-choice');
+            feedbackDiv.textContent = explicaciones[name].correct;
+            feedbackDiv.className = 'feedback-explanation correct';
+          } else {
+            seleccionada.closest('.quiz-option').classList.add('incorrect-choice');
+            feedbackDiv.textContent = explicaciones[name].incorrect;
+            feedbackDiv.className = 'feedback-explanation incorrect';
+
+            opciones.forEach(opt => {
+              if (opt.value === respuestasCorrectas[name]) {
+                opt.closest('.quiz-option').classList.add('correct-choice');
+              }
+            });
+          }
+        } else {
+          feedbackDiv.textContent = 'No respondiste a esta pregunta. ' + explicaciones[name].incorrect;
+          feedbackDiv.className = 'feedback-explanation incorrect';
+          opciones.forEach(opt => {
+            if (opt.value === respuestasCorrectas[name]) {
+              opt.closest('.quiz-option').classList.add('correct-choice');
+            }
+          });
+        }
+      }
+
+      // Mostrar puntuación final
+      const scoreVal = document.getElementById('scoreValue');
+      const resultCard = document.getElementById('quizResult');
+      const feedbackText = document.getElementById('resultFeedbackText');
+
+      scoreVal.textContent = `${puntuacion} / ${totalPreguntas}`;
+      resultCard.style.display = 'block';
+
+      if (puntuacion === totalPreguntas) {
+        feedbackText.textContent = '¡Felicidades! Domines por completo el concepto de Herencia y Generalización.';
+        feedbackText.style.color = '#15803d';
+      } else if (puntuacion >= 3) {
+        feedbackText.textContent = 'Buen intento. Has aprobado, pero te sugerimos revisar los detalles en los que fallaste.';
+        feedbackText.style.color = '#b45309';
+      } else {
+        feedbackText.textContent = 'Te recomendamos volver a leer el material e intentar de nuevo.';
+        feedbackText.style.color = '#b91c1c';
+      }
+    }
+
+    function reiniciarCuestionario() {
+      const form = document.getElementById('quizForm');
+      form.reset();
+
+      const opciones = form.querySelectorAll('.quiz-option');
+      opciones.forEach(opt => {
+        opt.className = 'quiz-option';
+      });
+
+      const feedbackDivs = form.querySelectorAll('.feedback-explanation');
+      feedbackDivs.forEach(div => {
+        div.textContent = '';
+        div.className = 'feedback-explanation';
+      });
+
+      const resultCard = document.getElementById('quizResult');
+      resultCard.style.display = 'none';
+    }
+  </script>
+</body>
+
+</html>
