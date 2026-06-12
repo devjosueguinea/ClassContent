@@ -22,6 +22,9 @@ function cargarMenuLateral(containerId) {
                 <a href="clase4.html">
                     Clase 4
                 </a>
+                <a href="clase5.html">
+                    Clase 5
+                </a>
             </nav>
         </aside>
 

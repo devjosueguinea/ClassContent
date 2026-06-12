@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Josué Guinea Dev - Clase 5: Diagramas de Clase</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/class.css" />
+  <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon" />
+</head>
+
+<body>
+  <div id="menu-container"></div>
+
+  <main class="main-content">
+    <div class="content-header">
+      <h1>Clase 5: Diagramas de Clase</h1>
+      <p>
+        El diagrama de clases es el corazón del modelado en el Lenguaje de Modelado Unificado (UML).
+        Es un diagrama de estructura estática que describe la estructura de un sistema mostrando sus clases,
+        sus atributos, operaciones (o métodos) y las relaciones entre los objetos.
+      </p>
+    </div>
+
+    <!-- Sección 1: Introducción a la Estructura de Clase -->
+    <section>
+      <h2 class="section-title">¿Qué es una Clase en UML?</h2>
+      <p>
+        En términos sencillos, una <strong>clase</strong> es una plantilla o plano para crear objetos.
+        En términos más técnicos, define un conjunto de objetos que comparten las mismas especificaciones de
+        características, restricciones y semántica.
+        Visualmente se representa mediante un rectángulo dividido en tres secciones:
+      </p>
+
+      <div class="diagram-elements-grid">
+        <div class="concept-card">
+          <h3>Nombre de la Clase</h3>
+          <p>Se coloca en la sección superior. Debe ser un sustantivo en singular y estar centrado. Se escribe en
+            formato PascalCase (ej. <code>GestorPrestamo</code>).</p>
+        </div>
+        <div class="concept-card">
+          <h3>Atributos</h3>
+          <p>Se colocan en la sección intermedia. Representan las propiedades o datos de la clase. Deben llevar tipo de
+            dato y nivel de visibilidad.</p>
+        </div>
+        <div class="concept-card">
+          <h3>Operaciones o Métodos</h3>
+          <p>Se colocan en la sección inferior. Representan los comportamientos y funciones de la clase, incluyendo sus
+            parámetros y valor de retorno.</p>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <strong>Representación de una clase</strong>
+        <div class="uml-class-box">
+          <div class="uml-class-header">Usuario</div>
+          <div class="uml-class-section">
+            - id: int<br>
+            - nombre: String<br>
+            # correo: String
+          </div>
+          <div class="uml-class-section">
+            + iniciarSesion(): boolean<br>
+            + obtenerDetalles(): String
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 2: Visibilidad -->
+    <section>
+      <h2 class="section-title">Niveles de Visibilidad (Encapsulamiento)</h2>
+      <p>
+        Los modificadores de acceso o visibilidad permiten proteger el estado interno del objeto, garantizando el
+        encapsulamiento.
+        En UML se utilizan los siguientes símbolos:
+      </p>
+
+      <details class="details-styled">
+        <summary>
+          <span><span class="vis-badge vis-public">+</span> <strong>Público (Public)</strong></span>
+        </summary>
+        <div class="details-content">
+          Cualquier clase externa puede acceder al elemento. Se utiliza principalmente para métodos que forman la
+          interfaz o servicio del objeto.
+          <br><code>+ calcularTotal(): double</code>
+        </div>
+      </details>
+
+      <details class="details-styled">
+        <summary>
+          <span><span class="vis-badge vis-private">-</span> <strong>Privado (Private)</strong></span>
+        </summary>
+        <div class="details-content">
+          Solo la propia clase que lo define puede acceder al atributo o método. Es la opción recomendada por defecto
+          para todos los atributos.
+          <br><code>- saldoInterno: double</code>
+        </div>
+      </details>
+
+      <details class="details-styled">
+        <summary>
+          <span><span class="vis-badge vis-protected">#</span> <strong>Protegido (Protected)</strong></span>
+        </summary>
+        <div class="details-content">
+          Solo la propia clase y sus subclases (herencia) pueden acceder al miembro. Es vital para permitir la extensión
+          mediante especialización.
+          <br><code># aplicarDescuentoEspecial()</code>
+        </div>
+      </details>
+
+      <details class="details-styled">
+        <summary>
+          <span><span class="vis-badge vis-package">~</span> <strong>Paquete (Package / Default)</strong></span>
+        </summary>
+        <div class="details-content">
+          El elemento es visible solo para clases que se encuentran dentro del mismo paquete o carpeta de compilación.
+          <br><code>~ verificarPaquete()</code>
+        </div>
+      </details>
+    </section>
+
+    <!-- Sección 3: Relaciones entre Clases -->
+    <section>
+      <h2 class="section-title">Relaciones en los Diagramas de Clase</h2>
+      <p>
+        Las clases rara vez trabajan solas. Las relaciones describen la forma en que las clases interactúan y cooperan
+        entre sí.
+      </p>
+
+      <div class="diagram-elements-grid">
+        <div class="concept-card">
+          <span class="relation-type type-association">Asociación</span>
+          <h3>Asociación Simple</h3>
+          <p>Es una relación estructural que describe una conexión bidireccional o unidireccional entre objetos (ej.
+            <em>Un Cliente realiza un Pedido</em>).
+          </p>
+          <p><strong>Representación:</strong> Una línea sólida continua.</p>
+          <div class="relation-graphic">
+            <svg width="150" height="30">
+              <line x1="10" y1="15" x2="140" y2="15" stroke="#475569" stroke-width="2" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="concept-card">
+          <span class="relation-type type-aggregation">Agregación</span>
+          <h3>Agregación ("Tiene un")</h3>
+          <p>Relación todo-parte donde el ciclo de vida del objeto secundario NO depende del principal (ej. <em>Una
+              Universidad tiene Profesores</em>. Si la Universidad cierra, los profesores siguen existiendo).</p>
+          <p><strong>Representación:</strong> Línea sólida con un rombo vacío en el extremo del "todo".</p>
+          <div class="relation-graphic">
+            <svg width="150" height="30">
+              <line x1="25" y1="15" x2="140" y2="15" stroke="#475569" stroke-width="2" />
+              <polygon points="10,15 17,10 24,15 17,20" fill="#ffffff" stroke="#475569" stroke-width="2" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="concept-card">
+          <span class="relation-type type-composition">Composición</span>
+          <h3>Composición ("Es parte de")</h3>
+          <p>Relación todo-parte fuerte donde la parte NO puede existir sin el todo. Si se destruye el todo, se destruye
+            la parte (ej. <em>Una Casa y sus Habitaciones</em>).</p>
+          <p><strong>Representación:</strong> Línea sólida con un rombo lleno en el extremo del "todo".</p>
+          <div class="relation-graphic">
+            <svg width="150" height="30">
+              <line x1="25" y1="15" x2="140" y2="15" stroke="#475569" stroke-width="2" />
+              <polygon points="10,15 17,10 24,15 17,20" fill="#475569" stroke="#475569" stroke-width="2" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="concept-card">
+          <span class="relation-type type-inheritance">Herencia</span>
+          <h3>Generalización / Herencia</h3>
+          <p>Indica que una subclase hereda los atributos y métodos de una superclase (ej. <em>Un Perro hereda de
+              Animal</em>).</p>
+          <p><strong>Representación:</strong> Línea sólida con un triángulo vacío apuntando a la superclase.</p>
+          <div class="relation-graphic">
+            <svg width="150" height="30">
+              <line x1="25" y1="15" x2="140" y2="15" stroke="#475569" stroke-width="2" />
+              <polygon points="10,15 25,7 25,23" fill="#ffffff" stroke="#475569" stroke-width="2" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="concept-card">
+          <span class="relation-type type-realization">Realización</span>
+          <h3>Realización / Implementación</h3>
+          <p>Ocurre cuando una clase concreta implementa las operaciones definidas por una Interfaz.</p>
+          <p><strong>Representación:</strong> Línea punteada con un triángulo vacío apuntando a la interfaz.</p>
+          <div class="relation-graphic">
+            <svg width="150" height="30">
+              <line x1="25" y1="15" x2="140" y2="15" stroke="#475569" stroke-width="2" stroke-dasharray="5,5" />
+              <polygon points="10,15 25,7 25,23" fill="#ffffff" stroke="#475569" stroke-width="2" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="concept-card">
+          <span class="relation-type type-dependency">Dependencia</span>
+          <h3>Dependencia ("Usa un")</h3>
+          <p>Una clase utiliza temporalmente a otra como parámetro o variable local en un método (ej. <em>Una clase
+              Factura usa una Impresora para imprimirse</em>).</p>
+          <p><strong>Representación:</strong> Línea punteada con una punta de flecha abierta.</p>
+          <div class="relation-graphic">
+            <svg width="150" height="30">
+              <line x1="18" y1="15" x2="140" y2="15" stroke="#475569" stroke-width="2" stroke-dasharray="5,5" />
+              <polyline points="25,8 15,15 25,22" fill="none" stroke="#475569" stroke-width="2" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Espacio para diagramas -->
+    <section>
+      <h2 class="section-title">Representaciones de Diagramas de Clase</h2>
+      <p>
+        A continuación se presentan los diagramas de clase interactivos implementados directamente en HTML y CSS:
+      </p>
+
+      <!-- Diagrama 1: Tienda Online -->
+      <h3 class="sub-section-title">Diagrama 1: Sistema de Tienda Online / Carrito de Compras</h3>
+      <div class="uml-diagram-container">
+        <div class="uml-diagram-canvas">
+          <!-- SVG Connections Overlay -->
+          <svg class="uml-svg-overlay">
+            <!-- Cliente -> Pedido (Asociación) -->
+            <path class="uml-relation-path" d="M 250,115 L 335,115" />
+            <!-- Pedido -> DetallePedido (Composición) -->
+            <path class="uml-relation-path" d="M 440,210 L 440,320" />
+            <path class="uml-marker-diamond-filled" d="M 440,190 L 435,200 L 440,210 L 445,200 Z" />
+            <!-- Producto -> DetallePedido (Asociación) -->
+            <path class="uml-relation-path" d="M 250,375 L 335,375" />
+            <!-- Pedido -> Pago (Asociación) -->
+            <path class="uml-relation-path" d="M 545,115 L 630,115" />
+
+            <!-- Tarjeta & PayPal -> Pago (Herencia/Generalización) -->
+            <path class="uml-marker-triangle" d="M 735,170 L 725,185 L 745,185 Z" />
+            <path class="uml-relation-path" d="M 735,185 L 735,245" />
+            <path class="uml-relation-path" d="M 645,245 L 795,245" />
+            <path class="uml-relation-path" d="M 645,245 L 645,320" />
+            <path class="uml-relation-path" d="M 795,245 L 795,320" />
+          </svg>
+
+          <!-- Relationship Labels -->
+          <div class="uml-label" style="left: 292px; top: 100px;">realiza</div>
+          <div class="uml-label" style="left: 265px; top: 128px;">1</div>
+          <div class="uml-label" style="left: 320px; top: 128px;">*</div>
+
+          <div class="uml-label" style="left: 452px; top: 220px;">1</div>
+          <div class="uml-label" style="left: 460px; top: 305px;">1..*</div>
+
+          <div class="uml-label" style="left: 265px; top: 360px;">1</div>
+          <div class="uml-label" style="left: 320px; top: 360px;">*</div>
+
+          <div class="uml-label" style="left: 560px; top: 100px;">1</div>
+          <div class="uml-label" style="left: 615px; top: 100px;">1</div>
+
+          <!-- Class Cards -->
+          <!-- Cliente -->
+          <div class="uml-card-new" style="left: 40px; top: 40px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">Cliente</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- id: int</div>
+              <div>- nombre: String</div>
+              <div>- correo: String</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ realizarPedido(): void</div>
+            </div>
+          </div>
+
+          <!-- Pedido -->
+          <div class="uml-card-new" style="left: 335px; top: 40px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">Pedido</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- id: int</div>
+              <div>- fecha: Date</div>
+              <div>- estado: String</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ calcularTotal(): double</div>
+            </div>
+          </div>
+
+          <!-- Pago (Abstract) -->
+          <div class="uml-card-new abstract" style="left: 630px; top: 40px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-stereotype">&lt;&lt;abstract&gt;&gt;</span>
+              <span class="uml-card-new-title">Pago</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div># id: int</div>
+              <div># monto: double</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ procesarPago(): boolean</div>
+            </div>
+          </div>
+
+          <!-- Producto -->
+          <div class="uml-card-new" style="left: 40px; top: 320px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">Producto</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- id: int</div>
+              <div>- nombre: String</div>
+              <div>- precio: double</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ actualizarStock(): void</div>
+            </div>
+          </div>
+
+          <!-- DetallePedido -->
+          <div class="uml-card-new" style="left: 335px; top: 320px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">DetallePedido</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- cantidad: int</div>
+              <div>- subtotal: double</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ obtenerSubtotal(): double</div>
+            </div>
+          </div>
+
+          <!-- Tarjeta -->
+          <div class="uml-card-new" style="left: 580px; top: 320px; width: 120px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">Tarjeta</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- numero: String</div>
+              <div>- tipo: String</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ procesarPago(): bool</div>
+            </div>
+          </div>
+
+          <!-- PayPal -->
+          <div class="uml-card-new" style="left: 720px; top: 320px; width: 120px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">PayPal</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- email: String</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ procesarPago(): bool</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Diagrama 2: Gestión de Biblioteca -->
+      <h3 class="sub-section-title">Diagrama 2: Sistema de Gestión de Biblioteca</h3>
+      <div class="uml-diagram-container">
+        <div class="uml-diagram-canvas">
+          <!-- SVG Connections Overlay -->
+          <svg class="uml-svg-overlay">
+            <!-- Autor -> Libro (Agregación) -->
+            <path class="uml-relation-path" d="M 250,110 L 315,110" />
+            <path class="uml-marker-diamond-empty" d="M 335,110 L 325,105 L 315,110 L 325,115 Z" />
+
+            <!-- Libro -> Prestamo (Asociación) -->
+            <path class="uml-relation-path" d="M 545,115 L 630,115" />
+
+            <!-- Usuario -> Prestamo (Asociación) -->
+            <path class="uml-relation-path" d="M 735,320 L 735,170" />
+
+            <!-- Bibliotecario -> Prestamo (Asociación) -->
+            <path class="uml-relation-path" d="M 440,320 L 440,250 L 580,250 L 580,140 L 630,140" />
+          </svg>
+
+          <!-- Relationship Labels -->
+          <div class="uml-label" style="left: 265px; top: 95px;">1..*</div>
+          <div class="uml-label" style="left: 300px; top: 95px;">*</div>
+
+          <div class="uml-label" style="left: 560px; top: 100px;">1</div>
+          <div class="uml-label" style="left: 615px; top: 100px;">*</div>
+
+          <div class="uml-label" style="left: 748px; top: 300px;">1</div>
+          <div class="uml-label" style="left: 748px; top: 185px;">*</div>
+
+          <div class="uml-label" style="left: 510px; top: 235px;">gestiona</div>
+          <div class="uml-label" style="left: 452px; top: 305px;">1</div>
+          <div class="uml-label" style="left: 615px; top: 155px;">*</div>
+
+          <!-- Class Cards -->
+          <!-- Autor -->
+          <div class="uml-card-new" style="left: 40px; top: 40px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">Autor</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- id: int</div>
+              <div>- nombre: String</div>
+              <div>- nacionalidad: String</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ obtenerLibros(): List</div>
+            </div>
+          </div>
+
+          <!-- Libro -->
+          <div class="uml-card-new" style="left: 335px; top: 40px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">Libro</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- isbn: String</div>
+              <div>- titulo: String</div>
+              <div>- ejemplares: int</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ prestar(): boolean</div>
+              <div>+ devolver(): void</div>
+            </div>
+          </div>
+
+          <!-- Prestamo -->
+          <div class="uml-card-new" style="left: 630px; top: 40px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">Prestamo</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- id: int</div>
+              <div>- fechaInicio: Date</div>
+              <div>- fechaLimite: Date</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ registrar(): void</div>
+            </div>
+          </div>
+
+          <!-- Bibliotecario -->
+          <div class="uml-card-new" style="left: 335px; top: 320px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">Bibliotecario</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- id: int</div>
+              <div>- nombre: String</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ gestionarPrestamo(): void</div>
+            </div>
+          </div>
+
+          <!-- Usuario -->
+          <div class="uml-card-new" style="left: 630px; top: 320px;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">Usuario</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- id: int</div>
+              <div>- nombre: String</div>
+              <div>- tipo: String</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ solicitarPrestamo(): void</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 4: Ejemplos en Código -->
+    <section>
+      <h2 class="section-title">Ejemplo Práctico: De UML a Código de Programación</h2>
+      <p>
+        A continuación se presenta un caso práctico donde traducimos un fragmento de diagrama de clase en código real de
+        Java:
+      </p>
+
+      <div class="code-block">
+        <span class="diagram-code">// 1. Definición de la Superclase</span><br>
+        public abstract class Persona {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;protected string id;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;protected string nombre;<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;public Persona(string id, string nombre) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.id = id;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.nombre = nombre;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;public abstract void MostrarInformacion();<br>
+        }<br>
+        <br>
+        <span class="diagram-code">// 2. Clase Hija (Herencia / Generalización)</span><br>
+        public class Cliente : Persona {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;private string correo;<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;public Cliente(string id, string nombre, string correo) : base(id, nombre) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.correo = correo;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;public override void MostrarInformacion() {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine($"[Cliente] ID: {id}, Nombre: {nombre},
+        Correo: {correo}");<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        }
+      </div>
+    </section>
+
+    <!-- Cuestionario de retroalimentación interactivo -->
+    <section class="quiz-container">
+      <div class="quiz-header">
+        <h3>Cuestionario de Retroalimentación</h3>
+        <p>Pon a prueba tus conocimientos sobre Diagramas de Clase. Responde las siguientes preguntas y califica tus
+          respuestas.</p>
+      </div>
+
+      <form id="quizForm">
+        <!-- Pregunta 1 -->
+        <div class="quiz-question" data-question-id="1">
+          <div class="question-text">1. ¿Qué símbolo representa la relación de Composición ("parte de" fuerte) en un
+            diagrama de clase?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="a"> A) Una línea sólida con un triángulo vacío.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="b"> B) Una línea sólida con un rombo vacío.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="c"> C) Una línea sólida con un rombo relleno negro/sólido.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="d"> D) Una línea punteada con una flecha abierta.
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="quiz-question" data-question-id="2">
+          <div class="question-text">2. En UML, el símbolo menos (-) al lado de un atributo o método representa que su
+            visibilidad es:</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="a"> A) Pública
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="b"> B) Privada
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="c"> C) Protegida
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="d"> D) Paquete
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="quiz-question" data-question-id="3">
+          <div class="question-text">3. Si la Universidad cierra y los Profesores siguen existiendo de forma
+            independiente, ¿qué tipo de relación estructural es?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="a"> A) Dependencia
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="b"> B) Composición
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="c"> C) Agregación
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="d"> D) Herencia
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="quiz-question" data-question-id="4">
+          <div class="question-text">4. ¿Cómo se representa la realización (implementación) de una interfaz?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="a"> A) Línea punteada con un triángulo vacío apuntando a la interfaz.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="b"> B) Línea sólida con un triángulo vacío apuntando a la subclase.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="c"> C) Línea punteada con una flecha apuntando a la clase concreta.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="d"> D) Línea sólida con un rombo relleno.
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <div class="quiz-result-card" id="quizResult">
+          <h4>Resultado de la Calificación</h4>
+          <div class="quiz-result-score" id="scoreValue">0/4</div>
+          <p id="resultFeedbackText"></p>
+        </div>
+
+        <div class="quiz-action-bar">
+          <button type="button" class="btn-quiz btn-reset" onclick="reiniciarCuestionario()">Reiniciar</button>
+          <button type="button" class="btn-quiz" onclick="calificarCuestionario()">Calificar Cuestionario</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="js/menu.js"></script>
+  <script>
+    // Respuestas correctas del cuestionario
+    const respuestasCorrectas = {
+      q1: 'c', // Composición -> Rombo relleno
+      q2: 'b', // - -> Privada
+      q3: 'c', // Profesores independientes -> Agregación
+      q4: 'a'  // Realización -> Punteada con triángulo vacío
+    };
+
+    // Explicación de cada pregunta
+    const explicaciones = {
+      q1: {
+        correct: '¡Excelente! La composición se dibuja con una línea sólida y un rombo relleno (negro) en el extremo del objeto contenedor (todo).',
+        incorrect: 'Incorrecto. La composición se representa con una línea sólida y un rombo relleno en el lado del contenedor. El rombo vacío es para agregación.'
+      },
+      q2: {
+        correct: '¡Correcto! El signo menos (-) denota una visibilidad privada, lo que significa que el elemento no es accesible desde fuera de la clase.',
+        incorrect: 'Incorrecto. Recuerda los símbolos: (+) público, (-) privado, (#) protegido y (~) paquete.'
+      },
+      q3: {
+        correct: '¡Muy bien! Dado que las partes (Profesores) pueden existir de forma independiente si el todo (Universidad) deja de existir, se trata de una Agregación.',
+        incorrect: 'Incorrecto. Es una Agregación. La composición se da cuando la vida de las partes depende fuertemente del contenedor (por ejemplo, Habitaciones en una Casa).'
+      },
+      q4: {
+        correct: '¡Impecable! La relación de realización (implementar una interfaz) usa una línea discontinua o punteada con una flecha triangular cerrada y vacía.',
+        incorrect: 'Incorrecto. Una interfaz se realiza mediante una línea punteada terminada en un triángulo cerrado pero vacío que apunta a la interfaz.'
+      }
+    };
+
+    function calificarCuestionario() {
+      const form = document.getElementById('quizForm');
+      let puntuacion = 0;
+      const totalPreguntas = Object.keys(respuestasCorrectas).length;
+
+      for (let i = 1; i <= totalPreguntas; i++) {
+        const name = 'q' + i;
+        const opciones = form.querySelectorAll(`input[name="${name}"]`);
+        const seleccionada = form.querySelector(`input[name="${name}"]:checked`);
+        const questionDiv = form.querySelector(`.quiz-question[data-question-id="${i}"]`);
+        const feedbackDiv = questionDiv.querySelector('.feedback-explanation');
+
+        // Deshabilitar todas las opciones para congelar el intento
+        opciones.forEach(opt => {
+          opt.closest('.quiz-option').classList.add('disabled');
+        });
+
+        if (seleccionada) {
+          const respuestaUsuario = seleccionada.value;
+          const esCorrecta = respuestaUsuario === respuestasCorrectas[name];
+
+          if (esCorrecta) {
+            puntuacion++;
+            seleccionada.closest('.quiz-option').classList.add('correct-choice');
+            feedbackDiv.textContent = explicaciones[name].correct;
+            feedbackDiv.className = 'feedback-explanation correct';
+          } else {
+            seleccionada.closest('.quiz-option').classList.add('incorrect-choice');
+            feedbackDiv.textContent = explicaciones[name].incorrect;
+            feedbackDiv.className = 'feedback-explanation incorrect';
+
+            // Mostrar visualmente cuál era la respuesta correcta
+            opciones.forEach(opt => {
+              if (opt.value === respuestasCorrectas[name]) {
+                opt.closest('.quiz-option').classList.add('correct-choice');
+              }
+            });
+          }
+        } else {
+          // Si no contestó, marcar como incorrecta y mostrar cuál era la correcta
+          feedbackDiv.textContent = 'No respondiste a esta pregunta. ' + explicaciones[name].incorrect;
+          feedbackDiv.className = 'feedback-explanation incorrect';
+          opciones.forEach(opt => {
+            if (opt.value === respuestasCorrectas[name]) {
+              opt.closest('.quiz-option').classList.add('correct-choice');
+            }
+          });
+        }
+      }
+
+      // Mostrar puntuación final
+      const scoreVal = document.getElementById('scoreValue');
+      const resultCard = document.getElementById('quizResult');
+      const feedbackText = document.getElementById('resultFeedbackText');
+
+      scoreVal.textContent = `${puntuacion} / ${totalPreguntas}`;
+      resultCard.style.display = 'block';
+
+      if (puntuacion === totalPreguntas) {
+        feedbackText.textContent = '¡Felicidades! Tienes un dominio total sobre los Diagramas de Clase en UML.';
+        feedbackText.style.color = '#15803d';
+      } else if (puntuacion >= 2) {
+        feedbackText.textContent = 'Buen intento. Has aprobado, pero te sugerimos repasar los conceptos en los que fallaste.';
+        feedbackText.style.color = '#b45309';
+      } else {
+        feedbackText.textContent = 'Te recomendamos volver a leer el material e intentar de nuevo.';
+        feedbackText.style.color = '#b91c1c';
+      }
+    }
+
+    function reiniciarCuestionario() {
+      const form = document.getElementById('quizForm');
+      form.reset();
+
+      const opciones = form.querySelectorAll('.quiz-option');
+      opciones.forEach(opt => {
+        opt.className = 'quiz-option'; // Restaurar clases normales
+      });
+
+      const feedbackDivs = form.querySelectorAll('.feedback-explanation');
+      feedbackDivs.forEach(div => {
+        div.textContent = '';
+        div.className = 'feedback-explanation';
+      });
+
+      const resultCard = document.getElementById('quizResult');
+      resultCard.style.display = 'none';
+    }
+  </script>
+</body>
+
+</html>
