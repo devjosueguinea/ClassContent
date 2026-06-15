@@ -1,41 +1,502 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Josué Guinea Dev - Clase 1</title>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/class.css" />
-    <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
-  </head>
-  <body data-module="1" data-class="clase1">
-    <div id="menu-container"></div>
 
-    <main class="main-content">
-      <div class="content-header">
-        <h1>Clase 1: Fundamentos de Diseño de Sistemas y modelos SDLC</h1>
-        <p>
-          El Diseño de Sistemas es el proceso de definir la arquitectura, los
-          componentes, los módulos, las interfaces y los datos de un sistema
-          para satisfacer requisitos específicos. No se trata de qué lenguaje de
-          programación usar, sino de cómo las piezas del rompecabezas encajan
-          para formar una imagen coherente, robusta y eficiente.
-        </p>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Josué Guinea Dev - Clase 1: Introducción al Diseño de Sistemas Informáticos y Modelos SDLC</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/class.css" />
+  <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+  <link rel="stylesheet" href="../css/clase1.css" />
+</head>
 
-      <div class="pdf-container">
-        <iframe
-          src="../docs/Clase 1 - Introducción al analisis y diseño de sistemas.pdf"
-          type="application/pdf"
-        >
+<body data-module="1" data-class="clase1">
+  <div id="menu-container"></div>
+
+  <main class="main-content">
+    <div class="content-header">
+      <h1>Clase 1: Introducción al Diseño de Sistemas Informáticos y Modelos SDLC</h1>
+      <p>
+        El Diseño de Sistemas Informáticos es la disciplina que define la arquitectura, módulos, interfaces y datos de
+        un sistema de software para satisfacer requisitos específicos del negocio. En esta clase inicial, exploraremos
+        cómo dar inicio a un proyecto tecnológico viable, las propiedades estructurales esenciales del código y las
+        metodologías del ciclo de vida del desarrollo de software (SDLC).
+      </p>
+    </div>
+
+    <!-- Sección 1: Cómo Iniciar un Proyecto y Atributos de Calidad -->
+    <section>
+      <h2 class="section-title">Inicio de un Proyecto y Atributos Críticos del Sistema</h2>
+      <p>
+        El ciclo de vida de todo sistema informático comienza mucho antes de escribir código. Definir los cimientos
+        arquitectónicos del software asegura que la solución pueda responder de forma eficiente a la demanda esperada de
+        los usuarios y del negocio.
+      </p>
+
+      <div class="diagram-elements-grid">
+        <div class="concept-card">
+          <h3>🚀 Cómo Iniciar un Proyecto</h3>
           <p>
-            Tu navegador no admite visualización de PDFs.
-            <a href="../docs/Clase 1 - Introducción al analisis y diseño de sistemas.pdf">Descarga el archivo aquí.</a>
+            Consiste en la identificación de la necesidad del negocio, la recopilación formal de <strong>requerimientos
+              funcionales</strong> (lo que hace el sistema) y <strong>no funcionales</strong> (cómo lo hace,
+            rendimiento, seguridad), el análisis de factibilidad (técnica, económica, operativa) y la delimitación
+            estricta del alcance del proyecto.
           </p>
-        </iframe>
+        </div>
+        <div class="concept-card">
+          <h3>📈 Escalabilidad (Scalability)</h3>
+          <p>
+            La capacidad de una aplicación para responder de forma óptima ante el incremento en el volumen de trabajo
+            sin perder rendimiento.
+          </p>
+          <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.5; color: #475569;">
+            <li><strong>Vertical (Scale-up):</strong> Incrementar recursos (CPU, RAM) al servidor existente. Tiene un
+              límite de hardware y costo.</li>
+            <li><strong>Horizontal (Scale-out):</strong> Añadir múltiples servidores a una red distribuida. Es el
+              estándar moderno para alta demanda.</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>🛡️ Disponibilidad (Availability)</h3>
+          <p>
+            La proporción de tiempo que un sistema está operativo, accesible y listo para realizar su función
+            programada.
+          </p>
+          <p style="font-size: 0.9rem; color: #475569;">
+            Se mide en porcentajes conocidos como <i>"los nueves"</i> (ej. <strong>99.9%</strong> de disponibilidad
+            anual implica un máximo de 8.76 horas de inactividad). Requiere mecanismos de redundancia y tolerancia a
+            fallos.
+          </p>
+        </div>
       </div>
-    </main>
+    </section>
 
-    <script src="../js/menu.js"></script>
-  </body>
+    <!-- Sección 2: Acoplamiento vs Cohesión -->
+    <section>
+      <h2 class="section-title">Métricas de Diseño de Componentes: Acoplamiento y Cohesión</h2>
+      <p>
+        Para construir software que sea fácil de mantener, escalar y probar, los arquitectos se apoyan en dos conceptos
+        métricos centrales de la Programación y el Diseño Orientado a Objetos:
+      </p>
+
+      <div class="info-box">
+        <strong>La Regla de Oro del Diseño:</strong> Se debe buscar siempre el <strong>Bajo Acoplamiento</strong> (los
+        módulos se comunican a través de interfaces bien definidas y tienen mínimas dependencias mutuas) junto con una
+        <strong>Alta Cohesión</strong> (cada módulo o clase se enfoca en hacer una única cosa extremadamente bien).
+      </div>
+
+      <!-- Diagrama Gráfico Interactivo de Acoplamiento y Cohesión -->
+      <div class="uml-diagram-container">
+        <div class="uml-diagram-canvas" style="height: 440px;">
+          <!-- SVG Connections Overlay -->
+          <svg class="uml-svg-overlay" style="height: 100%;">
+            <!-- Conexión recomendada (Verde) -->
+            <!-- Línea desde ModuloClientes hasta ModuloNotificaciones -->
+            <path class="uml-relation-path dashed" d="M 160,170 L 160,270"
+              style="stroke: #16a34a; stroke-width: 2.5;" />
+            <path class="uml-marker-triangle" d="M 160,270 L 155,260 L 165,260 Z"
+              style="fill: #16a34a; stroke: #16a34a;" />
+
+            <!-- Conexión deficiente (Roja 1): ModuloReportes a SuperModulo -->
+            <path class="uml-relation-path" d="M 640,185 L 610,185 L 610,145 L 590,145"
+              style="stroke: #dc2626; stroke-width: 2.5;" />
+            <path class="uml-marker-triangle" d="M 590,145 L 600,140 L 600,150 Z"
+              style="fill: #dc2626; stroke: #dc2626;" />
+
+            <!-- Conexión deficiente (Roja 2): ModuloFacturacion a SuperModulo -->
+            <path class="uml-relation-path" d="M 560,300 L 560,265 L 480,265 L 480,230"
+              style="stroke: #dc2626; stroke-width: 2.5;" />
+            <path class="uml-marker-triangle" d="M 480,230 L 475,240 L 485,240 Z"
+              style="fill: #dc2626; stroke: #dc2626;" />
+          </svg>
+
+          <!-- Etiquetas del Diagrama -->
+          <div
+            style="position: absolute; left: 35px; top: 15px; font-weight: bold; color: #166534; font-size: 0.8rem; background: #dcfce7; padding: 4px 10px; border: 1px solid #bbf7d0; border-radius: 4px; font-family: sans-serif;">
+            Diseño Ideal (Mantenible)
+          </div>
+
+          <div
+            style="position: absolute; left: 480px; top: 15px; font-weight: bold; color: #991b1b; font-size: 0.8rem; background: #fee2e2; padding: 4px 10px; border: 1px solid #fecaca; border-radius: 4px; font-family: sans-serif;">
+            Antipatrón Acoplado (Código Espagueti)
+          </div>
+
+          <!-- ModuloClientes -->
+          <div class="uml-card-new" style="left: 50px; top: 60px; width: 220px; border-top-color: #16a34a;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">ModuloClientes</span>
+              <span class="uml-card-new-stereotype" style="color: #16a34a; font-weight: bold; font-size: 0.65rem;">[Alta
+                Cohesión]</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- listaClientes: List&lt;Cliente&gt;</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ registrarCliente(): void</div>
+              <div>+ obtenerInfo(): Cliente</div>
+            </div>
+          </div>
+
+          <!-- ModuloNotificaciones -->
+          <div class="uml-card-new" style="left: 50px; top: 270px; width: 220px; border-top-color: #16a34a;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">ModuloNotificaciones</span>
+              <span class="uml-card-new-stereotype" style="color: #16a34a; font-weight: bold; font-size: 0.65rem;">[Alta
+                Cohesión]</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- smtpServer: String</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ enviarCorreo(c: Cliente): void</div>
+            </div>
+          </div>
+
+          <!-- SuperModuloTodoEnUno (God class) -->
+          <div class="uml-card-new" style="left: 370px; top: 60px; width: 220px; border-top-color: #dc2626;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">SuperModuloTodoEnUno</span>
+              <span class="uml-card-new-stereotype" style="color: #dc2626; font-weight: bold; font-size: 0.65rem;">[Baja
+                Cohesión / God Class]</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>- clientes: List</div>
+              <div>- facturas: List</div>
+              <div>- smtpServer: String</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ registrarCliente(): void</div>
+              <div>+ procesarPago(): void</div>
+              <div>+ enviarCorreo(): void</div>
+            </div>
+          </div>
+
+          <!-- ModuloReportes (Dependencia directa y acoplada) -->
+          <div class="uml-card-new" style="left: 640px; top: 140px; width: 190px; border-top-color: #dc2626;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">ModuloReportes</span>
+              <span class="uml-card-new-stereotype" style="color: #dc2626; font-weight: bold; font-size: 0.65rem;">[Alto
+                Acoplamiento]</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>/* Acceso directo a variables de SuperModulo */</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ imprimirReportes(): void</div>
+            </div>
+          </div>
+
+          <!-- ModuloFacturacion -->
+          <div class="uml-card-new" style="left: 450px; top: 300px; width: 220px; border-top-color: #dc2626;">
+            <div class="uml-card-new-header">
+              <span class="uml-card-new-title">ModuloFacturacion</span>
+              <span class="uml-card-new-stereotype" style="color: #dc2626; font-weight: bold; font-size: 0.65rem;">[Alto
+                Acoplamiento]</span>
+            </div>
+            <div class="uml-card-new-section">
+              <div>/* Depende del estado interno de SuperModulo */</div>
+            </div>
+            <div class="uml-card-new-section">
+              <div>+ emitirFactura(): void</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 3: Modelos de Ciclo de Vida del Software (SDLC) -->
+    <section>
+      <h2 class="section-title">Modelos de Ciclo de Vida del Software (SDLC)</h2>
+      <p>
+        El Ciclo de Vida del Desarrollo de Software (SDLC) representa las metodologías y marcos de trabajo adoptados
+        para estructurar, planificar y controlar el proceso de desarrollo de sistemas de información.
+      </p>
+
+      <details class="details-styled">
+        <summary>
+          <span>🌊 <strong>1. Modelo en Cascada (Waterfall)</strong></span>
+        </summary>
+        <div class="details-content">
+          Es el enfoque metodológico clásico y predictivo. El desarrollo fluye de forma secuencial hacia abajo a través
+          de fases rígidas e inflexibles:
+          <ol style="margin-top: 10px; line-height: 1.6;">
+            <li><strong>Requisitos:</strong> Capturados y congelados al inicio.</li>
+            <li><strong>Diseño:</strong> Definición de arquitectura detallada.</li>
+            <li><strong>Implementación:</strong> Escritura del código del sistema.</li>
+            <li><strong>Verificación/Pruebas:</strong> Control de calidad generalizado.</li>
+            <li><strong>Despliegue e Integración:</strong> Entrega final al cliente.</li>
+          </ol>
+          <strong>Ventajas:</strong> Estructura clara, fácil gestión en proyectos pequeños con requisitos estáticos y
+          bien definidos.
+          <br>
+          <strong>Desventajas:</strong> Alta inflexibilidad al cambio; el cliente no ve software funcional hasta el
+          final del proceso, lo que eleva el riesgo de fallar.
+        </div>
+      </details>
+
+      <details class="details-styled">
+        <summary>
+          <span>⚡ <strong>2. Modelo Ágil (Agile)</strong></span>
+        </summary>
+        <div class="details-content">
+          Es un enfoque incremental y adaptativo, enfocado en entregas tempranas y frecuentes de valor (software
+          funcional) en ciclos de tiempo fijos y cortos conocidos como <i>sprints</i> o iteraciones.
+          <p style="margin-top: 10px; line-height: 1.6;">
+            <strong>Pilares del Manifiesto Ágil:</strong>
+            - Priorizar individuos e interacciones sobre procesos y herramientas.
+            - Software funcionando por encima de documentación exhaustiva.
+            - Colaboración activa con el cliente.
+            - Respuesta oportuna ante el cambio sobre el seguimiento estricto de un plan.
+          </p>
+          <strong>Ventajas:</strong> Excelente adaptación al cambio, retroalimentación constante del cliente, mitigación
+          de riesgos de desalineación comercial.
+          <br>
+          <strong>Desventajas:</strong> Dificultad para estimar tiempos y presupuestos finales exactos; requiere alta
+          disciplina y participación activa de los interesados.
+        </div>
+      </details>
+
+      <details class="details-styled">
+        <summary>
+          <span>🌀 <strong>3. Modelo en Espiral (Spiral)</strong></span>
+        </summary>
+        <div class="details-content">
+          Creado por Barry Boehm, es un modelo de ciclo de vida guiado de forma sistemática por el <strong>Análisis y
+            Gestión de Riesgos</strong>. Combina la naturaleza iterativa del prototipado con los aspectos de control
+          secuencial del modelo en cascada.
+          <p style="margin-top: 10px; line-height: 1.6;">
+            Cada iteración o ciclo de la espiral recorre obligatoriamente cuatro cuadrantes de desarrollo:
+          <ol>
+            <li><strong>Determinar objetivos:</strong> Identificar requisitos, alternativas y restricciones.</li>
+            <li><strong>Analizar y evaluar riesgos:</strong> Identificar problemas potenciales y desarrollar prototipos
+              para mitigarlos.</li>
+            <li><strong>Desarrollar y probar:</strong> Escribir el código y validar el incremento de software.</li>
+            <li><strong>Planificar el siguiente ciclo:</strong> Evaluar resultados y preparar la siguiente vuelta de la
+              espiral.</li>
+          </ol>
+          </p>
+          <strong>Ventajas:</strong> Gestión de riesgos sumamente robusta, excelente para sistemas críticos (ej.
+          software médico, aeronáutico o militar).
+          <br>
+          <strong>Desventajas:</strong> Altamente complejo y costoso de gestionar; depende críticamente de la
+          experiencia de expertos en análisis de riesgos.
+        </div>
+      </details>
+    </section>
+
+    <!-- Sección 4: Tabla Comparativa de Modelos SDLC -->
+    <section>
+      <h2 class="section-title">Tabla Comparativa: ¿Qué Modelo SDLC Elegir?</h2>
+      <p>A continuación, comparamos las metodologías según factores de decisión clave en ingeniería de software:</p>
+
+      <table class="sdlc-table">
+        <thead>
+          <tr>
+            <th>Característica</th>
+            <th>Cascada (Waterfall)</th>
+            <th>Ágil (Agile)</th>
+            <th>Espiral (Spiral)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <strong>
+              <td>Flexibilidad ante cambios</td>
+            </strong>
+            <td><span class="badge-danger">Baja / Inflexible</span></td>
+            <td><span class="badge-check">Muy Alta / Adaptativo</span></td>
+            <td><span class="badge-warn">Media-Alta</span></td>
+          </tr>
+          <tr>
+            <strong>
+              <td>Gestión de Riesgos</td>
+            </strong>
+            <td><span class="badge-danger">Mínima / Tardía</span></td>
+            <td><span class="badge-warn">Media / Iterativa</span></td>
+            <td><span class="badge-check">Excelente (Eje Central)</span></td>
+          </tr>
+          <tr>
+            <strong>
+              <td>Participación del Cliente</td>
+            </strong>
+            <td>Inicial y Final únicamente</td>
+            <td><span class="badge-check">Constante (Cada Sprint)</span></td>
+            <td>Alta (Evaluación de ciclos)</td>
+          </tr>
+          <tr>
+            <strong>
+              <td>Costo de errores de diseño</td>
+            </strong>
+            <td><span class="badge-danger">Extremadamente Alto</span></td>
+            <td>Bajo (Corregible en sprints)</td>
+            <td>Medio (Mitigado en fases)</td>
+          </tr>
+          <tr>
+            <strong>
+              <td>Adecuado para...</td>
+            </strong>
+            <td>Proyectos simples con requisitos fijos</td>
+            <td>Startups y proyectos innovadores cambiantes</td>
+            <td>Proyectos críticos de alta complejidad</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Sección 5: Recurso Audiovisual -->
+    <section>
+      <h2 class="section-title">Material de Soporte Audiovisual</h2>
+      <p>Te sugerimos visualizar el siguiente video complementario para afianzar el conocimiento sobre los ciclos de
+        vida de desarrollo:</p>
+
+      <div class="video-card">
+        <div class="video-icon">🎥</div>
+        <div>
+          <h3 style="margin: 0 0 8px 0; color: #db2777;">Introducción a los Modelos de Ciclo de Vida (SDLC)</h3>
+          <p style="margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            Conoce con mayor profundidad cómo elegir y aplicar Waterfall, Agile y Spiral en entornos de producción de la
+            mano de expertos del sector.
+          </p>
+          <a href="https://youtu.be/TLVDBAo1aEY?si=ok1yakOcoTqNNeZh" target="_blank" class="btn-video">Reproducir Video
+            Explicativo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 6: Quiz Evaluativo -->
+    <section class="quiz-container">
+      <div class="quiz-header">
+        <h3>Cuestionario sobre Diseño de Sistemas y SDLC</h3>
+        <p>Responde las siguientes 5 preguntas de autoevaluación para consolidar tu aprendizaje teórico.</p>
+      </div>
+
+      <form id="quizForm">
+        <!-- Pregunta 1 -->
+        <div class="quiz-question" data-question-id="1">
+          <div class="question-text">1. ¿Qué tipo de escalabilidad se realiza cuando se añaden más servidores o nodos a
+            un sistema distribuido en lugar de aumentar la capacidad de hardware del servidor actual?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="a"> A) Escalabilidad Vertical (Scale-up)
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="b"> B) Escalabilidad Diagonal
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="c"> C) Escalabilidad Horizontal (Scale-out)
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="d"> D) Escalabilidad de Redundancia
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="quiz-question" data-question-id="2">
+          <div class="question-text">2. En el diseño estructurado de componentes de software, el escenario
+            arquitectónico ideal es contar con:</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="a"> A) Alto acoplamiento y alta cohesión.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="b"> B) Bajo acoplamiento y alta cohesión.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="c"> C) Alto acoplamiento y baja cohesión.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="d"> D) Bajo acoplamiento y baja cohesión.
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="quiz-question" data-question-id="3">
+          <div class="question-text">3. ¿Cuál es la característica clave que distingue al Modelo en Espiral de Barry
+            Boehm frente a otras metodologías de ciclo de vida?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="a"> A) Su linealidad estricta y fases sin solapamiento alguno.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="b"> B) La ausencia de documentación en favor de la velocidad extrema.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="c"> C) El análisis y gestión de riesgos sistemática en cada iteración
+              del desarrollo.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="d"> D) Su adecuación única para páginas web estáticas simples.
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="quiz-question" data-question-id="4">
+          <div class="question-text">4. Si vas a desarrollar una plataforma bancaria altamente regulada, con requisitos
+            inmutables y establecidos legalmente, ¿cuál es el modelo predictivo más adecuado por su control de fases
+            rígidas?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="a"> A) Modelo Ágil (Scrum)
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="b"> B) Modelo en Cascada (Waterfall)
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="c"> C) Desarrollo de prototipos iterativos
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="d"> D) Modelo Caótico
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 5 -->
+        <div class="quiz-question" data-question-id="5">
+          <div class="question-text">5. ¿Qué mide el porcentaje de "Disponibilidad" (Availability) en el diseño de
+            infraestructura y cómo se le representa usualmente?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="a"> A) La cantidad de memoria libre en los servidores de la empresa.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="b"> B) El número de programadores listos para codificar un módulo en
+              el sprint.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="c"> C) El porcentaje de tiempo que el sistema permanece funcional y
+              accesible (ej. 99.99%).
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="d"> D) La velocidad de respuesta del sistema bajo pruebas de estrés.
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <div class="quiz-result-card" id="quizResult">
+          <h4>Resultado de la Calificación</h4>
+          <div class="quiz-result-score" id="scoreValue">0/5</div>
+          <p id="resultFeedbackText"></p>
+        </div>
+
+        <div class="quiz-action-bar">
+          <button type="button" class="btn-quiz btn-reset" onclick="reiniciarCuestionario()">Reiniciar</button>
+          <button type="button" class="btn-quiz" onclick="calificarCuestionario()">Calificar Cuestionario</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="../js/menu.js"></script>
+  <script src="../js/clase1.js"></script>
+</body>
+
 </html>

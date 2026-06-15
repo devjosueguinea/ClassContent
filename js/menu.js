@@ -16,7 +16,8 @@ function cargarMenuLateral(containerId, moduleNumber, classId) {
             { id: 'clase3', title: 'Clase 3: Modelado de Datos', file: 'clase3.html' },
             { id: 'clase4', title: 'Clase 4: Comportamiento', file: 'clase4.html' },
             { id: 'clase5', title: 'Clase 5: Diagramas de Clase', file: 'clase5.html' },
-            { id: 'clase6', title: 'Clase 6: Relación de Herencia', file: 'clase6.html' }
+            { id: 'clase6', title: 'Clase 6: Relación de Herencia', file: 'clase6.html' },
+            { id: 'clase7', title: 'Clase 7: Agregación y Composición', file: 'clase7.html' }
         ];
         
         let linksHTML = `<a href="${prefix}index.html">← Inicio</a>`;
