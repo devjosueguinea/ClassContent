@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Josué Guinea Dev – Módulo 2, Clase 6: APIs RESTful y Arquitectura Spring Boot</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/class.css" />
+    <link rel="stylesheet" href="../css/m2clase6.css" />
+    <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+</head>
+
+<body data-module="2" data-class="clase6">
+    <div id="menu-container"></div>
+
+    <main class="main-content">
+
+        <div class="content-header">
+            <h1>Clase 6: APIs RESTful y Arquitectura de Capas en Spring Boot</h1>
+            <p>
+                En esta sesión aprenderás a diseñar servicios web bajo el estilo arquitectónico REST, comprenderás la
+                organización del ecosistema Spring Boot a través de sus anotaciones clave y estudiarás la gestión del
+                ciclo de vida del proyecto con Maven.
+            </p>
+        </div>
+
+        <section>
+            <div class="tabs-nav">
+                <button id="btn-tab1" class="tab-btn active" onclick="activateTab('tab1')">🌐 Concepto REST</button>
+                <button id="btn-tab2" class="tab-btn" onclick="activateTab('tab2')">🏗️ Arquitectura de Capas</button>
+                <button id="btn-tab3" class="tab-btn" onclick="activateTab('tab3')">🏷️ Anotaciones Spring</button>
+                <button id="btn-tab4" class="tab-btn" onclick="activateTab('tab4')">📦 Maven y pom.xml</button>
+            </div>
+
+            <div id="panel-tab1" class="tab-panel active">
+                <h2 class="section-title">¿Qué es una API RESTful?</h2>
+                <p>Una API (Application Programming Interface) es un conjunto de reglas, protocolos y herramientas que
+                    permite que diferentes sistemas o componentes de software se comuniquen entre sí, actuando como un
+                    intermediario que facilita el intercambio seguro de datos.</p>
+
+                <h3 class="sub-section-title">La Analogía del Restaurante</h3>
+                <div class="restaurant-interactive-box">
+                    <p class="instruction-text">Haz clic en cada rol para ver cómo funciona el flujo de peticiones en
+                        una API:</p>
+                    <div class="analogy-grid">
+                        <div class="analogy-card" onclick="triggerAnalogy('cliente')">
+                            <div class="analogy-icon">🧑‍💻</div>
+                            <h4>Tú (Cliente)</h4>
+                            <p>Haces un pedido (Solicitud HTTP) basado en las opciones del menú.</p>
+                        </div>
+                        <div class="analogy-card" onclick="triggerAnalogy('mesero')">
+                            <div class="analogy-icon">🤵</div>
+                            <h4>El Mesero (API)</h4>
+                            <p>Lleva tu orden a la cocina y te regresa la comida lista (Respuesta).</p>
+                        </div>
+                        <div class="analogy-card" onclick="triggerAnalogy('cocina')">
+                            <div class="analogy-icon">🍳</div>
+                            <h4>La Cocina (Sistema)</h4>
+                            <p>Procesa los ingredientes y prepara el plato solicitado.</p>
+                        </div>
+                    </div>
+                    <div id="analogy-screen" class="analogy-display">Selecciona un elemento para iniciar la simulación
+                        del flujo...</div>
+                </div>
+
+                <h3 class="sub-section-title">Componentes Clave de una Petición REST</h3>
+                <div class="diagram-elements-grid">
+                    <div class="concept-card">
+                        <h3>📍 Endpoint</h3>
+                        <p>URL única encargada de identificar un recurso específico en el servidor.
+                            <br><code>Ejemplo: /api/v1/usuarios</code></p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>🔀 Métodos HTTP</h3>
+                        <p>Verbos que indican la acción a realizar:</p>
+                        <ul style="margin-left: 15px; font-size: 0.9rem;">
+                            <li><strong>GET:</strong> Obtener datos.</li>
+                            <li><strong>POST:</strong> Crear nuevos datos.</li>
+                            <li><strong>PUT / PATCH:</strong> Actualizar datos.</li>
+                            <li><strong>DELETE:</strong> Eliminar datos.</li>
+                        </ul>
+                    </div>
+                    <div class="concept-card">
+                        <h3>📇 Headers & Body</h3>
+                        <p><strong>Headers:</strong> Metadatos de la petición (ej.
+                            <code>Content-Type: application/json</code>).</p>
+                        <p><strong>Body:</strong> Datos enviados o recibidos estructurados comúnmente en formato JSON.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="panel-tab2" class="tab-panel">
+                <h2 class="section-title">Arquitectura del Software en Spring Boot</h2>
+                <p>Para construir APIs mantenibles y escalables, estructuramos nuestro backend dividiendo el código en
+                    capas con responsabilidades únicas y bien delimitadas:</p>
+
+                <div class="architecture-container">
+                    <div class="layer-item" data-layer="controllers">⚡ Controllers (EndPoints / Rutas HTTP)</div>
+                    <div class="layer-item" data-layer="services">⚙️ Services (Lógica de Negocio y Validaciones CRUD)
+                    </div>
+                    <div class="layer-item" data-layer="repositories">🗄️ Repositories (Acceso a Datos - Interfaces JPA)
+                    </div>
+                    <div class="layer-item" data-layer="entities">📦 Entities (Representación fiel de las Tablas de la
+                        BD)</div>
+                </div>
+                <div id="layer-details-box" class="info-box-note" style="margin-top: 15px; font-weight: 500;">
+                    💡 Selecciona o pasa el cursor sobre las capas superiores para ver sus componentes auxiliares
+                    adicionales (Config, Exceptions, DTOs/Models, Utils).
+                </div>
+
+                <h3 class="sub-section-title">Estructura Completa de Paquetes</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Capa / Directorio</th>
+                            <th>Propósito Primario dentro del Proyecto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>config</code></td>
+                            <td>Configuraciones globales de seguridad, CORS o Beans externos.</td>
+                        </tr>
+                        <tr>
+                            <td><code>controllers</code></td>
+                            <td>Recibe las peticiones HTTP y despacha las respuestas estructuradas.</td>
+                        </tr>
+                        <tr>
+                            <td><code>services</code></td>
+                            <td>Implementa las reglas del negocio, orquestación de operaciones y validación de datos.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code>repositories</code></td>
+                            <td>Interfaces de Spring Data (JPA, JDBC) para interactuar directamente con la BD.</td>
+                        </tr>
+                        <tr>
+                            <td><code>entities</code></td>
+                            <td>Clases que mapean de uno a uno las tablas relacionales de la base de datos.</td>
+                        </tr>
+                        <tr>
+                            <td><code>exceptions</code></td>
+                            <td>Interceptores globales encargados del manejo controlado de errores del sistema.</td>
+                        </tr>
+                        <tr>
+                            <td><code>models</code></td>
+                            <td>Estructuras de transferencia de datos como DTOs y formateadores de ApiResponse.</td>
+                        </tr>
+                        <tr>
+                            <td><code>utils</code></td>
+                            <td>Clases utilitarias con métodos estáticos de soporte común.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box-warn">
+                    ⚠️ <strong>Fichero application.properties:</strong> Ubicado en los recursos del proyecto, almacena
+                    de forma centralizada todas las variables críticas de conexión de la BD y puertos del servidor.
+                </div>
+            </div>
+
+            <div id="panel-tab3" class="tab-panel">
+                <h2 class="section-title">El Poder de las Anotaciones en Spring Boot</h2>
+                <p>Las anotaciones actúan como metadatos decorativos que le indican al contenedor de Spring cómo
+                    instanciar, inyectar y gestionar el comportamiento de nuestras clases en tiempo de ejecución.</p>
+
+                <details class="details-styled">
+                    <summary><span><strong>1. Definición de Beans y Componentes Estándar</strong></span></summary>
+                    <div class="details-content">
+                        <ul>
+                            <li><code>@Component</code>: Marca una clase genérica como componente administrado por el
+                                contenedor IoC.</li>
+                            <li><code>@Service</code>: Especialización de componente para alojar exclusivamente lógica
+                                empresarial.</li>
+                            <li><code>@Repository</code>: Indica acceso a persistencia de datos (gestiona excepciones
+                                SQL nativas).</li>
+                            <li><code>@Controller</code> / <code>@RestController</code>: Habilita la clase para
+                                interceptar peticiones web de tipo MVC o RESTful JSON.</li>
+                            <li><code>@Configuration</code> / <code>@Bean</code>: Define métodos de instanciación manual
+                                para librerías de terceros.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="details-styled">
+                    <summary><span><strong>2. Inyección de Dependencias Automática</strong></span></summary>
+                    <div class="details-content">
+                        <ul>
+                            <li><code>@Autowired</code>: Enlaza e inyecta de forma automática una dependencia compatible
+                                por su tipo.</li>
+                            <li><code>@Qualifier</code>: Rompe la ambigüedad indicando el ID exacto del Bean que deseas
+                                inyectar si existen múltiples implementaciones.</li>
+                            <li><code>@Value</code>: Extrae e inyecta parámetros literales guardados en tu
+                                <code>application.properties</code>.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="details-styled">
+                    <summary><span><strong>3. Enrutamiento Web Spring MVC / REST</strong></span></summary>
+                    <div class="details-content">
+                        <ul>
+                            <li><code>@RequestMapping</code>: Configura el prefijo de ruta URL base sobre toda la clase
+                                controladora.</li>
+                            <li><code>@GetMapping / @PostMapping / @PutMapping / @DeleteMapping</code>: Mapean verbos
+                                HTTP directos.</li>
+                            <li><code>@PathVariable</code>: Extrae variables incrustadas directamente en el segmento de
+                                la URL (ej: <code>/usuarios/{id}</code>).</li>
+                            <li><code>@RequestParam</code>: Lee query parameters tradicionales de filtrado (ej:
+                                <code>?page=1&limit=10</code>).</li>
+                            <li><code>@RequestBody</code>: Deserializa el cuerpo JSON entrante convirtiéndolo
+                                instantáneamente en un Objeto Java (POJO).</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="details-styled">
+                    <summary><span><strong>4. Mapeo ORM con Spring Data JPA</strong></span></summary>
+                    <div class="details-content">
+                        <ul>
+                            <li><code>@Entity</code>: Configura la clase Java para ser tratada como un modelo relacional
+                                de JPA.</li>
+                            <li><code>@Table</code>: Asigna explícitamente el nombre físico de la tabla en el motor SQL
+                                de destino.</li>
+                            <li><code>@Id</code>: Delimita qué propiedad actuará como la llave primaria (Primary Key).
+                            </li>
+                            <li><code>@GeneratedValue</code>: Determina estrategias de autoincremento (Identity,
+                                Sequence, etc.).</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <h3 class="sub-section-title">Reglas Obligatorias del Proyecto</h3>
+                <div class="flow-box">
+                    <span class="cm">// 📜 Directrices estricta de desarrollo limpio:</span><br>
+                    <span class="kw">1. Capa Service:</span> Todo archivo de servicio requiere llevar imperativamente la
+                    anotación <span class="op">@Service</span>.<br>
+                    <span class="kw">2. Capa Repository:</span> Las interfaces hijas de <span
+                        class="str">JpaRepository</span> deben poseer la anotación <span
+                        class="op">@Repository</span>.<br>
+                    <span class="kw">3. Capa Controller:</span> Deben configurarse obligatoriamente con las anotaciones
+                    <span class="op">@RestController</span> y <span class="op">@RequestMapping</span>.<br>
+                    <span class="kw">4. Entidades JPA:</span> Deben incluir sus decoradores bases: <span
+                        class="op">@Entity @Getter @Setter @Id @ToString @EqualsAndHashCode</span>.<br>
+                    <span class="kw">5. Modelos DTO:</span> Están prohibidas las lógicas internas; únicamente deben
+                    contener campos y anotaciones de validación.
+                </div>
+            </div>
+
+            <div id="panel-tab4" class="tab-panel">
+                <h2 class="section-title">Gestión de Proyectos Mediante Maven</h2>
+                <p>Una <strong>dependencia</strong> representa cualquier módulo o librería externa empaquetada que
+                    integramos al proyecto para evitar programar código recurrente desde cero.</p>
+
+                <div class="info-box-note">
+                    💡 <strong>El archivo pom.xml (Project Object Model):</strong> Es el manifiesto principal escrito en
+                    formato XML que reside en la raíz del proyecto. Le indica a Maven la configuración del entorno,
+                    compilación y las coordenadas de dependencias externas a descargar automáticamente desde los
+                    repositorios centrales.
+                </div>
+
+                <h3 class="sub-section-title">Coordenadas Universales GAV</h3>
+                <p>Maven rastrea e identifica con precisión quirúrgica cualquier librería del mundo mediante tres
+                    identificadores jerárquicos:</p>
+                <ul style="line-height:1.9; margin-left: 20px; margin-bottom: 20px;">
+                    <li><strong>Group ID (groupId):</strong> El namespace corporativo u organizacional (ej.
+                        <code>org.springframework.boot</code>).</li>
+                    <li><strong>Artifact ID (artifactId):</strong> El nombre específico del módulo o subproyecto
+                        compilado (ej. <code>spring-boot-starter-web</code>).</li>
+                    <li><strong>Version:</strong> La release exacta del artefacto utilizado (ej. <code>3.2.4</code>).
+                    </li>
+                </ul>
+
+                <h3 class="sub-section-title">Ejemplo Real de Bloque de Dependencia</h3>
+                <div class="flow-box">
+                    <span class="cm">&lt;!-- Fichero pom.xml - Inclusión del ecosistema web de Spring --&gt;</span><br>
+                    &lt;<span class="kw">dependency</span>&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="kw">groupId</span>&gt;org.springframework.boot&lt;/<span
+                        class="kw">groupId</span>&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="kw">artifactId</span>&gt;spring-boot-starter-web&lt;/<span
+                        class="kw">artifactId</span>&gt;<br>
+                    &lt;/<span class="kw">dependency</span>&gt;
+                </div>
+            </div>
+        </section>
+
+        <section style="margin-top: 50px;">
+            <h2 class="section-title">Cuestionarios de Autoevaluación</h2>
+            <p>Selecciona el bloque temático que deseas evaluar haciendo clic en una de las opciones:</p>
+
+            <div class="quiz-selector">
+                <div id="qcard-api" class="quiz-card-select active" onclick="selectQuiz('api')">
+                    <div class="qc-icon">🌐</div>
+                    <h4>Quiz 1</h4>
+                    <p>Conceptos RESTful</p>
+                </div>
+                <div id="qcard-arch" class="quiz-card-select" onclick="selectQuiz('arch')">
+                    <div class="qc-icon">🏗️</div>
+                    <h4>Quiz 2</h4>
+                    <p>Capas y Estructura</p>
+                </div>
+                <div id="qcard-annot" class="quiz-card-select" onclick="selectQuiz('annot')">
+                    <div class="qc-icon">🏷️</div>
+                    <h4>Quiz 3</h4>
+                    <p>Anotaciones Spring</p>
+                </div>
+            </div>
+
+            <div id="qpanel-api" class="quiz-panel quiz-container active" style="margin-top:20px;">
+                <div class="quiz-header">
+                    <h3>🌐 Quiz — Arquitectura RESTful</h3>
+                    <p>Evalúa tus conocimientos sobre componentes y verbos de servicios HTTP.</p>
+                </div>
+                <form id="form-api">
+                    <div class="quiz-question" data-q="api_1">
+                        <div class="question-text">1. En la analogía del restaurante, ¿qué rol representa exactamente la
+                            API?</div>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="api_1" value="a"> A) El Cliente que
+                                degusta el platillo.</label>
+                            <label class="quiz-option"><input type="radio" name="api_1" value="b"> B) La Cocina que
+                                procesa las bases de datos de ingredientes.</label>
+                            <label class="quiz-option"><input type="radio" name="api_1" value="c"> C) El Mesero que
+                                traslada tu orden y te retorna la comida procesada.</label>
+                        </div>
+                        <div class="feedback-explanation"></div>
+                    </div>
+                    <div class="quiz-question" data-q="api_2">
+                        <div class="question-text">2. ¿Qué componente encapsula los metadatos de configuración en una
+                            transmisión HTTP como el Content-Type?</div>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="api_2" value="a"> A) El Body</label>
+                            <label class="quiz-option"><input type="radio" name="api_2" value="b"> B) Los Headers
+                                (Cabeceras)</label>
+                            <label class="quiz-option"><input type="radio" name="api_2" value="c"> C) El
+                                Endpoint</label>
+                        </div>
+                        <div class="feedback-explanation"></div>
+                    </div>
+                    <div class="quiz-result-card" id="result-api">
+                        <h4>Resultado</h4>
+                        <div class="quiz-result-score" id="score-api">0/2</div>
+                        <p id="feedback-api"></p>
+                    </div>
+                    <div class="quiz-action-bar">
+                        <button type="button" class="btn-quiz btn-reset"
+                            onclick="reiniciarQuiz('api')">Reiniciar</button>
+                        <button type="button" class="btn-quiz" onclick="calificarQuiz('api')">Calificar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="qpanel-arch" class="quiz-panel quiz-container" style="margin-top:20px;">
+                <div class="quiz-header">
+                    <h3>🏗️ Quiz — Arquitectura de Capas</h3>
+                    <p>Pon a prueba la organización lógica del proyecto backend.</p>
+                </div>
+                <form id="form-arch">
+                    <div class="quiz-question" data-q="arch_1">
+                        <div class="question-text">1. ¿Qué paquete se encarga de aislar la lógica empresarial y las
+                            reglas de validación en Spring Boot?</div>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="arch_1" value="a"> A)
+                                Controllers</label>
+                            <label class="quiz-option"><input type="radio" name="arch_1" value="b"> B) Services</label>
+                            <label class="quiz-option"><input type="radio" name="arch_1" value="c"> C)
+                                Repositories</label>
+                        </div>
+                        <div class="feedback-explanation"></div>
+                    </div>
+                    <div class="quiz-result-card" id="result-arch">
+                        <h4>Resultado</h4>
+                        <div class="quiz-result-score" id="score-arch">0/1</div>
+                        <p id="feedback-arch"></p>
+                    </div>
+                    <div class="quiz-action-bar">
+                        <button type="button" class="btn-quiz btn-reset"
+                            onclick="reiniciarQuiz('arch')">Reiniciar</button>
+                        <button type="button" class="btn-quiz" onclick="calificarQuiz('arch')">Calificar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="qpanel-annot" class="quiz-panel quiz-container" style="margin-top:20px;">
+                <div class="quiz-header">
+                    <h3>🏷️ Quiz — Inyección y Anotaciones</h3>
+                    <p>Valida el uso correcto de las palabras clave de Spring Framework.</p>
+                </div>
+                <form id="form-annot">
+                    <div class="quiz-question" data-q="annot_1">
+                        <div class="question-text">1. ¿Qué anotación se encarga de convertir el JSON del cuerpo de una
+                            petición en un Objeto Java válido?</div>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="annot_1" value="a"> A)
+                                @PathVariable</label>
+                            <label class="quiz-option"><input type="radio" name="annot_1" value="b"> B)
+                                @RequestBody</label>
+                            <label class="quiz-option"><input type="radio" name="annot_1" value="c"> C)
+                                @RequestParam</label>
+                        </div>
+                        <div class="feedback-explanation"></div>
+                    </div>
+                    <div class="quiz-result-card" id="result-annot">
+                        <h4>Resultado</h4>
+                        <div class="quiz-result-score" id="score-annot">0/1</div>
+                        <p id="feedback-annot"></p>
+                    </div>
+                    <div class="quiz-action-bar">
+                        <button type="button" class="btn-quiz btn-reset"
+                            onclick="reiniciarQuiz('annot')">Reiniciar</button>
+                        <button type="button" class="btn-quiz" onclick="calificarQuiz('annot')">Calificar</button>
+                    </div>
+                </form>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="../js/menu.js"></script>
+    <script src="../js/m2clase6.js"></script>
+</body>
+
+</html>
