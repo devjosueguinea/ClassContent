@@ -69,7 +69,8 @@
                     <div class="concept-card">
                         <h3>📍 Endpoint</h3>
                         <p>URL única encargada de identificar un recurso específico en el servidor.
-                            <br><code>Ejemplo: /api/v1/usuarios</code></p>
+                            <br><code>Ejemplo: /api/v1/usuarios</code>
+                        </p>
                     </div>
                     <div class="concept-card">
                         <h3>🔀 Métodos HTTP</h3>
@@ -84,7 +85,8 @@
                     <div class="concept-card">
                         <h3>📇 Headers & Body</h3>
                         <p><strong>Headers:</strong> Metadatos de la petición (ej.
-                            <code>Content-Type: application/json</code>).</p>
+                            <code>Content-Type: application/json</code>).
+                        </p>
                         <p><strong>Body:</strong> Datos enviados o recibidos estructurados comúnmente en formato JSON.
                         </p>
                     </div>
@@ -193,7 +195,8 @@
                             <li><code>@Qualifier</code>: Rompe la ambigüedad indicando el ID exacto del Bean que deseas
                                 inyectar si existen múltiples implementaciones.</li>
                             <li><code>@Value</code>: Extrae e inyecta parámetros literales guardados en tu
-                                <code>application.properties</code>.</li>
+                                <code>application.properties</code>.
+                            </li>
                         </ul>
                     </div>
                 </details>
@@ -209,7 +212,8 @@
                             <li><code>@PathVariable</code>: Extrae variables incrustadas directamente en el segmento de
                                 la URL (ej: <code>/usuarios/{id}</code>).</li>
                             <li><code>@RequestParam</code>: Lee query parameters tradicionales de filtrado (ej:
-                                <code>?page=1&limit=10</code>).</li>
+                                <code>?page=1&limit=10</code>).
+                            </li>
                             <li><code>@RequestBody</code>: Deserializa el cuerpo JSON entrante convirtiéndolo
                                 instantáneamente en un Objeto Java (POJO).</li>
                         </ul>
@@ -266,7 +270,8 @@
                     identificadores jerárquicos:</p>
                 <ul style="line-height:1.9; margin-left: 20px; margin-bottom: 20px;">
                     <li><strong>Group ID (groupId):</strong> El namespace corporativo u organizacional (ej.
-                        <code>org.springframework.boot</code>).</li>
+                        <code>org.springframework.boot</code>).
+                    </li>
                     <li><strong>Artifact ID (artifactId):</strong> El nombre específico del módulo o subproyecto
                         compilado (ej. <code>spring-boot-starter-web</code>).</li>
                     <li><strong>Version:</strong> La release exacta del artefacto utilizado (ej. <code>3.2.4</code>).

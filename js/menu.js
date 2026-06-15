@@ -48,7 +48,7 @@ function cargarMenuLateral(containerId, moduleNumber, classId) {
             { id: 'clase4', title: 'Clase 4: Clases y objetos', file: 'clase4.html' },
             { id: 'clase5', title: 'Clase 5: Estructuras de datos', file: 'clase5.html' },
             { id: 'clase6', title: 'Clase 6: API Restful', file: 'clase6.html' },
-            { id: 'clase7', title: 'Clase 7: Capas de API Restful', file: 'clase.html' }
+            { id: 'clase7', title: 'Clase 7: Capas de API Restful', file: 'clase7.html' }
         ];
         let linksHTML2 = `<a href="${prefix}index.html">← Inicio</a>`;
         clases2.forEach(c => {
@@ -64,7 +64,7 @@ function cargarMenuLateral(containerId, moduleNumber, classId) {
                 </nav>
             </aside>
             <div class="mobile-header">
-                <strong>Programación OO</strong>
+                <strong>Programación Orientada a Objetos (POO)</strong>
                 <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
             </div>
         `;
