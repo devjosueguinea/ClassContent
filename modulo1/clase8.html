@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Josué Guinea Dev - Clase 8: Diccionario de Datos</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/class.css" />
+  <link rel="stylesheet" href="../css/clase8.css" />
+  <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+</head>
+
+<body data-module="1" data-class="clase8">
+  <div id="menu-container"></div>
+
+  <main class="main-content">
+    <div class="content-header">
+      <h1>Clase 8: Elaboración del Diccionario de Datos</h1>
+      <p>
+        El <strong>Diccionario de Datos</strong> es un insumo crucial en el análisis y diseño de sistemas informáticos.
+        Funciona como un catálogo centralizado que recopila los metadatos de las entidades de base de datos, definiendo
+        con precisión la estructura, formato, nulabilidad y reglas de negocio aplicadas a la información del sistema.
+      </p>
+    </div>
+
+    <!-- Sección 1: Conceptualización e Importancia -->
+    <section>
+      <h2 class="section-title">¿Qué es un Diccionario de Datos y por qué es Importante?</h2>
+      <p>
+        En proyectos de software empresarial, diferentes equipos (diseñadores de bases de datos, desarrolladores
+        frontend, ingenieros backend y analistas de negocio) necesitan comunicarse sin malentendidos semánticos. El
+        diccionario de datos actúa como el <strong>punto único de verdad</strong> (Single Source of Truth).
+      </p>
+
+      <div class="diagram-elements-grid">
+        <div class="concept-card">
+          <h3>📂 Control de Metadatos</h3>
+          <p>
+            No almacena los datos reales del cliente (como "Juan Pérez"), sino los <strong>metadatos</strong>
+            (definición de la columna: `nombre`, tipo `VARCHAR2(100)`, obligatorio).
+          </p>
+        </div>
+        <div class="concept-card">
+          <h3>🤝 Consistencia de Equipo</h3>
+          <p>
+            Evita inconsistencias donde un programador nombre un campo como `mail` en la base de datos, otro como
+            `correo` en el backend, y otro como `emailAddress` en las vistas.
+          </p>
+        </div>
+        <div class="concept-card">
+          <h3>⚙️ Reglas de Negocio</h3>
+          <p>
+            Documenta de forma clara restricciones de dominio (constraints) como llaves primarias, foráneas, valores
+            únicos, nulabilidad y valores por defecto.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 2: Componentes de la Plantilla -->
+    <section>
+      <h2 class="section-title">Componentes Esenciales de un Diccionario de Datos</h2>
+      <p>Al diseñar el plano de almacenamiento del sistema, cada campo de una entidad debe estar completamente
+        parametrizado. Despliega cada punto para conocer qué información debe contener tu plantilla:</p>
+
+      <details class="details-styled">
+        <summary>
+          <span>✏️ <strong>1. Nombre del Campo físico (Nombre Lógico vs. Físico)</strong></span>
+        </summary>
+        <div class="details-content">
+          Es el identificador técnico del atributo en la tabla (ej. `cliente_id`, `correo_electronico`). Debe seguir una
+          convención de nomenclatura estándar (como *snake_case* o *camelCase*) y ser descriptivo.
+        </div>
+      </details>
+
+      <details class="details-styled">
+        <summary>
+          <span>🔢 <strong>2. Tipo de Dato y Longitud</strong></span>
+        </summary>
+        <div class="details-content">
+          Define la naturaleza de la información almacenada (ej. `VARCHAR2`, `NUMBER`, `DATE`, `BOOLEAN`) y la capacidad
+          máxima de almacenamiento permitida para ese atributo (ej. 100 caracteres, 10 dígitos decimales).
+        </div>
+      </details>
+
+      <details class="details-styled">
+        <summary>
+          <span>⚪ <strong>3. Nulabilidad (NULL / NOT NULL)</strong></span>
+        </summary>
+        <div class="details-content">
+          Especifica si es obligatorio que el campo contenga un valor al insertar un registro (`NOT NULL`) o si puede
+          dejarse en blanco de forma opcional (`NULL`).
+        </div>
+      </details>
+
+      <details class="details-styled">
+        <summary>
+          <span>🔑 <strong>4. Llaves (Keys: PK / FK)</strong></span>
+        </summary>
+        <div class="details-content">
+          Identifica si el campo actúa como la clave primaria de la tabla (**Primary Key - PK**), la cual garantiza
+          registros únicos no nulos, o si es una referencia a otra tabla (**Foreign Key - FK**), asegurando la
+          integridad referencial.
+        </div>
+      </details>
+
+      <details class="details-styled">
+        <summary>
+          <span>🛠️ <strong>5. Valores por Defecto y Restricciones (Constraints)</strong></span>
+        </summary>
+        <div class="details-content">
+          Documenta valores asignados automáticamente por el sistema si el usuario no introduce ninguno (ej. `SYSDATE`
+          para fechas de registro) y validaciones adicionales de dominio mediante restricciones de tipo **CHECK** (ej.
+          `edad >= 18`).
+        </div>
+      </details>
+    </section>
+
+    <!-- Sección 3: Plantilla del Diccionario de Datos -->
+    <section>
+      <h2 class="section-title">Plantilla Interactiva: Entidad `Clientes`</h2>
+      <p>A continuación se presenta el estándar recomendado para estructurar el diccionario de datos físico para una
+        tabla típica de almacenamiento en bases de datos:</p>
+
+      <div class="dict-table-container">
+        <table class="dict-table">
+          <thead>
+            <tr>
+              <th>Nombre de Campo</th>
+              <th>Tipo de Dato</th>
+              <th>Longitud</th>
+              <th>Nulabilidad</th>
+              <th>Llave</th>
+              <th>Valor por Defecto</th>
+              <th>Descripción y Restricciones (Constraints)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>cliente_id</strong></td>
+              <td>NUMBER</td>
+              <td>10</td>
+              <td><span class="badge-notnull">NOT NULL</span></td>
+              <td><span class="badge-pk">PK</span></td>
+              <td>Ninguno</td>
+              <td>Identificador único autoincremental asignado a cada cliente.</td>
+            </tr>
+            <tr>
+              <td><strong>nombre_completo</strong></td>
+              <td>VARCHAR2</td>
+              <td>100</td>
+              <td><span class="badge-notnull">NOT NULL</span></td>
+              <td>-</td>
+              <td>Ninguno</td>
+              <td>Nombres y apellidos completos legales del cliente.</td>
+            </tr>
+            <tr>
+              <td><strong>correo_electronico</strong></td>
+              <td>VARCHAR2</td>
+              <td>150</td>
+              <td><span class="badge-notnull">NOT NULL</span></td>
+              <td>-</td>
+              <td>Ninguno</td>
+              <td>Dirección de correo. Debe ser única globalmente (Constraint: <strong>UNIQUE</strong>).</td>
+            </tr>
+            <tr>
+              <td><strong>fecha_registro</strong></td>
+              <td>DATE</td>
+              <td>-</td>
+              <td><span class="badge-notnull">NOT NULL</span></td>
+              <td>-</td>
+              <td>SYSDATE</td>
+              <td>Fecha y hora automática en la que el cliente fue creado en la base de datos.</td>
+            </tr>
+            <tr>
+              <td><strong>estado_cuenta</strong></td>
+              <td>VARCHAR2</td>
+              <td>15</td>
+              <td><span class="badge-notnull">NOT NULL</span></td>
+              <td>-</td>
+              <td>'ACTIVO'</td>
+              <td>Estado operativo. Restricción (<strong>CHECK</strong>): solo permite 'ACTIVO', 'INACTIVO',
+                'SUSPENDIDO'.</td>
+            </tr>
+            <tr>
+              <td><strong>telefono_contacto</strong></td>
+              <td>VARCHAR2</td>
+              <td>20</td>
+              <td><span class="badge-null">NULL</span></td>
+              <td>-</td>
+              <td>Ninguno</td>
+              <td>Número de contacto telefónico del cliente (opcional).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Sección 4: Recurso Audiovisual -->
+    <section>
+      <h2 class="section-title">Material de Soporte Audiovisual</h2>
+      <p>Sugerimos visualizar el siguiente video instructivo sobre cómo crear paso a paso tu propio diccionario de datos
+        para diseño de base de datos:</p>
+
+      <div class="video-card">
+        <div class="video-icon">🎥</div>
+        <div>
+          <h3 style="margin: 0 0 8px 0; color: #db2777;">¿Cómo elaborar un Diccionario de Datos paso a paso?</h3>
+          <p style="margin: 0; font-size: 0.9rem; line-height: 1.5;">
+            Visualiza de forma detallada ejemplos de estructuración de tablas, relaciones lógicas y cómo documentar
+            atributos clave del diseño relacional.
+          </p>
+          <a href="https://youtube.com/shorts/ygVXPh2fLUM?si=sP7ASWg7y1l-Owt4" target="_blank"
+            class="btn-video">Reproducir Video Explicativo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cuestionario Evaluativo -->
+    <section class="quiz-container">
+      <div class="quiz-header">
+        <h3>Cuestionario sobre Diccionario de Datos</h3>
+        <p>Responde las siguientes 5 preguntas de opción múltiple para medir tu comprensión.</p>
+      </div>
+
+      <form id="quizForm">
+        <!-- Pregunta 1 -->
+        <div class="quiz-question" data-question-id="1">
+          <div class="question-text">1. ¿Qué información define fundamentalmente un Diccionario de Datos en el diseño de
+            sistemas?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="a"> A) La información personal de todos los usuarios registrados en
+              el sistema.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="b"> B) Los metadatos de las tablas, incluyendo tipos, restricciones y
+              significados lógicos.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="c"> C) El código fuente de las consultas SQL y conexiones del
+              backend.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="d"> D) El listado de librerías externas necesarias para desplegar el
+              servidor.
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="quiz-question" data-question-id="2">
+          <div class="question-text">2. ¿Por qué se le considera al Diccionario de Datos el "punto único de verdad"
+            (Single Source of Truth) en un proyecto?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="a"> A) Porque guarda todas las claves de seguridad de la
+              infraestructura cloud.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="b"> B) Porque es el único archivo que el motor de base de datos
+              compila al arrancar.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="c"> C) Porque unifica y estandariza las definiciones semánticas del
+              negocio y técnicas para todos los desarrolladores.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="d"> D) Porque impide que el cliente modifique los requerimientos.
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="quiz-question" data-question-id="3">
+          <div class="question-text">3. ¿Qué representa la propiedad de "Nulabilidad" (Nullable) en un campo dentro de
+            la plantilla del diccionario?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="a"> A) Si el campo puede ser modificado por el usuario administrador
+              únicamente.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="b"> B) Si la tabla entera se puede borrar si el campo está vacío.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="c"> C) Si el campo contiene código de programación nulo.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="d"> D) Si el atributo admite almacenar un registro vacío (NULL) o es
+              obligatorio (NOT NULL).
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="quiz-question" data-question-id="4">
+          <div class="question-text">4. Si asignamos la etiqueta de Llave Primaria (PK) a una columna, ¿qué restricción
+            técnica se aplica por defecto en la base de datos?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="a"> A) El campo debe contener exclusivamente valores únicos y no ser
+              nulo (NOT NULL).
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="b"> B) El campo puede repetirse en varios registros.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="c"> C) El campo solo puede aceptar tipos de datos de tipo fecha.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="d"> D) El campo se encripta automáticamente con claves asimétricas.
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <!-- Pregunta 5 -->
+        <div class="quiz-question" data-question-id="5">
+          <div class="question-text">5. ¿Qué utilidad tiene definir la restricción "Default Value" en la estructura del
+            diccionario?</div>
+          <div class="quiz-options">
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="a"> A) Evitar que los hackers modifiquen las variables de la base de
+              datos.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="b"> B) Forzar a que todos los campos de la base de datos almacenen el
+              mismo dato numérico.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="c"> C) Asignar de forma automática un valor seguro e inicial al campo
+              cuando este sea omitido en la inserción.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="d"> D) Declarar que la clase es una superclase en el backend.
+            </label>
+          </div>
+          <div class="feedback-explanation"></div>
+        </div>
+
+        <div class="quiz-result-card" id="quizResult">
+          <h4>Resultado de la Calificación</h4>
+          <div class="quiz-result-score" id="scoreValue">0/5</div>
+          <p id="resultFeedbackText"></p>
+        </div>
+
+        <div class="quiz-action-bar">
+          <button type="button" class="btn-quiz btn-reset" onclick="reiniciarCuestionario()">Reiniciar</button>
+          <button type="button" class="btn-quiz" onclick="calificarCuestionario()">Calificar Cuestionario</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="../js/menu.js"></script>
+  <script src="../js/clase8.js"></script>
+</body>
+
+</html>

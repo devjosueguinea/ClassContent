@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Josué Guinea Dev – Módulo 2, Clase 1: Fundamentos de Programación</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/class.css" />
+  <link rel="stylesheet" href="../css/modulo2.css" />
+  <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+</head>
+
+<body data-module="2" data-class="clase1">
+  <div id="menu-container"></div>
+
+  <main class="main-content">
+
+    <!-- CABECERA -->
+    <div class="content-header">
+      <h1>Clase 1: Fundamentos de Programación en Java</h1>
+      <p>
+        En esta clase introductoria recorreremos los pilares esenciales de la programación antes de adentrarnos en el paradigma orientado a objetos. Dominar estos conceptos es indispensable para construir soluciones robustas y legibles.
+      </p>
+    </div>
+
+    <!-- NAVEGACIÓN POR TABS -->
+    <section>
+      <div class="tabs-nav">
+        <button id="btn-tab1" class="tab-btn" onclick="activateTab('tab1')">🧱 Fundamentos</button>
+        <button id="btn-tab2" class="tab-btn" onclick="activateTab('tab2')">🔢 Tipos de Datos</button>
+        <button id="btn-tab3" class="tab-btn" onclick="activateTab('tab3')">➕ Operadores</button>
+        <button id="btn-tab4" class="tab-btn" onclick="activateTab('tab4')">🔁 Estructuras</button>
+      </div>
+
+      <!-- ─── TAB 1: Fundamentos ─────────────────────── -->
+      <div id="panel-tab1" class="tab-panel">
+        <h2 class="section-title">Fundamentos de Programación</h2>
+        <p>La programación es el arte de dar instrucciones precisas a una computadora para resolver problemas. Antes de escribir código, debemos comprender los conceptos base que sostienen cualquier lenguaje.</p>
+
+        <div class="diagram-elements-grid">
+          <div class="concept-card">
+            <h3>📋 Algoritmo</h3>
+            <p>Secuencia <strong>finita, ordenada y no ambigua</strong> de pasos que transforman una entrada en una salida deseada. Es la solución abstracta al problema, independiente del lenguaje.</p>
+          </div>
+          <div class="concept-card">
+            <h3>☕ Java y la JVM</h3>
+            <p>Java compila el código fuente (<code>.java</code>) a <strong>bytecode</strong> (<code>.class</code>). La JVM (Java Virtual Machine) interpreta ese bytecode en cualquier sistema operativo — principio <em>"Write Once, Run Anywhere"</em>.</p>
+          </div>
+          <div class="concept-card">
+            <h3>📦 Variables y Constantes</h3>
+            <p>Una <strong>variable</strong> es un espacio en memoria con nombre y tipo que puede cambiar. Una <strong>constante</strong> se declara con <code>final</code> y su valor no puede modificarse tras su inicialización.</p>
+          </div>
+        </div>
+
+        <h3 class="sub-section-title">Estructura mínima de un programa Java</h3>
+        <div class="flow-box">
+          <span class="cm">// Clase principal — el nombre debe coincidir con el archivo</span><br>
+          <span class="kw">public class</span> HolaMundo {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Punto de entrada obligatorio de todo programa</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">public static void</span> main(String[] args) {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="str">"¡Hola, Mundo!"</span>);<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+          }
+        </div>
+
+        <details class="details-styled">
+          <summary><span><strong>¿Por qué public static void main?</strong></span></summary>
+          <div class="details-content">
+            <ul style="line-height:1.8">
+              <li><strong>public:</strong> accesible desde cualquier clase, necesario para que la JVM lo invoque.</li>
+              <li><strong>static:</strong> pertenece a la clase, no a una instancia; la JVM no necesita crear un objeto para llamarlo.</li>
+              <li><strong>void:</strong> no devuelve ningún valor.</li>
+              <li><strong>String[] args:</strong> arreglo de argumentos enviados desde la línea de comandos.</li>
+            </ul>
+          </div>
+        </details>
+
+        <div class="info-box-note">
+          💡 <strong>Buena práctica:</strong> Usa nombres descriptivos en inglés o español consistentemente. El código se lee muchas más veces de las que se escribe.
+        </div>
+      </div>
+
+      <!-- ─── TAB 2: Tipos de Datos ─────────────────── -->
+      <div id="panel-tab2" class="tab-panel">
+        <h2 class="section-title">Tipos de Datos en Java</h2>
+        <p>Java es un lenguaje de <strong>tipado estático</strong>: toda variable debe declararse con un tipo antes de usarse. Los tipos se dividen en <strong>primitivos</strong> (almacenan el valor directamente) y de <strong>referencia</strong> (almacenan la dirección de memoria).</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Categoría</th>
+              <th>Tamaño</th>
+              <th>Rango / Descripción</th>
+              <th>Ejemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>byte</code></td><td>Primitivo</td><td>8 bits</td><td>-128 a 127</td><td><code>byte b = 100;</code></td></tr>
+            <tr><td><code>short</code></td><td>Primitivo</td><td>16 bits</td><td>-32,768 a 32,767</td><td><code>short s = 500;</code></td></tr>
+            <tr><td><code>int</code></td><td>Primitivo</td><td>32 bits</td><td>±2.1 mil millones</td><td><code>int n = 42;</code></td></tr>
+            <tr><td><code>long</code></td><td>Primitivo</td><td>64 bits</td><td>±9.2 quintillones</td><td><code>long l = 99L;</code></td></tr>
+            <tr><td><code>float</code></td><td>Primitivo</td><td>32 bits</td><td>Decimal simple precisión</td><td><code>float f = 3.14f;</code></td></tr>
+            <tr><td><code>double</code></td><td>Primitivo</td><td>64 bits</td><td>Decimal doble precisión</td><td><code>double d = 3.14;</code></td></tr>
+            <tr><td><code>char</code></td><td>Primitivo</td><td>16 bits</td><td>Un carácter Unicode</td><td><code>char c = 'A';</code></td></tr>
+            <tr><td><code>boolean</code></td><td>Primitivo</td><td>1 bit</td><td>true / false</td><td><code>boolean ok = true;</code></td></tr>
+            <tr><td><code>String</code></td><td>Referencia</td><td>Variable</td><td>Cadena de caracteres</td><td><code>String s = "Hola";</code></td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-section-title">Declaración e inicialización</h3>
+        <div class="flow-box">
+          <span class="cm">// Declarar y asignar en la misma línea</span><br>
+          <span class="kw">int</span> edad <span class="op">=</span> <span class="num">21</span>;<br>
+          <span class="kw">double</span> promedio <span class="op">=</span> <span class="num">8.75</span>;<br>
+          <span class="kw">boolean</span> aprobado <span class="op">=</span> <span class="kw">true</span>;<br>
+          <span class="kw">char</span> inicial <span class="op">=</span> <span class="str">'J'</span>;<br>
+          String nombre <span class="op">=</span> <span class="str">"Josué"</span>;<br>
+          <br>
+          <span class="cm">// Constante — no puede cambiar después de inicializar</span><br>
+          <span class="kw">final double</span> PI <span class="op">=</span> <span class="num">3.14159</span>;
+        </div>
+
+        <div class="info-box-warn">
+          ⚠️ <strong>Conversión de tipos (casting):</strong> al asignar un tipo mayor a uno menor debes indicarlo explícitamente: <code>int n = (int) 3.99;</code> → n vale 3.
+        </div>
+
+        <details class="details-styled">
+          <summary><span><strong>Autoboxing y Wrapper Classes</strong></span></summary>
+          <div class="details-content">
+            Java dispone de clases envolventes (<em>wrappers</em>) para cada tipo primitivo: <code>Integer</code>, <code>Double</code>, <code>Boolean</code>, etc. El <strong>autoboxing</strong> convierte automáticamente entre primitivo y wrapper cuando es necesario, por ejemplo al guardar un <code>int</code> en un <code>ArrayList&lt;Integer&gt;</code>.
+          </div>
+        </details>
+      </div>
+
+      <!-- ─── TAB 3: Operadores ──────────────────────── -->
+      <div id="panel-tab3" class="tab-panel">
+        <h2 class="section-title">Operadores: Aritméticos, Relacionales y Lógicos</h2>
+        <p>Los operadores son los símbolos que le indican al compilador qué operaciones realizar sobre los operandos. Java los clasifica en tres grandes grupos que es indispensable dominar.</p>
+
+        <div class="diagram-elements-grid">
+          <div class="concept-card">
+            <h3>🔢 Aritméticos</h3>
+            <p>Realizan operaciones matemáticas entre valores numéricos.</p>
+            <p>
+              <span class="op-badge">+</span> Suma &nbsp;
+              <span class="op-badge">-</span> Resta<br><br>
+              <span class="op-badge">*</span> Multiplicación &nbsp;
+              <span class="op-badge">/</span> División<br><br>
+              <span class="op-badge">%</span> Módulo (residuo)<br><br>
+              <span class="op-badge">++</span> Incremento &nbsp;
+              <span class="op-badge">--</span> Decremento
+            </p>
+          </div>
+          <div class="concept-card">
+            <h3>⚖️ Relacionales</h3>
+            <p>Comparan dos valores y devuelven un <code>boolean</code>.</p>
+            <p>
+              <span class="op-badge">==</span> Igual a<br><br>
+              <span class="op-badge">!=</span> Diferente de<br><br>
+              <span class="op-badge">&gt;</span> Mayor que &nbsp;
+              <span class="op-badge">&lt;</span> Menor que<br><br>
+              <span class="op-badge">&gt;=</span> Mayor o igual &nbsp;
+              <span class="op-badge">&lt;=</span> Menor o igual
+            </p>
+          </div>
+          <div class="concept-card">
+            <h3>🧠 Lógicos</h3>
+            <p>Combinan expresiones booleanas para formar condiciones compuestas.</p>
+            <p>
+              <span class="op-badge">&amp;&amp;</span> AND — ambas verdaderas<br><br>
+              <span class="op-badge">||</span> OR — al menos una verdadera<br><br>
+              <span class="op-badge">!</span> NOT — niega el valor<br><br>
+              <span class="op-badge">^</span> XOR — exactamente una verdadera
+            </p>
+          </div>
+        </div>
+
+        <h3 class="sub-section-title">Ejemplos en Java</h3>
+        <div class="flow-box">
+          <span class="kw">int</span> a <span class="op">=</span> <span class="num">10</span>, b <span class="op">=</span> <span class="num">3</span>;<br>
+          System.out.println(a <span class="op">+</span> b);   <span class="cm">// 13  — Aritmético</span><br>
+          System.out.println(a <span class="op">%</span> b);   <span class="cm">// 1   — Módulo</span><br>
+          System.out.println(a <span class="op">&gt;</span> b);   <span class="cm">// true — Relacional</span><br>
+          System.out.println(a <span class="op">==</span> b);  <span class="cm">// false</span><br>
+          <br>
+          <span class="kw">boolean</span> esMayor <span class="op">=</span> (a <span class="op">&gt;</span> <span class="num">5</span>) <span class="op">&amp;&amp;</span> (b <span class="op">&lt;</span> <span class="num">10</span>);<br>
+          System.out.println(esMayor); <span class="cm">// true — Lógico AND</span>
+        </div>
+
+        <details class="details-styled">
+          <summary><span><strong>Precedencia de operadores</strong></span></summary>
+          <div class="details-content">
+            Java evalúa los operadores en este orden (de mayor a menor prioridad):<br><br>
+            <ol style="line-height:1.9">
+              <li><code>++</code> <code>--</code> (postfijo y prefijo)</li>
+              <li><code>*</code> <code>/</code> <code>%</code></li>
+              <li><code>+</code> <code>-</code></li>
+              <li><code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code></li>
+              <li><code>==</code> <code>!=</code></li>
+              <li><code>&amp;&amp;</code></li>
+              <li><code>||</code></li>
+              <li><code>=</code> (asignación)</li>
+            </ol>
+            Usa paréntesis para forzar el orden que necesites.
+          </div>
+        </details>
+      </div>
+
+      <!-- ─── TAB 4: Estructuras ────────────────────── -->
+      <div id="panel-tab4" class="tab-panel">
+        <h2 class="section-title">Estructuras Selectivas y Repetitivas</h2>
+        <p>Las estructuras de control dirigen el flujo de ejecución del programa, permitiendo tomar decisiones y repetir bloques de código de forma controlada.</p>
+
+        <!-- Selectivas -->
+        <h3 class="sub-section-title">Estructuras Selectivas (Condicionales)</h3>
+        <div class="diagram-elements-grid">
+          <div class="concept-card">
+            <h3>🔀 if / else if / else</h3>
+            <p>Evalúa una condición booleana y ejecuta uno de varios bloques según el resultado.</p>
+          </div>
+          <div class="concept-card">
+            <h3>🔀 switch-case</h3>
+            <p>Compara el valor de una variable contra múltiples casos constantes. Más limpio que múltiples <code>if</code> cuando hay muchas opciones fijas.</p>
+          </div>
+          <div class="concept-card">
+            <h3>🔀 Operador ternario</h3>
+            <p>Expresión compacta: <code>condición ? valorSi : valorNo</code>. Ideal para asignaciones simples en una sola línea.</p>
+          </div>
+        </div>
+
+        <div class="flow-box">
+          <span class="cm">// if / else if / else</span><br>
+          <span class="kw">int</span> nota <span class="op">=</span> <span class="num">75</span>;<br>
+          <span class="kw">if</span> (nota <span class="op">&gt;=</span> <span class="num">90</span>) {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="str">"Excelente"</span>);<br>
+          } <span class="kw">else if</span> (nota <span class="op">&gt;=</span> <span class="num">70</span>) {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="str">"Aprobado"</span>);<br>
+          } <span class="kw">else</span> {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="str">"Reprobado"</span>);<br>
+          }<br>
+          <br>
+          <span class="cm">// switch-case</span><br>
+          <span class="kw">int</span> dia <span class="op">=</span> <span class="num">2</span>;<br>
+          <span class="kw">switch</span> (dia) {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">case</span> <span class="num">1</span>: System.out.println(<span class="str">"Lunes"</span>); <span class="kw">break</span>;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">case</span> <span class="num">2</span>: System.out.println(<span class="str">"Martes"</span>); <span class="kw">break</span>;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">default</span>: System.out.println(<span class="str">"Otro día"</span>);<br>
+          }<br>
+          <br>
+          <span class="cm">// Ternario</span><br>
+          String estado <span class="op">=</span> (nota <span class="op">&gt;=</span> <span class="num">70</span>) <span class="op">?</span> <span class="str">"Aprobado"</span> <span class="op">:</span> <span class="str">"Reprobado"</span>;
+        </div>
+
+        <!-- Repetitivas -->
+        <h3 class="sub-section-title">Estructuras Repetitivas (Bucles)</h3>
+        <div class="diagram-elements-grid">
+          <div class="concept-card">
+            <h3>🔄 for</h3>
+            <p>Ideal cuando el <strong>número de iteraciones es conocido</strong>. Inicialización, condición e incremento en una misma línea.</p>
+          </div>
+          <div class="concept-card">
+            <h3>🔄 while</h3>
+            <p>Se ejecuta <strong>mientras la condición sea verdadera</strong>. Puede no ejecutarse si la condición es falsa desde el inicio.</p>
+          </div>
+          <div class="concept-card">
+            <h3>🔄 do-while</h3>
+            <p>Ejecuta el cuerpo <strong>al menos una vez</strong> y luego verifica la condición. Útil para menús y validaciones de entrada.</p>
+          </div>
+        </div>
+
+        <div class="flow-box">
+          <span class="cm">// for — imprime del 1 al 5</span><br>
+          <span class="kw">for</span> (<span class="kw">int</span> i <span class="op">=</span> <span class="num">1</span>; i <span class="op">&lt;=</span> <span class="num">5</span>; i<span class="op">++</span>) {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;System.out.println(i);<br>
+          }<br>
+          <br>
+          <span class="cm">// while</span><br>
+          <span class="kw">int</span> n <span class="op">=</span> <span class="num">10</span>;<br>
+          <span class="kw">while</span> (n <span class="op">&gt;</span> <span class="num">0</span>) {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;System.out.println(n);<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;n<span class="op">--</span>;<br>
+          }<br>
+          <br>
+          <span class="cm">// do-while — útil para menús</span><br>
+          <span class="kw">int</span> opcion;<br>
+          <span class="kw">do</span> {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// mostrar menú y capturar opcion...</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;opcion <span class="op">=</span> <span class="num">0</span>; <span class="cm">// simulación</span><br>
+          } <span class="kw">while</span> (opcion <span class="op">!=</span> <span class="num">0</span>);
+        </div>
+
+        <details class="details-styled">
+          <summary><span><strong>break y continue — control fino del bucle</strong></span></summary>
+          <div class="details-content">
+            <ul style="line-height:1.9">
+              <li><strong>break:</strong> Sale inmediatamente del bucle o bloque switch actual.</li>
+              <li><strong>continue:</strong> Salta el resto del cuerpo de la iteración actual y avanza a la siguiente.</li>
+            </ul>
+            <div class="flow-box" style="margin-top:10px;">
+              <span class="kw">for</span> (<span class="kw">int</span> i <span class="op">=</span> <span class="num">1</span>; i <span class="op">&lt;=</span> <span class="num">10</span>; i<span class="op">++</span>) {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (i <span class="op">==</span> <span class="num">5</span>) <span class="kw">continue</span>; <span class="cm">// salta el 5</span><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (i <span class="op">==</span> <span class="num">8</span>) <span class="kw">break</span>;    <span class="cm">// detiene en 8</span><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;System.out.println(i);<br>
+              }
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECCIÓN DE CUESTIONARIOS
+    ═══════════════════════════════════════════════ -->
+    <section style="margin-top: 50px;">
+      <h2 class="section-title">Cuestionarios de Autoevaluación</h2>
+      <p>Selecciona el tema que deseas evaluar haciendo clic en una de las tarjetas:</p>
+
+      <div class="quiz-selector">
+        <div id="qcard-q1" class="quiz-card-select" onclick="selectQuiz('q1')">
+          <div class="qc-icon">🧱</div>
+          <h4>Quiz 1</h4>
+          <p>Fundamentos de Programación</p>
+        </div>
+        <div id="qcard-q2" class="quiz-card-select" onclick="selectQuiz('q2')">
+          <div class="qc-icon">🔢</div>
+          <h4>Quiz 2</h4>
+          <p>Tipos de Datos en Java</p>
+        </div>
+        <div id="qcard-q3" class="quiz-card-select" onclick="selectQuiz('q3')">
+          <div class="qc-icon">➕</div>
+          <h4>Quiz 3</h4>
+          <p>Operadores</p>
+        </div>
+        <div id="qcard-q4" class="quiz-card-select" onclick="selectQuiz('q4')">
+          <div class="qc-icon">🔁</div>
+          <h4>Quiz 4</h4>
+          <p>Estructuras de Control</p>
+        </div>
+      </div>
+
+      <!-- ── QUIZ 1: Fundamentos ──────────────────── -->
+      <div id="qpanel-q1" class="quiz-panel quiz-container" style="margin-top:20px;">
+        <div class="quiz-header">
+          <h3>🧱 Quiz 1 — Fundamentos de Programación</h3>
+          <p>5 preguntas de opción múltiple sobre los pilares de la programación.</p>
+        </div>
+        <form id="form-q1">
+          <div class="quiz-question" data-q="q1_1">
+            <div class="question-text">1. ¿Cómo se define un algoritmo en el contexto de la programación?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q1_1" value="a"> A) Un lenguaje de programación orientado a objetos.</label>
+              <label class="quiz-option"><input type="radio" name="q1_1" value="b"> B) Una secuencia finita y ordenada de pasos para resolver un problema.</label>
+              <label class="quiz-option"><input type="radio" name="q1_1" value="c"> C) Un tipo de dato que almacena texto.</label>
+              <label class="quiz-option"><input type="radio" name="q1_1" value="d"> D) Una instrucción de impresión en consola.</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q1_2">
+            <div class="question-text">2. ¿Qué proceso realiza Java antes de que la JVM pueda ejecutar el programa?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q1_2" value="a"> A) Interpreta directamente el código fuente sin compilar.</label>
+              <label class="quiz-option"><input type="radio" name="q1_2" value="b"> B) Convierte el código a binario específico del sistema operativo.</label>
+              <label class="quiz-option"><input type="radio" name="q1_2" value="c"> C) Compila el código fuente a bytecode (.class) ejecutable por la JVM.</label>
+              <label class="quiz-option"><input type="radio" name="q1_2" value="d"> D) Envía el código a un servidor remoto para procesarlo.</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q1_3">
+            <div class="question-text">3. ¿Cuál es el punto de entrada obligatorio de toda aplicación Java?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q1_3" value="a"> A) public static void main(String[] args)</label>
+              <label class="quiz-option"><input type="radio" name="q1_3" value="b"> B) void start()</label>
+              <label class="quiz-option"><input type="radio" name="q1_3" value="c"> C) public void run()</label>
+              <label class="quiz-option"><input type="radio" name="q1_3" value="d"> D) static void init()</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q1_4">
+            <div class="question-text">4. ¿Qué representa una variable en programación?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q1_4" value="a"> A) Una función que realiza cálculos aritméticos.</label>
+              <label class="quiz-option"><input type="radio" name="q1_4" value="b"> B) Una clase que hereda de Object.</label>
+              <label class="quiz-option"><input type="radio" name="q1_4" value="c"> C) Una instrucción de control de flujo.</label>
+              <label class="quiz-option"><input type="radio" name="q1_4" value="d"> D) Un espacio en memoria identificado por un nombre que almacena un valor.</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q1_5">
+            <div class="question-text">5. ¿Cuál instrucción se usa en Java para imprimir texto en la consola con salto de línea?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q1_5" value="a"> A) console.log()</label>
+              <label class="quiz-option"><input type="radio" name="q1_5" value="b"> B) System.out.println()</label>
+              <label class="quiz-option"><input type="radio" name="q1_5" value="c"> C) print()</label>
+              <label class="quiz-option"><input type="radio" name="q1_5" value="d"> D) echo()</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-result-card" id="result-q1">
+            <h4>Resultado</h4>
+            <div class="quiz-result-score" id="score-q1">0/5</div>
+            <p id="feedback-q1"></p>
+          </div>
+          <div class="quiz-action-bar">
+            <button type="button" class="btn-quiz btn-reset" onclick="reiniciarQuiz('q1')">Reiniciar</button>
+            <button type="button" class="btn-quiz" onclick="calificarQuiz('q1')">Calificar</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ── QUIZ 2: Tipos de Datos ───────────────── -->
+      <div id="qpanel-q2" class="quiz-panel quiz-container" style="margin-top:20px;">
+        <div class="quiz-header">
+          <h3>🔢 Quiz 2 — Tipos de Datos en Java</h3>
+          <p>5 preguntas sobre primitivos, referencias y tamaños en Java.</p>
+        </div>
+        <form id="form-q2">
+          <div class="quiz-question" data-q="q2_1">
+            <div class="question-text">1. ¿Cuántos bits ocupa el tipo primitivo <code>int</code> en Java?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q2_1" value="a"> A) 8 bits</label>
+              <label class="quiz-option"><input type="radio" name="q2_1" value="b"> B) 16 bits</label>
+              <label class="quiz-option"><input type="radio" name="q2_1" value="c"> C) 32 bits</label>
+              <label class="quiz-option"><input type="radio" name="q2_1" value="d"> D) 64 bits</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q2_2">
+            <div class="question-text">2. ¿Cuál de los siguientes NO es un tipo de dato primitivo en Java?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q2_2" value="a"> A) String</label>
+              <label class="quiz-option"><input type="radio" name="q2_2" value="b"> B) int</label>
+              <label class="quiz-option"><input type="radio" name="q2_2" value="c"> C) boolean</label>
+              <label class="quiz-option"><input type="radio" name="q2_2" value="d"> D) double</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q2_3">
+            <div class="question-text">3. ¿Qué tipo de dato se usa para almacenar un único carácter como 'A' en Java?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q2_3" value="a"> A) String</label>
+              <label class="quiz-option"><input type="radio" name="q2_3" value="b"> B) int</label>
+              <label class="quiz-option"><input type="radio" name="q2_3" value="c"> C) byte</label>
+              <label class="quiz-option"><input type="radio" name="q2_3" value="d"> D) char</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q2_4">
+            <div class="question-text">4. ¿Qué tipo de dato solo puede contener los valores <code>true</code> o <code>false</code>?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q2_4" value="a"> A) int</label>
+              <label class="quiz-option"><input type="radio" name="q2_4" value="b"> B) boolean</label>
+              <label class="quiz-option"><input type="radio" name="q2_4" value="c"> C) byte</label>
+              <label class="quiz-option"><input type="radio" name="q2_4" value="d"> D) char</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q2_5">
+            <div class="question-text">5. ¿Cuál tipo primitivo ofrece mayor precisión para números decimales: <code>float</code> o <code>double</code>?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q2_5" value="a"> A) float, porque usa menos memoria.</label>
+              <label class="quiz-option"><input type="radio" name="q2_5" value="b"> B) Ambos tienen la misma precisión.</label>
+              <label class="quiz-option"><input type="radio" name="q2_5" value="c"> C) double, porque usa 64 bits frente a los 32 bits de float.</label>
+              <label class="quiz-option"><input type="radio" name="q2_5" value="d"> D) long, porque almacena números decimales de mayor rango.</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-result-card" id="result-q2">
+            <h4>Resultado</h4>
+            <div class="quiz-result-score" id="score-q2">0/5</div>
+            <p id="feedback-q2"></p>
+          </div>
+          <div class="quiz-action-bar">
+            <button type="button" class="btn-quiz btn-reset" onclick="reiniciarQuiz('q2')">Reiniciar</button>
+            <button type="button" class="btn-quiz" onclick="calificarQuiz('q2')">Calificar</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ── QUIZ 3: Operadores ───────────────────── -->
+      <div id="qpanel-q3" class="quiz-panel quiz-container" style="margin-top:20px;">
+        <div class="quiz-header">
+          <h3>➕ Quiz 3 — Operadores</h3>
+          <p>5 preguntas sobre operadores aritméticos, relacionales y lógicos.</p>
+        </div>
+        <form id="form-q3">
+          <div class="quiz-question" data-q="q3_1">
+            <div class="question-text">1. ¿Qué hace el operador <code>%</code> en Java?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q3_1" value="a"> A) Divide dos números y retorna el cociente.</label>
+              <label class="quiz-option"><input type="radio" name="q3_1" value="b"> B) Devuelve el residuo (resto) de una división entera.</label>
+              <label class="quiz-option"><input type="radio" name="q3_1" value="c"> C) Eleva un número a una potencia.</label>
+              <label class="quiz-option"><input type="radio" name="q3_1" value="d"> D) Verifica si dos valores son iguales.</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q3_2">
+            <div class="question-text">2. ¿Cuál es el resultado de la expresión: <code>(5 &gt; 3) &amp;&amp; (2 &lt; 1)</code>?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q3_2" value="a"> A) true</label>
+              <label class="quiz-option"><input type="radio" name="q3_2" value="b"> B) 1</label>
+              <label class="quiz-option"><input type="radio" name="q3_2" value="c"> C) null</label>
+              <label class="quiz-option"><input type="radio" name="q3_2" value="d"> D) false</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q3_3">
+            <div class="question-text">3. ¿Qué operador relacional verifica que dos valores sean <em>distintos</em>?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q3_3" value="a"> A) !=</label>
+              <label class="quiz-option"><input type="radio" name="q3_3" value="b"> B) ==</label>
+              <label class="quiz-option"><input type="radio" name="q3_3" value="c"> C"> &gt;=</label>
+              <label class="quiz-option"><input type="radio" name="q3_3" value="d"> D) &lt;&lt;</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q3_4">
+            <div class="question-text">4. ¿Cuál operador lógico devuelve <code>true</code> si <em>al menos una</em> condición es verdadera?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q3_4" value="a"> A) &amp;&amp;</label>
+              <label class="quiz-option"><input type="radio" name="q3_4" value="b"> B) !</label>
+              <label class="quiz-option"><input type="radio" name="q3_4" value="c"> C) ||</label>
+              <label class="quiz-option"><input type="radio" name="q3_4" value="d"> D) ^</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q3_5">
+            <div class="question-text">5. ¿Cuál es el resultado de <code>17 % 5</code>?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q3_5" value="a"> A) 3</label>
+              <label class="quiz-option"><input type="radio" name="q3_5" value="b"> B) 2</label>
+              <label class="quiz-option"><input type="radio" name="q3_5" value="c"> C) 1</label>
+              <label class="quiz-option"><input type="radio" name="q3_5" value="d"> D) 0</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-result-card" id="result-q3">
+            <h4>Resultado</h4>
+            <div class="quiz-result-score" id="score-q3">0/5</div>
+            <p id="feedback-q3"></p>
+          </div>
+          <div class="quiz-action-bar">
+            <button type="button" class="btn-quiz btn-reset" onclick="reiniciarQuiz('q3')">Reiniciar</button>
+            <button type="button" class="btn-quiz" onclick="calificarQuiz('q3')">Calificar</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ── QUIZ 4: Estructuras ─────────────────── -->
+      <div id="qpanel-q4" class="quiz-panel quiz-container" style="margin-top:20px;">
+        <div class="quiz-header">
+          <h3>🔁 Quiz 4 — Estructuras Selectivas y Repetitivas</h3>
+          <p>5 preguntas sobre if, switch, for, while y do-while.</p>
+        </div>
+        <form id="form-q4">
+          <div class="quiz-question" data-q="q4_1">
+            <div class="question-text">1. ¿Qué estructura es más adecuada cuando se compara una variable contra muchos valores constantes?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q4_1" value="a"> A) while</label>
+              <label class="quiz-option"><input type="radio" name="q4_1" value="b"> B) do-while</label>
+              <label class="quiz-option"><input type="radio" name="q4_1" value="c"> C) switch-case</label>
+              <label class="quiz-option"><input type="radio" name="q4_1" value="d"> D) for-each</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q4_2">
+            <div class="question-text">2. ¿Cuál bucle garantiza que su cuerpo se ejecute <em>al menos una vez</em>?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q4_2" value="a"> A) do-while</label>
+              <label class="quiz-option"><input type="radio" name="q4_2" value="b"> B) while</label>
+              <label class="quiz-option"><input type="radio" name="q4_2" value="c"> C) for</label>
+              <label class="quiz-option"><input type="radio" name="q4_2" value="d"> D) if-else</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q4_3">
+            <div class="question-text">3. ¿Qué hace la instrucción <code>break</code> dentro de un bucle?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q4_3" value="a"> A) Salta a la siguiente iteración.</label>
+              <label class="quiz-option"><input type="radio" name="q4_3" value="b"> B) Termina inmediatamente el bucle o bloque switch.</label>
+              <label class="quiz-option"><input type="radio" name="q4_3" value="c"> C) Pausa el programa por un segundo.</label>
+              <label class="quiz-option"><input type="radio" name="q4_3" value="d"> D) Reinicia el contador del bucle.</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q4_4">
+            <div class="question-text">4. ¿En qué situación es más conveniente usar el bucle <code>for</code>?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q4_4" value="a"> A) Cuando no sabemos cuántas veces se ejecutará el cuerpo.</label>
+              <label class="quiz-option"><input type="radio" name="q4_4" value="b"> B) Cuando la condición puede cambiar de forma impredecible.</label>
+              <label class="quiz-option"><input type="radio" name="q4_4" value="c"> C) Cuando debemos ejecutar el cuerpo siempre al menos una vez.</label>
+              <label class="quiz-option"><input type="radio" name="q4_4" value="d"> D) Cuando el número de iteraciones es conocido de antemano.</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-question" data-q="q4_5">
+            <div class="question-text">5. ¿Qué efecto produce la instrucción <code>continue</code> en un bucle?</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><input type="radio" name="q4_5" value="a"> A) Finaliza el programa completamente.</label>
+              <label class="quiz-option"><input type="radio" name="q4_5" value="b"> B) Detiene el bucle definitivamente.</label>
+              <label class="quiz-option"><input type="radio" name="q4_5" value="c"> C) Salta el código restante de la iteración actual y avanza a la siguiente.</label>
+              <label class="quiz-option"><input type="radio" name="q4_5" value="d"> D) Reinicia el bucle desde la primera iteración.</label>
+            </div>
+            <div class="feedback-explanation"></div>
+          </div>
+
+          <div class="quiz-result-card" id="result-q4">
+            <h4>Resultado</h4>
+            <div class="quiz-result-score" id="score-q4">0/5</div>
+            <p id="feedback-q4"></p>
+          </div>
+          <div class="quiz-action-bar">
+            <button type="button" class="btn-quiz btn-reset" onclick="reiniciarQuiz('q4')">Reiniciar</button>
+            <button type="button" class="btn-quiz" onclick="calificarQuiz('q4')">Calificar</button>
+          </div>
+        </form>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="../js/menu.js"></script>
+  <script src="../js/modulo2_clase1.js"></script>
+</body>
+</html>

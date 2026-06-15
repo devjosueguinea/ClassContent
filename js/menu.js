@@ -17,7 +17,8 @@ function cargarMenuLateral(containerId, moduleNumber, classId) {
             { id: 'clase4', title: 'Clase 4: Comportamiento', file: 'clase4.html' },
             { id: 'clase5', title: 'Clase 5: Diagramas de Clase', file: 'clase5.html' },
             { id: 'clase6', title: 'Clase 6: Relación de Herencia', file: 'clase6.html' },
-            { id: 'clase7', title: 'Clase 7: Agregación y Composición', file: 'clase7.html' }
+            { id: 'clase7', title: 'Clase 7: Agregación y Composición', file: 'clase7.html' },
+            { id: 'clase8', title: 'Clase 8: Diccionario de Datos', file: 'clase8.html' }
         ];
         
         let linksHTML = `<a href="${prefix}index.html">← Inicio</a>`;
@@ -40,6 +41,28 @@ function cargarMenuLateral(containerId, moduleNumber, classId) {
             </div>
         `;
     } else if (moduleNumber === '2') {
+        const clases2 = [
+            { id: 'clase1', title: 'Clase 1: Fundamentos de Programación', file: 'clase1.html' }
+        ];
+        let linksHTML2 = `<a href="${prefix}index.html">← Inicio</a>`;
+        clases2.forEach(c => {
+            const activeClass = c.id === classId ? 'class="active-class"' : '';
+            linksHTML2 += `<a href="${c.file}" ${activeClass}>${c.title}</a>`;
+        });
+        menuHTML = `
+            <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">Programación OO</div>
+                <nav class="sidebar-nav">
+                    ${linksHTML2}
+                </nav>
+            </aside>
+            <div class="mobile-header">
+                <strong>Programación OO</strong>
+                <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+            </div>
+        `;
+    } else if (moduleNumber === '2_old') {
         menuHTML = `
             <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
             <aside class="sidebar" id="sidebar">
