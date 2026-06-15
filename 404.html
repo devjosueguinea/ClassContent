@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error 404 - Página No Encontrada</title>
+    <style>
+        /* --- Variables de Diseño --- */
+        :root {
+            --bg-color: #0b0f19;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --accent-color: #6366f1;
+            --accent-hover: #4f46e5;
+            --card-bg: rgba(30, 41, 59, 0.5);
+        }
+
+        /* --- Estilos Generales --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* --- Fondo Interactivo --- */
+        #space-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #ffffff;
+            border-radius: 50%;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        /* --- Contenedor Principal --- */
+        .error-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 550px;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.1s ease-out;
+        }
+
+        /* --- Elementos Visuales --- */
+        .error-visual {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        #error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            user-select: none;
+        }
+
+        .astronaut {
+            font-size: 3rem;
+            position: absolute;
+            top: 10%;
+            right: 15%;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* --- Botones --- */
+        .actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+        }
+
+        /* --- Animaciones --- */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(10deg);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="space-overlay"></div>
+
+    <main class="error-container">
+        <div class="error-visual">
+            <h1 id="error-code">404</h1>
+            <div class="astronaut">🛸</div>
+        </div>
+
+        <h2>¡Houston, tenemos un problema!</h2>
+        <p>La página que estás buscando se ha desvanecido en el espacio profundo o nunca existió. No te preocupes, no
+            tienes que quedarte flotando aquí para siempre.</p>
+
+        <div class="actions">
+            <a href="/" class="btn btn-primary">Volver al Inicio</a>
+            <button id="btn-teleport" class="btn btn-secondary">Teletransportarme</button>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const spaceOverlay = document.getElementById('space-overlay');
+            const container = document.querySelector('.error-container');
+            const errorCode = document.getElementById('error-code');
+            const btnTeleport = document.getElementById('btn-teleport');
+
+            // 1. Generar estrellas aleatorias en el fondo
+            const starCount = 60;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+
+                const size = Math.random() * 3;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+
+                star.style.animationDelay = `${Math.random() * 2}s`;
+
+                spaceOverlay.appendChild(star);
+            }
+
+            // 2. Efecto Parallax interactivo con el movimiento del mouse
+            document.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+
+                // Inclina suavemente la tarjeta contenedora
+                container.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
+
+                // Mueve ligeramente el texto del código de error en dirección opuesta
+                errorCode.style.transform = `translate(${xAxis * 0.5}px, ${-yAxis * 0.5}px)`;
+            });
+
+            // Resetear la inclinación cuando el mouse sale de la ventana
+            document.addEventListener('mouseleave', () => {
+                container.style.transform = 'rotateY(0deg) rotateX(0deg)';
+                errorCode.style.transform = 'translate(0px, 0px)';
+            });
+
+            // 3. Acción interactiva alternativa (Botón Teletransportar)
+            btnTeleport.addEventListener('click', () => {
+                // Genera un efecto visual de "salto cuántico" cambiando temporalmente el fondo
+                document.body.style.backgroundColor = '#1e1b4b';
+                container.style.transform = 'scale(0.9) rotate(5deg)';
+
+                setTimeout(() => {
+                    document.body.style.backgroundColor = '#0b0f19';
+                    container.style.transform = 'scale(1) rotate(0deg)';
+                    // Redirección simulada al home
+                    window.location.href = '/';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+
+</html>
