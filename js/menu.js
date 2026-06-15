@@ -6,9 +6,9 @@
  */
 function cargarMenuLateral(containerId, moduleNumber, classId) {
     const prefix = "../"; // Al estar en moduloX/, la raíz está en el directorio padre
-    
+
     let menuHTML = '';
-    
+
     if (moduleNumber === '1') {
         const clases = [
             { id: 'clase1', title: 'Clase 1: Fundamentos y SDLC', file: 'clase1.html' },
@@ -20,13 +20,13 @@ function cargarMenuLateral(containerId, moduleNumber, classId) {
             { id: 'clase7', title: 'Clase 7: Agregación y Composición', file: 'clase7.html' },
             { id: 'clase8', title: 'Clase 8: Diccionario de Datos', file: 'clase8.html' }
         ];
-        
+
         let linksHTML = `<a href="${prefix}index.html">← Inicio</a>`;
         clases.forEach(c => {
             const activeClass = c.id === classId ? 'class="active-class"' : '';
             linksHTML += `<a href="${c.file}" ${activeClass}>${c.title}</a>`;
         });
-        
+
         menuHTML = `
             <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
             <aside class="sidebar" id="sidebar">
@@ -42,7 +42,13 @@ function cargarMenuLateral(containerId, moduleNumber, classId) {
         `;
     } else if (moduleNumber === '2') {
         const clases2 = [
-            { id: 'clase1', title: 'Clase 1: Fundamentos de Programación', file: 'clase1.html' }
+            { id: 'clase1', title: 'Clase 1: Fundamentos de Programación', file: 'clase1.html' },
+            { id: 'clase2', title: 'Clase 2: Programación Orientada a Objetos', file: 'clase2.html' },
+            { id: 'clase3', title: 'Clase 3: Vectores y Listas', file: 'clase3.html' },
+            { id: 'clase4', title: 'Clase 4: Clases y objetos', file: 'clase4.html' },
+            { id: 'clase5', title: 'Clase 5: Estructuras de datos', file: 'clase5.html' },
+            { id: 'clase6', title: 'Clase 6: API Restful', file: 'clase6.html' },
+            { id: 'clase7', title: 'Clase 7: Capas de API Restful', file: 'clase.html' }
         ];
         let linksHTML2 = `<a href="${prefix}index.html">← Inicio</a>`;
         clases2.forEach(c => {

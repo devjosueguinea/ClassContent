@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Josué Guinea Dev – Módulo 2, Clase 2: Programación Orientada a Objetos</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/class.css" />
+    <link rel="stylesheet" href="../css/modulo2_c2.css" />
+    <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+</head>
+
+<body data-module="2" data-class="clase2">
+    <div id="menu-container"></div>
+
+    <main class="main-content">
+
+        <div class="content-header">
+            <h1>Clase 2: Programación Orientada a Objetos.</h1>
+            <p>
+                La Programación Orientada a Objetos es un paradigma que estructura el código imitando elementos del
+                mundo real. A través de sus cuatro pilares esenciales, aprenderás a construir software escalable,
+                modular y reutilizable.
+            </p>
+        </div>
+
+        <section>
+            <div class="tabs-nav">
+                <button id="btn-tab1" class="tab-btn active" onclick="activateTab('tab1')">🧩 Clases y Objetos</button>
+                <button id="btn-tab2" class="tab-btn" onclick="activateTab('tab2')">🛡️ Abstracción y
+                    Encapsulamiento</button>
+                <button id="btn-tab3" class="tab-btn" onclick="activateTab('tab3')">🌿 Herencia</button>
+                <button id="btn-tab4" class="tab-btn" onclick="activateTab('tab4')">🎭 Polimorfismo</button>
+            </div>
+
+            <div id="panel-tab1" class="tab-panel active">
+                <h2 class="section-title">Clases y Objetos: El Molde y la Instancia</h2>
+                <p>En el corazón de la POO se encuentran las entidades que representan conceptos del mundo real mediante
+                    software.</p>
+
+                <div class="diagram-elements-grid">
+                    <div class="concept-card">
+                        <h3>📋 La Clase</h3>
+                        <p>Es una <strong>plantilla o molde abstracto</strong> que define las propiedades y
+                            comportamientos comunes que tendrán los objetos creados a partir de ella. No consume memoria
+                            para datos reales.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>📦 El Objeto</h3>
+                        <p>Es una <strong>instancia real y concreta</strong> de una clase. Posee un estado propio (sus
+                            variables tienen valores específicos) y puede ejecutar las acciones definidas en su molde.
+                        </p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>⚙️ Atributos y Métodos</h3>
+                        <p>Los <strong>atributos</strong> son las características o datos del objeto (variables). Los
+                            <strong>métodos</strong> representan las acciones o funciones que el objeto sabe realizar.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="sub-section-title">Ejemplo: Creación de una clase e instanciación</h3>
+                <div class="flow-box">
+                    <span class="kw">public class</span> Pokemon {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Atributos (Estado)</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;String nombre;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">int</span> nivel;<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Constructor (Inicializador)</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">public</span> Pokemon(String nombre, <span
+                        class="kw">int</span> nivel) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">this</span>.nombre = nombre;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">this</span>.nivel = nivel;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Método (Comportamiento)</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">public void</span> atacar() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(nombre + <span class="str">"
+                        lanza un ataque!"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }<br><br>
+                    <span class="cm">// Uso en el método main:</span><br>
+                    Pokemon miPokemon = <span class="kw">new</span> Pokemon(<span class="str">"Pikachu"</span>, <span
+                        class="num">15</span>);<br>
+                    miPokemon.atacar(); <span class="cm">// Imprime: Pikachu lanza un ataque!</span>
+                </div>
+
+                <details class="details-styled">
+                    <summary><span><strong>¿Qué es el operador 'new' y el constructor?</strong></span></summary>
+                    <div class="details-content">
+                        <ul style="line-height:1.8">
+                            <li><strong>new:</strong> Es la palabra clave que reserva espacio en la memoria Heap para
+                                almacenar el nuevo objeto.</li>
+                            <li><strong>Constructor:</strong> Un método especial que se llama automáticamente al usar
+                                <code>new</code>. Tiene el mismo nombre que la clase y sirve para inicializar los
+                                atributos.
+                            </li>
+                        </ul>
+                    </div>
+                </details>
+
+                <div class="info-box-note">
+                    💡 <strong>Buena práctica:</strong> En Java, las clases siempre siguen la convención
+                    <em>UpperCamelCase</em> (ej. <code>GestorUsuarios</code>), mientras que los objetos y métodos usan
+                    <em>lowerCamelCase</em> (ej. <code>miCuenta</code>).
+                </div>
+            </div>
+
+            <div id="panel-tab2" class="tab-panel">
+                <h2 class="section-title">Abstracción y Encapsulamiento</h2>
+                <p>Estos dos pilares se enfocan en la protección de los datos y en simplificar la interacción con
+                    objetos complejos.</p>
+
+                <div class="diagram-elements-grid">
+                    <div class="concept-card">
+                        <h3>🎨 Abstracción</h3>
+                        <p>Consiste en aislar y <strong>extraer únicamente las características esenciales</strong> de un
+                            objeto para el dominio del problema, ignorando los detalles internos innecesarios.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>🛡️ Encapsulamiento</h3>
+                        <p>Significa reunir los datos y los métodos que los manipulan en una "cápsula",
+                            <strong>restringiendo el acceso directo</strong> desde el exterior para evitar corromper el
+                            estado del objeto.
+                        </p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>🔑 Modificadores de Acceso</h3>
+                        <p>Palabras clave que regulan la visibilidad: <code>private</code> (solo la propia clase),
+                            <code>public</code> (cualquiera) y <code>protected</code> (clases hijas).
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="sub-section-title">Implementación con Getters y Setters</h3>
+                <div class="flow-box">
+                    <span class="kw">public class</span> CuentaBancaria {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">private double</span> saldo; <span class="cm">// Nadie
+                        puede modificarlo directamente</span><br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Getter: Acceso seguro al valor</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">public double</span> getSaldo() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return this</span>.saldo;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Setter: Modificación controlada con
+                        validaciones</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">public void</span> depositar(<span class="kw">double</span>
+                    monto) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (monto &gt; <span
+                        class="num">0</span>) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="kw">this</span>.saldo += monto;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }
+                </div>
+
+                <div class="info-box-warn">
+                    ⚠️ <strong>Riesgo de diseño:</strong> Exponer todos tus atributos con setters automáticos rompe el
+                    encapsulamiento. Modifica el estado del objeto únicamente a través de métodos de negocio con lógica
+                    válida.
+                </div>
+            </div>
+
+            <div id="panel-tab3" class="tab-panel">
+                <h2 class="section-title">Herencia: Reutilización Eficiente</h2>
+                <p>Mecanismo que permite a una clase nueva adquirir las propiedades y métodos de una clase ya existente,
+                    promoviendo la reutilización del código.</p>
+
+                <div class="diagram-elements-grid">
+                    <div class="concept-card">
+                        <h3>🔝 Súperclase (Padre)</h3>
+                        <p>Clase genérica que contiene los atributos y comportamientos comunes. Ejemplo:
+                            <code>Vehiculo</code>.
+                        </p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>🔜 Subclase (Hijo)</h3>
+                        <p>Clase especializada que hereda del padre utilizando la palabra clave <code>extends</code>.
+                            Puede añadir sus propios atributos o métodos.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>🧬 Palabra clave 'super'</h3>
+                        <p>Se utiliza dentro de la subclase para invocar explícitamente al constructor o a los métodos
+                            de la súperclase padre.</p>
+                    </div>
+                </div>
+
+                <h3 class="sub-section-title">Código de Herencia en Java</h3>
+                <div class="flow-box">
+                    <span class="kw">class</span> Vehiculo {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;String marca;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">public void</span> arrancar() { System.out.println(<span
+                        class="str">"En marcha..."</span>); }<br>
+                    }<br><br>
+                    <span class="cm">// Coche hereda de Vehiculo</span><br>
+                    <span class="kw">class</span> Coche <span class="kw">extends</span> Vehiculo {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">int</span> puertas;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">public void</span> abrirMaletero() {
+                    System.out.println(<span class="str">"Maletero abierto."</span>); }<br>
+                    }<br><br>
+                    <span class="cm">// Uso:</span><br>
+                    Coche miCoche = <span class="kw">new</span> Coche();<br>
+                    miCoche.marca = <span class="str">"Toyota"</span>; <span class="cm">// Atributo heredado</span><br>
+                    miCoche.arrancar(); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Método heredado</span>
+                </div>
+            </div>
+
+            <div id="panel-tab4" class="tab-panel">
+                <h2 class="section-title">Polimorfismo: Muchas Formas</h2>
+                <p>El polimorfismo es la capacidad de tratar dinámicamente a objetos de distintas subclases como si
+                    fueran de la súperclase, respondiendo de maneras distintas según su naturaleza real.</p>
+
+                <div class="diagram-elements-grid">
+                    <div class="concept-card">
+                        <h3>🎭 Sobreescritura (@Override)</h3>
+                        <p>Permite a una subclase modificar la implementación de un método heredado del padre para
+                            adaptarlo a su propia necesidad.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>🔄 Enlace Dinámico</h3>
+                        <p>La JVM determina en <strong>tiempo de ejecución</strong> a qué método llamar basándose en el
+                            tipo real del objeto instanciado, no en el tipo de variable de referencia.</p>
+                    </div>
+                </div>
+
+                <h3 class="sub-section-title">Demostración práctica de Polimorfismo</h3>
+                <div class="flow-box">
+                    <span class="kw">abstract class</span> Animal {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">public abstract void</span> emitirSonido();<br>
+                    }<br><br>
+                    <span class="kw">class</span> Perro <span class="kw">extends</span> Animal {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">@Override</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">public void</span> emitirSonido() {
+                    System.out.println(<span class="str">"¡Guau!"</span>); }<br>
+                    }<br><br>
+                    <span class="kw">class</span> Gato <span class="kw">extends</span> Animal {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">@Override</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">public void</span> emitirSonido() {
+                    System.out.println(<span class="str">"¡Miau!"</span>); }<br>
+                    }<br><br>
+                    <span class="cm">// Aplicación de Polimorfismo</span><br>
+                    Animal miAnimal = <span class="kw">new</span> Perro();<br>
+                    miAnimal.emitirSonido(); <span class="cm">// Imprime "¡Guau!"</span><br><br>
+                    miAnimal = <span class="kw">new</span> Gato();<br>
+                    miAnimal.emitirSonido(); <span class="cm">// Imprime "¡Miau!"</span>
+                </div>
+            </div>
+        </section>
+
+        <section style="margin-top: 50px;">
+            <h2 class="section-title">Cuestionario de Autoevaluación</h2>
+            <p>Pon a prueba tus conocimientos sobre la Programación Orientada a Objetos respondiendo el siguiente
+                cuestionario:</p>
+
+            <div id="qpanel-poo" class="quiz-panel quiz-container" style="display: block; margin-top:20px;">
+                <div class="quiz-header">
+                    <h3>🧠 Quiz — Pilares de la Programación Orientada a Objetos</h3>
+                    <p>5 preguntas de opción múltiple estructuradas para validar tu aprendizaje.</p>
+                </div>
+                <form id="form-poo">
+
+                    <div class="quiz-question" data-q="poo_1">
+                        <div class="question-text">1. ¿Qué es conceptualmente una clase en el paradigma POO?</div>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="poo_1" value="a"> A) Una instancia
+                                física que ocupa espacio de datos variables.</label>
+                            <label class="quiz-option"><input type="radio" name="poo_1" value="b"> B) Una plantilla o
+                                molde abstracto que define atributos y comportamientos comunes.</label>
+                            <label class="quiz-option"><input type="radio" name="poo_1" value="c"> C) Un tipo de dato
+                                primitivo que almacena flujos lógicos complejos.</label>
+                            <label class="quiz-option"><input type="radio" name="poo_1" value="d"> D) Un método especial
+                                reservado exclusivamente para la JVM.</label>
+                        </div>
+                        <div class="feedback-explanation"></div>
+                    </div>
+
+                    <div class="quiz-question" data-q="poo_2">
+                        <div class="question-text">2. ¿Qué principio de la POO se encarga de restringir el acceso
+                            directo a los atributos de un objeto protegiendo su estado interno?</div>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="poo_2" value="a"> A)
+                                Abstracción</label>
+                            <label class="quiz-option"><input type="radio" name="poo_2" value="b"> B)
+                                Polimorfismo</label>
+                            <label class="quiz-option"><input type="radio" name="poo_2" value="c"> C)
+                                Encapsulamiento</label>
+                            <label class="quiz-option"><input type="radio" name="poo_2" value="d"> D) Herencia
+                                múltiple</label>
+                        </div>
+                        <div class="feedback-explanation"></div>
+                    </div>
+
+                    <div class="quiz-question" data-q="poo_3">
+                        <div class="question-text">3. ¿Qué palabra clave se utiliza explícitamente en Java para heredar
+                            propiedades y métodos de una súperclase?</div>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="poo_3" value="a"> A) implements</label>
+                            <label class="quiz-option"><input type="radio" name="poo_3" value="b"> B) extends</label>
+                            <label class="quiz-option"><input type="radio" name="poo_3" value="c"> C) super</label>
+                            <label class="quiz-option"><input type="radio" name="poo_3" value="d"> D) inherit</label>
+                        </div>
+                        <div class="feedback-explanation"></div>
+                    </div>
+
+                    <div class="quiz-question" data-q="poo_4">
+                        <div class="question-text">4. Si asignamos un objeto de la clase <code>Gato</code> a una
+                            variable de referencia de tipo <code>Animal</code>, ¿qué propiedad de la POO estamos
+                            utilizando?</div>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="poo_4" value="a"> A) Encapsulamiento
+                                estricto</label>
+                            <label class="quiz-option"><input type="radio" name="poo_4" value="b"> B) Abstracción
+                                primitiva</label>
+                            <label class="quiz-option"><input type="radio" name="poo_4" value="c"> C) Sobrecarga de
+                                operadores</label>
+                            <label class="quiz-option"><input type="radio" name="poo_4" value="d"> D)
+                                Polimorfismo</label>
+                        </div>
+                        <div class="feedback-explanation"></div>
+                    </div>
+
+                    <div class="quiz-question" data-q="poo_5">
+                        <div class="question-text">5. ¿Cuándo se ejecuta de manera obligatoria el método constructor en
+                            un programa Java?</div>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="poo_5" value="a"> A) Al declarar el
+                                tipo de variable de la clase.</label>
+                            <label class="quiz-option"><input type="radio" name="poo_5" value="b"> B) Justo antes de que
+                                el recolector de basura elimine el objeto.</label>
+                            <label class="quiz-option"><input type="radio" name="poo_5" value="c"> C) Al instanciar un
+                                nuevo objeto utilizando la palabra reservada 'new'.</label>
+                            <label class="quiz-option"><input type="radio" name="poo_5" value="d"> D) Cada vez que se
+                                manda a llamar un método de tipo Get u @Override.</label>
+                        </div>
+                        <div class="feedback-explanation"></div>
+                    </div>
+
+                    <div class="quiz-result-card" id="result-poo">
+                        <h4>Resultado</h4>
+                        <div class="quiz-result-score" id="score-poo">0/5</div>
+                        <p id="feedback-poo"></p>
+                    </div>
+
+                    <div class="quiz-action-bar">
+                        <button type="button" class="btn-quiz btn-reset"
+                            onclick="reiniciarQuiz('poo')">Reiniciar</button>
+                        <button type="button" class="btn-quiz" onclick="calificarQuiz('poo')">Calificar</button>
+                    </div>
+                </form>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="../js/menu.js"></script>
+    <script src="../js/modulo2_clase2.js"></script>
+</body>
+
+</html>
