@@ -68,21 +68,6 @@ function cargarMenuLateral(containerId, moduleNumber, classId) {
                 <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
             </div>
         `;
-    } else if (moduleNumber === '2_old') {
-        menuHTML = `
-            <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-            <aside class="sidebar" id="sidebar">
-                <div class="sidebar-header">Desarrollo Web</div>
-                <nav class="sidebar-nav">
-                    <a href="${prefix}index.html">← Inicio</a>
-                    <a href="#" class="active-class">Próximamente</a>
-                </nav>
-            </aside>
-            <div class="mobile-header">
-                <strong>Desarrollo Web</strong>
-                <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
-            </div>
-        `;
     } else if (moduleNumber === '3') {
         menuHTML = `
             <div class="overlay" id="overlay" onclick="toggleMenu()"></div>

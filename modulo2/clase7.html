@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Josué Guinea Dev – Módulo 2, Clase 7: Estructura de una API RESTful</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/class.css" />
+    <link rel="stylesheet" href="../css/m2clase7.css" />
+    <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+</head>
+
+<body data-module="2" data-class="clase7">
+
+    <div id="menu-container"></div>
+
+    <main class="main-content">
+
+        <div class="content-header">
+            <h1>Clase 7: Anatomía Estructurada de una API RESTful Profesional</h1>
+            <p>
+                ¡Hola, Developers! En esta clase aprenderemos a organizar el código de producción en Spring Boot.
+                Analizaremos en detalle las capas esenciales que se utilizan en proyectos del mundo real para garantizar
+                seguridad, modularidad y escalabilidad empresarial.
+            </p>
+        </div>
+
+        <section>
+            <div class="tabs-nav">
+                <button id="btn-tab1" class="tab-btn active" onclick="activateTab('tab1')">🛡️ 1. Seguridad e
+                    Infraestructura</button>
+                <button id="btn-tab2" class="tab-btn" onclick="activateTab('tab2')">🎮 2. Controladores y
+                    Transporte</button>
+                <button id="btn-tab3" class="tab-btn" onclick="activateTab('tab3')">⚙️ 3. Lógica de Negocio</button>
+                <button id="btn-tab4" class="tab-btn" onclick="activateTab('tab4')">🗄️ 4. Persistencia y
+                    Utilidades</button>
+            </div>
+
+            <div id="panel-tab1" class="tab-panel active">
+                <h2 class="section-title">El Perímetro de Entrada: Seguridad e Infraestructura</h2>
+                <p>Antes de que una petición HTTP llegue a tocar nuestras funciones de código operativo, debe ser
+                    evaluada y aprobada en las fronteras perimetrales de la aplicación.</p>
+
+                <div class="layer-grid-v7">
+                    <div class="layer-card-v7">
+                        <h3>🔒 Security</h3>
+                        <p>Filtros encargados de interceptar cada solicitud para verificar la identidad del cliente
+                            (autenticación) y sus permisos asignados (autorización), comúnmente usando tokens JWT.</p>
+                        <div class="analogy-box-v7">
+                            <strong>🛡️ Analogía:</strong> El personal de seguridad en la puerta de un club exclusivo.
+                            Revisa tu identificación y comprueba si estás en la lista VIP antes de dejarte pasar.
+                        </div>
+                    </div>
+
+                    <div class="layer-card-v7">
+                        <h3>🌐 Cors</h3>
+                        <p>Mecanismo de seguridad que le indica al servidor qué aplicaciones de frontend (orígenes
+                            externos o dominios de confianza) tienen derecho de consumir los endpoints de la API.</p>
+                        <div class="analogy-box-v7">
+                            <strong>🛡️ Analogía:</strong> Las políticas oficiales de admisión de un edificio
+                            corporativo que definen qué empresas externas aliadas tienen permiso de enviar personal a
+                            las oficinas.
+                        </div>
+                    </div>
+
+                    <div class="layer-card-v7">
+                        <h3>🛠️ Config</h3>
+                        <p>Clases decoradas con <code>@Configuration</code> que se encargan de configurar librerías de
+                            terceros (como Swagger o encriptadores) e inyectar Beans personalizados al contenedor de
+                            Spring.</p>
+                        <div class="analogy-box-v7">
+                            <strong>🛡️ Analogía:</strong> El plano de ensamble o las instrucciones de calibración para
+                            que herramientas externas se adapten perfectamente a las instalaciones de la fábrica.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="panel-tab2" class="tab-panel">
+                <h2 class="section-title">La Puerta de Entrada HTTP y Estructuras de Intercambio</h2>
+                <p>Una vez aprobada la seguridad, la petición es atendida en el área de comunicación y mapeo de datos.
+                </p>
+
+                <div class="layer-grid-v7">
+                    <div class="layer-card-v7">
+                        <h3>⚡ Controllers</h3>
+                        <p>Clases marcadas con <code>@RestController</code>. Su única función es exponer las rutas URL,
+                            recibir solicitudes HTTP, delegar la operación al servicio y retornar el código de estado
+                            correspondiente (200, 201, 400, etc.).</p>
+                        <div class="analogy-box-v7">
+                            <strong>🍽️ Analogía:</strong> El camarero o recepcionista del restaurante. Recibe tu orden
+                            formalmente, se asegura de que el pedido tenga sentido y lo pasa de inmediato a la cocina.
+                            No cocina él mismo.
+                        </div>
+                    </div>
+
+                    <div class="layer-card-v7">
+                        <h3>🍱 DTO (Data Transfer Object)</h3>
+                        <p>Clases planas diseñadas puramente para dar forma al JSON que entra o sale de la API. Nos
+                            permiten ocultar datos sensibles de la base de datos y optimizar el rendimiento de red.</p>
+                        <div class="analogy-box-v7">
+                            <strong>🍽️ Analogía:</strong> El diseño del emplatado final. Al cliente le entregas la
+                            comida en un plato estético y digerible, no le llevas las cajas de cartón ni los empaques
+                            plásticos del proveedor.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="panel-tab3" class="tab-panel">
+                <h2 class="section-title">El Corazón de la Aplicación: Capa Operativa</h2>
+                <p>Aquí es donde ocurre la verdadera magia, las reglas de tu sistema y la toma de decisiones
+                    algorítmicas.</p>
+
+                <div class="layer-grid-v7">
+                    <div class="layer-card-v7">
+                        <h3>⚙️ Services</h3>
+                        <p>Clases anotadas con <code>@Service</code>. Contienen las reglas del negocio, validaciones
+                            complejas, cálculos aritméticos, y coordinan las transacciones operativas de la aplicación.
+                        </p>
+                        <div class="analogy-box-v7">
+                            <strong>👨‍🍳 Analogía:</strong> El Jefe de Cocina (Chef Executif). Sabe exactamente la
+                            receta, verifica que los ingredientes cumplan con los estándares de calidad y coordina el
+                            orden de preparación de la comida.
+                        </div>
+                    </div>
+
+                    <div class="layer-card-v7">
+                        <h3>🧬 DAOImplements</h3>
+                        <p>Clases que implementan consultas a bases de datos personalizadas o avanzadas que requieren
+                            <i>"queries"</i> complejas, procedimientos almacenados o mapeos manuales específicos.
+                        </p>
+                        <div class="analogy-box-v7">
+                            <strong>👨‍🍳 Analogía:</strong> El cocinero especialista encargado de elaborar las salsas
+                            secretas o platos de autor complejos que no se obtienen con solo presionar un botón del
+                            dispensador estándar.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="panel-tab4" class="tab-panel">
+                <h2 class="section-title">La Capa de Datos y Herramientas del Sistema</h2>
+                <p>Las últimas capas interactúan directamente con el almacenamiento permanente o actúan como soportes
+                    globales.</p>
+
+                <div class="layer-grid-v7">
+                    <div class="layer-card-v7">
+                        <h3>🗄️ Repositories</h3>
+                        <p>Interfaces que heredan de <code>JpaRepository</code>. Proveen de forma automática las
+                            operaciones básicas de base de datos (Guardar, Buscar, Eliminar, Editar) sin necesidad de
+                            escribir SQL a mano.</p>
+                        <div class="analogy-box-v7">
+                            <strong>📦 Analogía:</strong> El dispensador automático inteligente del almacén de
+                            ingredientes. Presionas un botón y te entrega exactamente el producto solicitado de las
+                            estanterías de inmediato.
+                        </div>
+                    </div>
+
+                    <div class="layer-card-v7">
+                        <h3>📦 Entity</h3>
+                        <p>Clases anotadas con <code>@Entity</code> que representan de forma idéntica las tablas
+                            relacionales de la base de datos. Cada instancia equivale a una fila en SQL.</p>
+                        <div class="analogy-box-v7">
+                            <strong>📦 Analogía:</strong> Los contenedores originales y sacos etiquetados en la bodega
+                            con códigos de barra internos y pesos brutos exactos dictados por el almacén central.
+                        </div>
+                    </div>
+
+                    <div class="layer-card-v7">
+                        <h3>🧰 Utils</h3>
+                        <p>Clases con métodos estáticos genéricos que resuelven tareas repetitivas en múltiples capas,
+                            como formatear fechas, validar correos o encriptar strings rápidos.</p>
+                        <div class="analogy-box-v7">
+                            <strong>📦 Analogía:</strong> Las herramientas básicas de la cocina como el abrelatas o el
+                            pelador. No pertenecen a una receta en particular, pero todos los usan.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box-warn">
+                    ⚠️ <strong>Regla Enterprise Crucial:</strong> En un diseño robusto, los Controllers hablan
+                    exclusivamente con los Services, los Services consumen los Repositories / DAOImplements, y los datos
+                    viajan hacia afuera transformados en DTOs para proteger nuestras Entities.
+                </div>
+            </div>
+        </section>
+
+        <section style="margin-top: 40px;">
+            <h2 class="section-title">Inspección de la Torre Arquitectónica</h2>
+            <p>Haz clic sobre cualquiera de las capas apiladas para auditar su comportamiento en tiempo de ejecución
+                corporativa:</p>
+
+            <div class="interactive-stack-v7">
+                <div class="stack-layer-v7 color-s1"
+                    onclick="showLayerDetails('Seguridad e Infraestructura (Security, Cors, Config)', 'Punto de control inicial. Valida el origen de la URL (CORS), autentica las credenciales con JWT y levanta las configuraciones del sistema.')">
+                    1. Seguridad e Infraestructura perimetral</div>
+                <div class="stack-layer-v7 color-s2"
+                    onclick="showLayerDetails('Controladores y DTOs (Controllers, DTO)', 'Capa Web de Transporte. Recibe los JSON en el Body HTTP, los valida formalmente y despacha la respuesta con el status HTTP idóneo.')">
+                    2. Recepción Web y Contratos de Datos</div>
+                <div class="stack-layer-v7 color-s3"
+                    onclick="showLayerDetails('Lógica Operativa (Services)', 'Capa del Negocio Central. Aquí se procesan cálculos financieros, flujos lógicos complejos y alertas operativas antes de autorizar cambios.')">
+                    3. Núcleo de Reglas de Negocio</div>
+                <div class="stack-layer-v7 color-s4"
+                    onclick="showLayerDetails('Persistencia de Datos (Repositories, DAOImplements, Entity, Utils)', 'Acceso a Datos Permanente. Ejecuta las sentencias CRUD automáticas o personalizadas y mapea la información desde y hacia las tablas SQL.')">
+                    4. Persistencia, Entidades y Soporte</div>
+            </div>
+            <div id="stack-display-v7" class="stack-details-v7">Selecciona una capa de la torre para inspeccionar sus
+                responsabilidades...</div>
+        </section>
+
+        <section class="quiz-container" style="margin-top: 40px;">
+            <div class="quiz-header">
+                <h3>🧩 Desafío Arquitectónico: Relaciona los Conceptos</h3>
+                <p>Prueba tu nivel técnico emparejando los componentes de Spring Boot con su analogía operativa
+                    correcta.</p>
+            </div>
+
+            <div class="match-game-v7">
+                <div class="match-column-v7" id="col-concepts">
+                    <div class="match-item-v7" data-id="1">⚡ Controllers</div>
+                    <div class="match-item-v7" data-id="2">⚙️ Services</div>
+                    <div class="match-item-v7" data-id="3">🍱 DTO</div>
+                    <div class="match-item-v7" data-id="4">🔒 Security</div>
+                    <div class="match-item-v7" data-id="5">🗄️ Repositories</div>
+                </div>
+
+                <div class="match-column-v7" id="col-analogies">
+                    <div class="match-item-v7" data-match="3">El plato estético final presentado al cliente sin los
+                        empaques internos de bodega.</div>
+                    <div class="match-item-v7" data-match="1">El camarero de recepción que anota el pedido y te regresa
+                        el platillo final.</div>
+                    <div class="match-item-v7" data-match="5">El dispensador inteligente del almacén que entrega
+                        ingredientes sin modificarlos.</div>
+                    <div class="match-item-v7" data-match="2">El Jefe de Cocina que conoce los pasos de la receta y
+                        orquesta las reglas de negocio.</div>
+                    <div class="match-item-v7" data-match="4">El guardia o bouncer de la entrada que valida tu token de
+                        acceso e invitación VIP.</div>
+                </div>
+            </div>
+
+            <div class="quiz-result-card" id="quiz-result-v7">
+                <h4>🎉 ¡Excelente! Arquitectura Dominada</h4>
+                <div class="quiz-result-score">5/5</div>
+                <p>Comprendes con total nitidez la separación de responsabilidades de una arquitectura limpia en Spring
+                    Boot. ¡Buen trabajo!</p>
+            </div>
+
+            <div class="quiz-action-bar">
+                <button type="button" class="btn-quiz btn-reset" onclick="resetMatchGame()">Reiniciar Desafío</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/menu.js"></script>
+    <script src="../js/m2clase7.js"></script>
+</body>
+
+</html>
