@@ -48,7 +48,8 @@ function cargarMenuLateral(containerId, moduleNumber, classId) {
             { id: 'clase4', title: 'Clase 4: Clases y objetos', file: 'clase4.html' },
             { id: 'clase5', title: 'Clase 5: Estructuras de datos', file: 'clase5.html' },
             { id: 'clase6', title: 'Clase 6: API Restful', file: 'clase6.html' },
-            { id: 'clase7', title: 'Clase 7: Capas de API Restful', file: 'clase7.html' }
+            { id: 'clase7', title: 'Clase 7: Capas de API Restful', file: 'clase7.html' },
+            { id: 'clase8', title: 'Clase 8: CRUD y JpaRepository', file: 'clase8.html' }
         ];
         let linksHTML2 = `<a href="${prefix}index.html">← Inicio</a>`;
         clases2.forEach(c => {

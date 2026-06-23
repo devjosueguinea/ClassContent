@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Josué Guinea Dev – Módulo 2, Clase 8: CRUD y JpaRepository con Oracle</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/class.css" />
+    <link rel="stylesheet" href="../css/m2clase8.css" />
+    <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+</head>
+
+<body data-module="2" data-class="clase8">
+
+    <div id="menu-container"></div>
+
+    <main class="main-content">
+
+        <div class="content-header">
+            <h1>Clase 8: Implementación de CRUD con JpaRepository, Oracle y Seguridad (.env)</h1>
+            <p>
+                ¡Hola, Developers! En esta clase aprenderemos cómo conectar nuestra API RESTful a una base de datos Oracle de nivel empresarial, 
+                cómo asegurar las credenciales usando variables de entorno con un archivo <code>.env</code> y cómo simplificar la persistencia 
+                implementando un CRUD completo utilizando la potente interfaz <code>JpaRepository</code>.
+            </p>
+        </div>
+
+        <section>
+            <div class="tabs-nav">
+                <button id="btn-tab1" class="tab-btn active" onclick="activateTab('tab1')">🔌 1. Conexión & .env</button>
+                <button id="btn-tab2" class="tab-btn" onclick="activateTab('tab2')">📦 2. Entidad & Repository</button>
+                <button id="btn-tab3" class="tab-btn" onclick="activateTab('tab3')">⚙️ 3. Servicio & CRUD</button>
+                <button id="btn-tab4" class="tab-btn" onclick="activateTab('tab4')">⚡ 4. Controlador REST</button>
+            </div>
+
+            <!-- TAB 1: CONEXIÓN & .ENV -->
+            <div id="panel-tab1" class="tab-panel active">
+                <h2 class="section-title">El Acceso Seguro: Conexión a Oracle y Variables de Entorno</h2>
+                <p>
+                    Cuando trabajamos en entornos profesionales, **nunca** debemos exponer credenciales (usuario, contraseña, URLs) en código duro dentro de 
+                    nuestro archivo de configuración <code>application.properties</code> o subirlos a repositorios como GitHub. Para esto utilizamos variables de entorno
+                    y un archivo local <code>.env</code>.
+                </p>
+
+                <div class="info-box-note">
+                    🛡️ <strong>Importancia del archivo .env:</strong> El archivo <code>.env</code> reside de forma local y se añade a <code>.gitignore</code>. 
+                    Permite definir variables locales que la aplicación leerá en tiempo de ejecución. Si un intruso accede a tu código fuente, no podrá comprometer 
+                    la base de datos de producción porque las claves se inyectan dinámicamente en el entorno de ejecución.
+                </div>
+
+                <div class="accordion-v8">
+                    <!-- ACORDEÓN ITEM 1: ARCHIVO LOCAL .ENV (Abierto por defecto) -->
+                    <div class="accordion-item-v8 open">
+                        <button class="accordion-header-v8" onclick="toggleAccordion(this)">
+                            <span>1. Archivo local: <code>.env</code></span>
+                            <span class="icon-state">➖</span>
+                        </button>
+                        <div class="accordion-content-v8">
+                            <p>Define las credenciales en la raíz del proyecto para evitar subirlas a Git:</p>
+                            <pre><code>DB_URL=jdbc:oracle:thin:@localhost:1521:xe
+DB_USER=mi_usuario_oracle
+DB_PASSWORD=mi_clave_secreta</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- ACORDEÓN ITEM 2: DEPENDENCIA REQUERIDA -->
+                    <div class="accordion-item-v8">
+                        <button class="accordion-header-v8" onclick="toggleAccordion(this)">
+                            <span>2. Dependencia Requerida</span>
+                            <span class="icon-state">➕</span>
+                        </button>
+                        <div class="accordion-content-v8">
+                            <p>Añade la librería <code>dotenv-java</code> en tu archivo de dependencias (por ejemplo, Maven <code>pom.xml</code>):</p>
+                            <pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;io.github.cdimascio&lt;/groupId&gt;
+    &lt;artifactId&gt;dotenv-java&lt;/artifactId&gt;
+    &lt;version&gt;3.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- ACORDEÓN ITEM 3: CONFIGURACIÓN PROPERTIES -->
+                    <div class="accordion-item-v8">
+                        <button class="accordion-header-v8" onclick="toggleAccordion(this)">
+                            <span>3. Configuración: <code>application.properties</code></span>
+                            <span class="icon-state">➕</span>
+                        </button>
+                        <div class="accordion-content-v8">
+                            <p>Lee las variables dinámicamente usando la sintaxis de Spring Boot:</p>
+                            <pre><code>spring.datasource.url=${DB_URL}
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PASSWORD}
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+spring.jpa.database-platform=org.hibernate.dialect.OracleDialect</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- ACORDEÓN ITEM 4: CARGA EN METODO MAIN -->
+                    <div class="accordion-item-v8">
+                        <button class="accordion-header-v8" onclick="toggleAccordion(this)">
+                            <span>4. Carga en el método <code>main</code></span>
+                            <span class="icon-state">➕</span>
+                        </button>
+                        <div class="accordion-content-v8">
+                            <p>Carga el archivo <code>.env</code> al sistema antes de arrancar Spring Boot:</p>
+                            <pre><code>import io.github.cdimascio.dotenv.Dotenv;
+
+@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        // Cargar variables del .env a System Properties
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+        dotenv.entries().forEach(entry -> 
+            System.setProperty(entry.getKey(), entry.getValue())
+        );
+        SpringApplication.run(Application.class, args);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: ENTIDAD & REPOSITORY -->
+            <div id="panel-tab2" class="tab-panel">
+                <h2 class="section-title">El Modelo y la Persistencia Automática</h2>
+                <p>
+                    Spring Data JPA nos permite interactuar con la base de datos Oracle a través de objetos de Java (Entities) 
+                    y una interfaz de persistencia preconstruida llamada <code>JpaRepository</code>.
+                </p>
+
+                <div class="layer-grid-v8">
+                    <div class="layer-card-v8">
+                        <h3>La Entidad JPA (@Entity)</h3>
+                        <p>Mapea una clase Java directamente a una tabla física en Oracle.</p>
+                        <pre><code>@Entity
+@Table(name = "ESTUDIANTES")
+public class Estudiante {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(name = "NOMBRE", nullable = false)
+    private String nombre;
+    
+    @Column(name = "CORREO", unique = true)
+    private String correo;
+
+    // Getters y Setters
+}</code></pre>
+                    </div>
+
+                    <div class="layer-card-v8">
+                        <h3>La Interfaz Repository</h3>
+                        <p>Hereda de <code>JpaRepository</code> para obtener operaciones CRUD de inmediato.</p>
+                        <pre><code>@Repository
+public interface EstudianteRepository 
+    extends JpaRepository&lt;Estudiante, Long&gt; {
+    
+    // Método personalizado automático (Query Method)
+    Optional&lt;Estudiante&gt; findByCorreo(String correo);
+}</code></pre>
+                        <div class="analogy-box-v8">
+                            <strong>💡 Ventaja:</strong> No necesitas escribir <code>INSERT INTO</code>, <code>UPDATE</code>, <code>DELETE</code> ni <code>SELECT</code>. Spring Data JPA genera el SQL por ti automáticamente tras bambalinas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: SERVICIO & CRUD -->
+            <div id="panel-tab3" class="tab-panel">
+                <h2 class="section-title">Capa de Servicio: La Lógica de Operaciones CRUD</h2>
+                <p>
+                    La capa de servicio coordina el repositorio para ejecutar operaciones CRUD seguras, aplicando lógica de negocio y excepciones
+                    si un recurso no existe.
+                </p>
+
+                <div class="layer-card-v8">
+                    <h3>Implementación en EstudianteService</h3>
+                    <p>Utilizamos inyección de dependencias para integrar el repositorio y anotamos la clase con <code>@Service</code>.</p>
+                    <pre><code>@Service
+public class EstudianteService {
+
+    @Autowired
+    private EstudianteRepository repository;
+
+    // CREATE (Crear)
+    public Estudiante guardar(Estudiante estudiante) {
+        return repository.save(estudiante);
+    }
+
+    // READ ALL (Leer todos)
+    public List&lt;Estudiante&gt; obtenerTodos() {
+        return repository.findAll();
+    }
+
+    // READ BY ID (Leer por ID)
+    public Estudiante obtenerPorId(Long id) {
+        return repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+    }
+
+    // UPDATE (Actualizar)
+    public Estudiante actualizar(Long id, Estudiante detalles) {
+        Estudiante estudiante = obtenerPorId(id);
+        estudiante.setNombre(detalles.getNombre());
+        estudiante.setCorreo(detalles.getCorreo());
+        return repository.save(estudiante);
+    }
+
+    // DELETE (Eliminar)
+    public void eliminar(Long id) {
+        Estudiante estudiante = obtenerPorId(id);
+        repository.delete(estudiante);
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- TAB 4: CONTROLADOR REST -->
+            <div id="panel-tab4" class="tab-panel">
+                <h2 class="section-title">Capa de Presentación: Exposición de Endpoints HTTP</h2>
+                <p>
+                    El controlador recibe las peticiones externas, invoca a nuestro servicio de negocio y despacha las respuestas en JSON
+                    acompañadas del respectivo código de estado HTTP (200 OK, 201 Created, 204 No Content).
+                </p>
+
+                <div class="layer-card-v8">
+                    <h3>Controlador API REST: EstudianteController</h3>
+                    <pre><code>@RestController
+@RequestMapping("/api/estudiantes")
+public class EstudianteController {
+
+    @Autowired
+    private EstudianteService service;
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;Estudiante&gt;&gt; listar() {
+        return ResponseEntity.ok(service.obtenerTodos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity&lt;Estudiante&gt; obtener(@PathVariable Long id) {
+        return ResponseEntity.ok(service.obtenerPorId(id));
+    }
+
+    @PostMapping
+    public ResponseEntity&lt;Estudiante&gt; crear(@RequestBody Estudiante estudiante) {
+        return new ResponseEntity<>(service.guardar(estudiante), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity&lt;Estudiante&gt; actualizar(@PathVariable Long id, @RequestBody Estudiante estudiante) {
+        return ResponseEntity.ok(service.actualizar(id, estudiante));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity&lt;Void&gt; eliminar(@PathVariable Long id) {
+        service.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- TORRE DE CAPAS INTERACTIVA -->
+        <section style="margin-top: 40px;">
+            <h2 class="section-title">Flujo del CRUD en la Torre Arquitectónica</h2>
+            <p>Haz clic sobre cualquiera de las capas apiladas para auditar su participación en el procesamiento de una transacción CRUD:</p>
+
+            <div class="interactive-stack-v8">
+                <div class="stack-layer-v8 color-s1"
+                    onclick="showLayerDetails('Configuración Segura (.env & Oracle properties)', 'Paso Inicial. La aplicación lee las variables del entorno desde el archivo .env para conectarse de forma segura a Oracle sin exponer datos críticos en el código.')">
+                    1. Configuración de Acceso y Credenciales</div>
+                <div class="stack-layer-v8 color-s2"
+                    onclick="showLayerDetails('Recepción HTTP (Controlador REST)', 'Punto de Entrada. Mapea peticiones POST/GET/PUT/DELETE y asocia los JSON del cuerpo a objetos DTO o entidades de Java.')">
+                    2. Exposición y Enrutamiento (Controller)</div>
+                <div class="stack-layer-v8 color-s3"
+                    onclick="showLayerDetails('Validaciones y Lógica (Servicios)', 'Capa de Negocio. Aplica verificaciones de correo único, comprueba existencia de IDs y administra transacciones de forma coherente.')">
+                    3. Reglas de Negocio y Control (Service)</div>
+                <div class="stack-layer-v8 color-s4"
+                    onclick="showLayerDetails('Acceso Automatizado a Datos (JpaRepository)', 'Capa de Persistencia. Traduce las invocaciones de métodos en consultas nativas PL/SQL para comunicarse directamente con Oracle Database.')">
+                    4. Persistencia en Base de Datos (Repository)</div>
+            </div>
+            <div id="stack-display-v8" class="stack-details-v8">Selecciona una capa de la torre para inspeccionar su flujo de trabajo...</div>
+        </section>
+
+        <!-- QUIZ DE RELACIÓN CONCEPTUAL -->
+        <section class="quiz-container" style="margin-top: 40px;">
+            <div class="quiz-header">
+                <h3>🧩 Desafío del Programador: Conexión y CRUD</h3>
+                <p>Empareja los componentes esenciales de un CRUD empresarial con su respectiva definición técnica o funcional.</p>
+            </div>
+
+            <div class="match-game-v8">
+                <div class="match-column-v8" id="col-concepts">
+                    <div class="match-item-v8" data-id="1">🗄️ JpaRepository</div>
+                    <div class="match-item-v8" data-id="2">🔑 Archivo .env</div>
+                    <div class="match-item-v8" data-id="3">📦 @Entity</div>
+                    <div class="match-item-v8" data-id="4">🛡️ @Transactional</div>
+                    <div class="match-item-v8" data-id="5">🔌 ojdbc (Oracle Driver)</div>
+                </div>
+
+                <div class="match-column-v8" id="col-analogies">
+                    <div class="match-item-v8" data-match="2">Archivo local que almacena variables de entorno privadas para proteger credenciales sensibles de la base de datos.</div>
+                    <div class="match-item-v8" data-match="1">Interfaz de Spring Data que suministra operaciones básicas de CRUD de manera automática y genérica.</div>
+                    <div class="match-item-v8" data-match="5">Librería que actúa como conector físico entre la aplicación Java y el gestor de base de datos Oracle.</div>
+                    <div class="match-item-v8" data-match="3">Anotación de JPA que indica que una clase Java representa de forma exacta una tabla en el modelo relacional.</div>
+                    <div class="match-item-v8" data-match="4">Asegura que un conjunto de operaciones en base de datos ocurra de manera atómica (éxito total o rollback completo).</div>
+                </div>
+            </div>
+
+            <div class="quiz-result-card" id="quiz-result-v8">
+                <h4>🎉 ¡Excelente! Dominio CRUD y Persistencia Completado</h4>
+                <div class="quiz-result-score">5/5</div>
+                <p>Has emparejado todos los conceptos correctamente. Comprendes cómo configurar conexiones seguras a Oracle y aplicar operaciones CRUD empresariales. ¡Listo para seguir construyendo APIs!</p>
+            </div>
+
+            <div class="quiz-action-bar">
+                <button type="button" class="btn-quiz btn-reset" onclick="resetMatchGame()">Reiniciar Desafío</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/menu.js"></script>
+    <script src="../js/m2clase8.js"></script>
+</body>
+
+</html>
