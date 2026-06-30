@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Josué Guinea Dev – Módulo 2, Clase 5: Estructuras de Datos en Java</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/class.css" />
+    <link rel="stylesheet" href="../css/m2clase5.css" />
+    <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+</head>
+
+<body data-module="2" data-class="clase5">
+
+    <div id="menu-container"></div>
+
+    <main class="main-content">
+
+        <div class="content-header">
+            <h1>Clase 5: Estructuras de Datos y su aplicación en Spring Boot</h1>
+            <p>
+                ¡Hola, Developers! En esta clase aprenderemos cómo utilizar las principales estructuras de datos del 
+                <strong>Java Collections Framework</strong>. Entender estas herramientas es crucial porque, antes de conectarnos a bases de datos 
+                reales con Spring Boot, simularemos bases de datos en memoria para probar nuestros Controllers y Services.
+            </p>
+        </div>
+
+        <section>
+            <div class="tabs-nav">
+                <button id="btn-tab1" class="tab-btn active" onclick="activateTab('tab1')">🗝️ 1. Mapas (HashMap & TreeMap)</button>
+                <button id="btn-tab2" class="tab-btn" onclick="activateTab('tab2')">🚫 2. Conjuntos (HashSet)</button>
+                <button id="btn-tab3" class="tab-btn" onclick="activateTab('tab3')">🔗 3. Listas (ArrayList vs LinkedList)</button>
+                <button id="btn-tab4" class="tab-btn" onclick="activateTab('tab4')">⚙️ 4. Aplicación en Spring Boot</button>
+            </div>
+
+            <!-- TAB 1: MAPAS -->
+            <div id="panel-tab1" class="tab-panel active">
+                <h2 class="section-title">Colecciones Clave-Valor: Mapas en Java</h2>
+                <p>
+                    La interfaz <code>Map</code> modela una estructura donde cada elemento se compone de una **Clave única** asociada a un **Valor**. 
+                    No puede haber claves duplicadas.
+                </p>
+
+                <div class="layer-grid-v5">
+                    <div class="layer-card-v5">
+                        <h3>⚡ HashMap</h3>
+                        <p>
+                            Almacena los elementos en una tabla hash. **No garantiza ningún orden** en particular para sus claves. 
+                            Ofrece el mejor rendimiento para operaciones básicas de inserción, búsqueda y eliminación (tiempo constante O(1)).
+                        </p>
+                        <pre><code>Map&lt;Long, String&gt; usuarios = new HashMap&lt;&gt;();
+usuarios.put(101L, "Carlos");
+usuarios.put(102L, "Ana");
+usuarios.put(101L, "Juan"); // Reemplaza a "Carlos"</code></pre>
+                    </div>
+
+                    <div class="layer-card-v5">
+                        <h3>🌳 TreeMap</h3>
+                        <p>
+                            Implementa la interfaz <code>NavigableMap</code> utilizando un árbol Red-Black. 
+                            **Ordena automáticamente las claves** según su orden natural (alfabético o numérico) o mediante un comparador personalizado. 
+                            Tiene un rendimiento O(log n).
+                        </p>
+                        <pre><code>Map&lt;String, Double&gt; precios = new TreeMap&lt;&gt;();
+precios.put("Manzana", 1.5);
+precios.put("Banana", 0.8);
+precios.put("Cereza", 3.0);
+// Se almacena ordenado: Banana, Cereza, Manzana</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: CONJUNTOS -->
+            <div id="panel-tab2" class="tab-panel">
+                <h2 class="section-title">Colecciones de Elementos Únicos: Conjuntos (Set)</h2>
+                <p>
+                    Un <code>Set</code> es una colección que **no permite elementos duplicados**. 
+                    Es ideal cuando necesitas validar unicidad (como un registro de correos electrónicos o de IDs).
+                </p>
+
+                <div class="layer-grid-v5">
+                    <div class="layer-card-v5">
+                        <h3>🚫 HashSet</h3>
+                        <p>
+                            Basado en un HashMap interno. No permite duplicados y **no garantiza orden** en absoluto.
+                            Es extremadamente eficiente para comprobar si un elemento ya existe en el conjunto.
+                        </p>
+                        <pre><code>Set&lt;String&gt; correos = new HashSet&lt;&gt;();
+correos.add("juan@mail.com");
+correos.add("maria@mail.com");
+correos.add("juan@mail.com"); // Duplicado, es ignorado</code></pre>
+                    </div>
+
+                    <div class="layer-card-v5">
+                        <h3>🧩 Regla de Unicidad</h3>
+                        <p>
+                            Para que un <code>Set</code> detecte duplicados correctamente al usar objetos personalizados (como una clase <code>Estudiante</code>), 
+                            es obligatorio implementar correctamente los métodos <code>equals()</code> y <code>hashCode()</code> en dicha clase.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: LISTAS -->
+            <div id="panel-tab3" class="tab-panel">
+                <h2 class="section-title">Repaso de Estructuras Secuenciales: List</h2>
+                <p>
+                    A diferencia de los Conjuntos, las **Listas** admiten elementos duplicados y conservan un **estricto orden de inserción**.
+                </p>
+
+                <div class="layer-grid-v5">
+                    <div class="layer-card-v5">
+                        <h3>📦 ArrayList</h3>
+                        <p>
+                            Estructura contigua en memoria. Ideal si vas a **leer o buscar elementos por su índice** muy seguido. 
+                            Penaliza las inserciones en las primeras posiciones debido al desplazamiento de memoria.
+                        </p>
+                    </div>
+
+                    <div class="layer-card-v5">
+                        <h3>🔗 LinkedList</h3>
+                        <p>
+                            Estructura de nodos doblemente enlazados en memoria. Ideal para **estructuras que cambian constantemente de tamaño** 
+                            en sus extremos o donde realizas muchas inserciones y eliminaciones al principio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: APLICACION EN SPRING BOOT -->
+            <div id="panel-tab4" class="tab-panel">
+                <h2 class="section-title">Bases de Datos en Memoria para APIs con Spring Boot</h2>
+                <p>
+                    Al construir una API RESTful con Spring Boot, solemos tener un Controlador (Controller) y un Servicio (Service). 
+                    Antes de conectar una base de datos real (como MySQL u Oracle), simulamos la persistencia en memoria usando un <code>HashMap</code> 
+                    dentro de nuestro Servicio.
+                </p>
+
+                <div class="layer-card-v5">
+                    <h3>Ejemplo de Servicio Simulado en Spring Boot</h3>
+                    <pre><code>@Service
+public class EstudianteService {
+    // Simulamos la tabla de la base de datos en memoria
+    private final Map&lt;Long, Estudiante&gt; baseDatos = new HashMap&lt;&gt;();
+    private long idAutoincremental = 1;
+
+    // CREATE / Guardar
+    public Estudiante guardar(Estudiante estudiante) {
+        if (estudiante.getId() == null) {
+            estudiante.setId(idAutoincremental++);
+        }
+        baseDatos.put(estudiante.getId(), estudiante);
+        return estudiante;
+    }
+
+    // READ / Obtener todos
+    public List&lt;Estudiante&gt; obtenerTodos() {
+        return new ArrayList&lt;&gt;(baseDatos.values()); // Convertimos los valores del mapa a una lista
+    }
+
+    // READ / Obtener por ID
+    public Estudiante obtenerPorId(Long id) {
+        return baseDatos.get(id);
+    }
+
+    // DELETE / Eliminar
+    public void eliminar(Long id) {
+        baseDatos.remove(id);
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- SIMULADOR INTERACTIVO DE ESTRUCTURAS -->
+        <section class="simulator-container">
+            <h2 class="section-title">🛠️ Simulador Dinámico de Colecciones</h2>
+            <p>Selecciona una estructura, ingresa datos y comprueba visualmente cómo los organiza o valida Java en tiempo real:</p>
+
+            <div class="sim-controls">
+                <div class="sim-field">
+                    <label for="sim-struct-type">Estructura de Datos:</label>
+                    <select id="sim-struct-type" onchange="changeSimulatorStructure()">
+                        <option value="arraylist">ArrayList</option>
+                        <option value="linkedlist">LinkedList</option>
+                        <option value="hashset">HashSet (Valores Únicos)</option>
+                        <option value="hashmap">HashMap (Clave-Valor)</option>
+                        <option value="treemap">TreeMap (Ordenado por Clave)</option>
+                    </select>
+                </div>
+                
+                <div class="sim-field" id="sim-key-group" style="display: none;">
+                    <label for="sim-key">Clave (Key):</label>
+                    <input type="text" id="sim-key" placeholder="Ej. 101, admin" />
+                </div>
+
+                <div class="sim-field">
+                    <label for="sim-value">Valor / Elemento:</label>
+                    <input type="text" id="sim-value" placeholder="Ej. Carlos, Juan" />
+                </div>
+
+                <button class="sim-btn-add" onclick="addToSimulator()">Añadir Elemento</button>
+                <button class="sim-btn-clear" onclick="clearSimulator()">Limpiar Estructura</button>
+            </div>
+
+            <div class="sim-visualization">
+                <h4 class="sim-viz-title">Vista de Memoria en Tiempo Real</h4>
+                <div class="viz-elements-container" id="viz-elements-display">
+                    <!-- Elementos inyectados por JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- QUIZ DE RELACIÓN CONCEPTUAL -->
+        <section class="quiz-container" style="margin-top: 40px;">
+            <div class="quiz-header">
+                <h3>🧩 Desafío del Programador: Colecciones en Java</h3>
+                <p>Empareja cada estructura de datos con su respectivo propósito o comportamiento en Java.</p>
+            </div>
+
+            <div class="match-game-v5">
+                <div class="match-column-v5" id="col-concepts">
+                    <div class="match-item-v5" data-id="1">🗝️ HashMap</div>
+                    <div class="match-item-v5" data-id="2">🌳 TreeMap</div>
+                    <div class="match-item-v5" data-id="3">🚫 HashSet</div>
+                    <div class="match-item-v5" data-id="4">🔗 LinkedList</div>
+                    <div class="match-item-v5" data-id="5">⚡ ArrayList</div>
+                </div>
+
+                <div class="match-column-v5" id="col-analogies">
+                    <div class="match-item-v5" data-match="2">Almacena pares clave-valor ordenados de forma natural y ascendente según sus claves.</div>
+                    <div class="match-item-v5" data-match="5">Array de tamaño reajustable ideal para accesos rápidos por índice y lecturas.</div>
+                    <div class="match-item-v5" data-match="1">Estructura clave-valor extremadamente rápida que no garantiza un orden en sus claves.</div>
+                    <div class="match-item-v5" data-match="3">Conjunto de elementos donde los duplicados son rechazados de forma automática.</div>
+                    <div class="match-item-v5" data-match="4">Secuencia de nodos enlazados ideal para inserciones rápidas al inicio o como cola.</div>
+                </div>
+            </div>
+
+            <div class="quiz-result-card" id="quiz-result-v5">
+                <h4>🎉 ¡Excelente! Has completado el desafío de Estructuras de Datos</h4>
+                <div class="quiz-result-score">5/5</div>
+                <p>Has emparejado todas las estructuras con su respectivo funcionamiento y complejidad. Ahora estás listo para comprender cómo almacenar datos temporalmente en servicios de Spring Boot de forma eficiente. ¡Continúa así!</p>
+            </div>
+
+            <div class="quiz-action-bar">
+                <button type="button" class="btn-quiz btn-reset" onclick="resetMatchGame()">Reiniciar Desafío</button>
+            </div>
+        </section>
+    </main>
+
+    <div id="custom-modal" class="custom-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modal-message"></div>
+        </div>
+    </div>
+
+    <script src="../js/menu.js"></script>
+    <script src="../js/m2clase5.js"></script>
+</body>
+</html>

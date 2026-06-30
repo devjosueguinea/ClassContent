@@ -83,6 +83,21 @@ function calificarQuiz(quizId) {
 
     let score = 0;
     const totalQuestions = Object.keys(questions).length;
+    let missingAnswer = false;
+
+    // Verificar primero si todas las preguntas están respondidas
+    for (let key in questions) {
+        const selectedOption = document.querySelector(`input[name="${key}"]:checked`);
+        if (!selectedOption) {
+            missingAnswer = true;
+            break;
+        }
+    }
+
+    if (missingAnswer) {
+        showModal("⚠️ <strong>Atención Developer:</strong> Por favor, responde a todas las preguntas del cuestionario antes de calificar.");
+        return;
+    }
 
     for (let key in questions) {
         const questionElement = document.querySelector(`[data-q="${key}"]`);
@@ -100,9 +115,6 @@ function calificarQuiz(quizId) {
                     feedbackBox.className = "feedback-explanation incorrect-box";
                     feedbackBox.innerHTML = `<strong>Incorrecto:</strong> La opción correcta es la ${questions[key].ans.toUpperCase()}. Revisa el material didáctico.`;
                 }
-            } else {
-                feedbackBox.className = "feedback-explanation warn-box";
-                feedbackBox.innerHTML = "⚠️ Por favor, selecciona una opción antes de calificar.";
             }
         }
     }
@@ -144,3 +156,27 @@ function reiniciarQuiz(quizId) {
     const resultCard = document.getElementById(`result-${quizId}`);
     if (resultCard) resultCard.style.display = "none";
 }
+
+// FUNCIONES DEL MODAL
+function showModal(message) {
+    const modal = document.getElementById('custom-modal');
+    const msgContainer = document.getElementById('modal-message');
+    if (modal && msgContainer) {
+        msgContainer.innerHTML = message;
+        modal.style.display = 'block';
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('custom-modal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+window.addEventListener('click', (event) => {
+    const modal = document.getElementById('custom-modal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
