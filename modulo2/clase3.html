@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Josué Guinea Dev – Módulo 2, Clase 3: Vectores y Listas en Java</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/class.css" />
+    <link rel="stylesheet" href="../css/m2clase3.css" />
+    <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+</head>
+
+<body data-module="2" data-class="clase3">
+
+    <div id="menu-container"></div>
+
+    <main class="main-content">
+
+        <div class="content-header">
+            <h1>Clase 3: Vectores y Listas en Java</h1>
+            <p>
+                ¡Hola, Developers! En esta clase exploraremos cómo Java maneja las colecciones de datos lineales de forma estática y dinámica. 
+                Comprenderemos los clásicos <strong>Arrays (vectores)</strong>, analizaremos el histórico <strong>Vector</strong>, 
+                y dominaremos las implementaciones modernas de la interfaz <code>List</code>: <strong>ArrayList</strong> y <strong>LinkedList</strong>.
+            </p>
+        </div>
+
+        <section>
+            <div class="tabs-nav">
+                <button id="btn-tab1" class="tab-btn active" onclick="activateTab('tab1')">📦 1. Arrays Estáticos & Vector</button>
+                <button id="btn-tab2" class="tab-btn" onclick="activateTab('tab2')">🚀 2. ArrayList</button>
+                <button id="btn-tab3" class="tab-btn" onclick="activateTab('tab3')">🔗 3. LinkedList</button>
+                <button id="btn-tab4" class="tab-btn" onclick="activateTab('tab4')">🛠️ 4. Operaciones & Recorridos</button>
+            </div>
+
+            <!-- TAB 1: ARRAYS ESTÁTICOS & VECTOR -->
+            <div id="panel-tab1" class="tab-panel active">
+                <h2 class="section-title">Estructuras Contiguas: Arrays Estáticos y la clase Vector</h2>
+                <p>
+                    En Java, el <strong>Array (o Arreglo/Vector)</strong> es la estructura de datos más básica y nativa para almacenar secuencias de elementos. 
+                    Sin embargo, tiene una restricción crítica: <strong>su tamaño es fijo</strong> una vez creado.
+                </p>
+
+                <div class="info-box-note">
+                    📏 <strong>Tamaño inmutable:</strong> Cuando declaras <code>int[] numeros = new int[5];</code>, el sistema reserva exactamente espacio en memoria para 5 enteros. No puedes expandirlo dinámicamente a 6 sin crear un nuevo array y copiar los datos manualmente.
+                </div>
+
+                <div class="accordion-v3">
+                    <!-- ACORDEÓN ITEM 1: DECLARACIÓN Y USO DE ARRAYS -->
+                    <div class="accordion-item-v3 open">
+                        <button class="accordion-header-v3" onclick="toggleAccordion(this)">
+                            <span>1. Sintaxis de Arrays Estáticos</span>
+                            <span class="icon-state">➖</span>
+                        </button>
+                        <div class="accordion-content-v3">
+                            <p>Ejemplo básico de inicialización y asignación de valores en un array:</p>
+                            <pre><code>// Declaración e inicialización con tamaño definido
+int[] edades = new int[3];
+edades[0] = 18;
+edades[1] = 25;
+edades[2] = 30;
+
+// Inicialización abreviada con valores implícitos
+String[] nombres = {"Ana", "Juan", "Pedro"};</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- ACORDEÓN ITEM 2: LA CLASE CLÁSICA VECTOR -->
+                    <div class="accordion-item-v3">
+                        <button class="accordion-header-v3" onclick="toggleAccordion(this)">
+                            <span>2. ¿Qué es la clase <code>java.util.Vector</code>?</span>
+                            <span class="icon-state">➕</span>
+                        </button>
+                        <div class="accordion-content-v3">
+                            <p>
+                                Introducido en Java 1.0, <code>Vector</code> es una clase que representa un array dinámico. 
+                                A diferencia de las colecciones modernas, <strong>es sincronizado</strong> (thread-safe). 
+                                Esto significa que todos sus métodos de acceso están protegidos internamente para entornos multi-hilo.
+                            </p>
+                            <p><strong>⚠️ ¿Por qué ya no se recomienda?</strong></p>
+                            <ul>
+                                <li>La sincronización automática añade una sobrecarga de rendimiento muy alta para aplicaciones single-thread.</li>
+                                <li>En desarrollo moderno, preferimos <code>ArrayList</code> y si necesitamos control de concurrencia, usamos colecciones especializadas como <code>CopyOnWriteArrayList</code> o bloques de sincronización explícitos.</li>
+                            </ul>
+                            <pre><code>// Uso clásico de Vector (Legacy)
+Vector&lt;String&gt; vectorLegacy = new Vector&lt;&gt;();
+vectorLegacy.add("Java 1.0");
+vectorLegacy.add("Legacy Code");</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: ARRAYLIST -->
+            <div id="panel-tab2" class="tab-panel">
+                <h2 class="section-title">El Array Dinámico por Excelencia: ArrayList</h2>
+                <p>
+                    <code>ArrayList</code> es la clase más utilizada del Java Collections Framework. Implementa la interfaz <code>List</code> 
+                    y resuelve la limitación del tamaño de los arrays estándar mediante un mecanismo de **redimensionamiento dinámico**.
+                </p>
+
+                <div class="layer-grid-v3">
+                    <div class="layer-card-v3">
+                        <h3>¿Cómo funciona internamente?</h3>
+                        <p>
+                            Usa un array estático común por debajo. Cuando este array se llena (alcanza el 100% de su capacidad), 
+                            <code>ArrayList</code> crea automáticamente un nuevo array con aproximadamente **1.5 veces el tamaño del original** 
+                            y transfiere todos los elementos.
+                        </p>
+                    </div>
+
+                    <div class="layer-card-v3">
+                        <h3>Código de Ejemplo Común</h3>
+                        <pre><code>import java.util.ArrayList;
+import java.util.List;
+
+public class EjemploListas {
+    public static void main(String[] args) {
+        // Declaración recomendada usando la interfaz List
+        List&lt;String&gt; tareas = new ArrayList&lt;&gt;();
+        
+        // Agregar elementos
+        tareas.add("Aprender POO");
+        tareas.add("Estudiar Spring Boot");
+        
+        // Obtener por índice
+        String primera = tareas.get(0);
+        
+        // Remover elementos
+        tareas.remove(1);
+        
+        // Tamaño actual
+        int total = tareas.size();
+    }
+}</code></pre>
+                        <div class="analogy-box-v3">
+                            <strong>💡 Buena práctica:</strong> Declara la variable con la interfaz <code>List</code> en lugar del tipo de implementación concreta (ej. <code>List&lt;T&gt; lista = new ArrayList&lt;&gt;()</code>). Esto facilita cambiar de implementación más tarde sin romper el contrato del código.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: LINKEDLIST -->
+            <div id="panel-tab3" class="tab-panel">
+                <h2 class="section-title">Listas Doblemente Enlazadas: LinkedList</h2>
+                <p>
+                    A diferencia de <code>ArrayList</code>, <code>LinkedList</code> no almacena sus datos en posiciones contiguas de memoria. 
+                    Utiliza una estructura de **nodos**, donde cada elemento contiene el valor y dos punteros: uno al nodo anterior y otro al siguiente.
+                </p>
+
+                <div class="layer-grid-v3">
+                    <div class="layer-card-v3">
+                        <h3>Ventajas de LinkedList</h3>
+                        <ul>
+                            <li><strong>Inserciones y eliminaciones rápidas:</strong> Solo requiere reasignar los punteros de los nodos adyacentes. No necesita desplazar ningún elemento en memoria.</li>
+                            <li>Funciona de forma nativa como estructura de **Cola (Queue)** o **Pila (Stack)** implementando interfaces como <code>Deque</code>.</li>
+                        </ul>
+                    </div>
+
+                    <div class="layer-card-v3">
+                        <h3>Código de Ejemplo</h3>
+                        <pre><code>import java.util.LinkedList;
+import java.util.List;
+
+public class EjemploLinkedList {
+    public static void main(String[] args) {
+        List&lt;Integer&gt; historial = new LinkedList&lt;&gt;();
+        historial.add(200);
+        historial.add(404);
+        historial.add(500);
+        
+        // También puedes usar métodos de Queue si declaras como tal:
+        LinkedList&lt;String&gt; cola = new LinkedList&lt;&gt;();
+        cola.addFirst("Cliente 1");
+        cola.addLast("Cliente 2");
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: OPERACIONES & RECORRIDOS -->
+            <div id="panel-tab4" class="tab-panel">
+                <h2 class="section-title">Manipulación y Recorrido de Colecciones</h2>
+                <p>
+                    Java ofrece múltiples maneras de recorrer (iterar) arrays y listas dinámicas según la versión de Java o la semántica del código.
+                </p>
+
+                <div class="layer-card-v3">
+                    <h3>Diferentes Formas de Iterar una Lista</h3>
+                    <pre><code>List&lt;String&gt; lenguajes = List.of("Java", "Kotlin", "TypeScript");
+
+// 1. Bucle For Clásico (Basado en Índice)
+for (int i = 0; i &lt; lenguajes.size(); i++) {
+    System.out.println(lenguajes.get(i));
+}
+
+// 2. Bucle For-Each (Recomendado y legible)
+for (String lenguaje : lenguajes) {
+    System.out.println(lenguaje);
+}
+
+// 3. Expresiones Lambda / Método de Referencia (Java 8+)
+lenguajes.forEach(System.out.println);
+
+// 4. API de Streams (Para procesamiento funcional)
+lenguajes.stream()
+    .filter(l -> l.startsWith("J"))
+    .forEach(System.out::println);</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPARADOR DE RENDIMIENTO INTERACTIVO -->
+        <section style="margin-top: 40px;">
+            <h2 class="section-title">ArrayList vs LinkedList: Auditoría de Rendimiento</h2>
+            <p>Selecciona una operación común para evaluar cuál estructura de datos ofrece un mejor desempeño computacional:</p>
+
+            <div class="interactive-performance-v3">
+                <div class="performance-selector">
+                    <button class="perf-btn active" onclick="selectPerformanceCase('search', this)">🔍 Búsqueda por Índice</button>
+                    <button class="perf-btn" onclick="selectPerformanceCase('insert-start', this)">➕ Inserción al Inicio/Medio</button>
+                    <button class="perf-btn" onclick="selectPerformanceCase('insert-end', this)">📥 Inserción al Final</button>
+                </div>
+                <div id="perf-display-content" class="perf-content">
+                    <strong>🔍 Búsqueda de Elemento por Índice (ej. <code>lista.get(450)</code>):</strong>
+                    <p style="margin: 8px 0 0 0;">
+                        <strong>ArrayList (Ganador ⚡ - O(1)):</strong> Al ser un array contiguo en memoria, calcula la dirección exacta instantáneamente.
+                        <br><em>LinkedList (Lento - O(n)):</em> Debe recorrer los nodos uno a uno desde el inicio (o el final) hasta llegar al índice 450.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUIZ DE RELACIÓN CONCEPTUAL -->
+        <section class="quiz-container" style="margin-top: 40px;">
+            <div class="quiz-header">
+                <h3>🧩 Desafío del Programador: Estructuras Lineales</h3>
+                <p>Empareja cada concepto con su respectiva definición técnica o funcional haciendo clic sobre ellos.</p>
+            </div>
+
+            <div class="match-game-v3">
+                <div class="match-column-v3" id="col-concepts">
+                    <div class="match-item-v3" data-id="1">📦 Arrays Estáticos</div>
+                    <div class="match-item-v3" data-id="2">⚙️ Vector (legacy)</div>
+                    <div class="match-item-v3" data-id="3">⚡ ArrayList</div>
+                    <div class="match-item-v3" data-id="4">🔗 LinkedList</div>
+                    <div class="match-item-v3" data-id="5">📋 List (Interfaz)</div>
+                </div>
+
+                <div class="match-column-v3" id="col-analogies">
+                    <div class="match-item-v3" data-match="2">Clase heredada sincronizada (thread-safe) pero con penalización de rendimiento.</div>
+                    <div class="match-item-v3" data-match="5">Contrato que define una colección ordenada que admite duplicados e indexación.</div>
+                    <div class="match-item-v3" data-match="1">Estructura nativa contigua en memoria con tamaño inmutable tras su creación.</div>
+                    <div class="match-item-v3" data-match="4">Estructura basada en nodos enlazados ideal para inserciones/eliminaciones constantes.</div>
+                    <div class="match-item-v3" data-match="3">Array dinámico optimizado para acceso directo y búsquedas en tiempo constante O(1).</div>
+                </div>
+            </div>
+
+            <div class="quiz-result-card" id="quiz-result-v3">
+                <h4>🎉 ¡Excelente! Dominas los Vectores y Listas en Java</h4>
+                <div class="quiz-result-score">5/5</div>
+                <p>Comprendes perfectamente cuándo usar arrays estáticos, cómo operan ArrayList y LinkedList internamente y la forma recomendada de recorrerlos. ¡Buen trabajo!</p>
+            </div>
+
+            <div class="quiz-action-bar">
+                <button type="button" class="btn-quiz btn-reset" onclick="resetMatchGame()">Reiniciar Desafío</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/menu.js"></script>
+    <script src="../js/m2clase3.js"></script>
+</body>
+
+</html>
