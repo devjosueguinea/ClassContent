@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Josué Guinea Dev – Módulo 2, Clase 4: Clases y Objetos en Java</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/class.css" />
+    <link rel="stylesheet" href="../css/m2clase4.css" />
+    <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+</head>
+
+<body data-module="2" data-class="clase4">
+
+    <div id="menu-container"></div>
+
+    <main class="main-content">
+
+        <div class="content-header">
+            <h1>Clase 4: Clases y Objetos en Java</h1>
+            <p>
+                ¡Hola, Developers! Bienvenidos al corazón de la <strong>Programación Orientada a Objetos (POO)</strong>. 
+                En esta clase aprenderemos cómo estructurar el código mediante planos conceptuales llamados <strong>Clases</strong>, 
+                cómo darles vida creando <strong>Objetos</strong>, y cómo gobernar su ciclo de vida y estado a través de 
+                <strong>Constructores</strong>, <strong>Getters & Setters</strong>, y el método representativo <strong>toString()</strong>.
+            </p>
+        </div>
+
+        <section>
+            <div class="tabs-nav">
+                <button id="btn-tab1" class="tab-btn active" onclick="activateTab('tab1')">🏗️ 1. Clase vs Objeto</button>
+                <button id="btn-tab2" class="tab-btn" onclick="activateTab('tab2')">⚙️ 2. El Constructor</button>
+                <button id="btn-tab3" class="tab-btn" onclick="activateTab('tab3')">🔒 3. Getters & Setters</button>
+                <button id="btn-tab4" class="tab-btn" onclick="activateTab('tab4')">📝 4. Método toString()</button>
+            </div>
+
+            <!-- TAB 1: CLASE VS OBJETO -->
+            <div id="panel-tab1" class="tab-panel active">
+                <h2 class="section-title">El Plano y la Construcción: Clases y Objetos</h2>
+                <p>
+                    Para programar bajo el paradigma de POO, primero debemos comprender cómo modelar el mundo real en código:
+                </p>
+
+                <div class="layer-grid-v4">
+                    <div class="layer-card-v4">
+                        <h3>La Clase (El Plano 📐)</h3>
+                        <p>
+                            Una clase es una **plantilla o molde** que define las características (atributos) y los comportamientos (métodos) que tendrán 
+                            las entidades creadas a partir de ella. No consume memoria para almacenar datos, solo describe cómo serán.
+                        </p>
+                        <pre><code>// Definición básica de la clase Coche
+public class Coche {
+    String marca;
+    String modelo;
+    int anio;
+}</code></pre>
+                    </div>
+
+                    <div class="layer-card-v4">
+                        <h3>El Objeto (La Instancia 🚗)</h3>
+                        <p>
+                            Es el ejemplar concreto creado a partir de la clase. Ocupa un lugar físico en la memoria del computador y 
+                            posee un **estado propio** (sus variables tienen valores específicos).
+                        </p>
+                        <pre><code>// Creación (Instanciación) de un objeto
+Coche miAuto = new Coche();
+miAuto.marca = "Toyota";
+miAuto.modelo = "Yaris";
+miAuto.anio = 2022;</code></pre>
+                    </div>
+                </div>
+
+                <div class="analogy-box-v4" style="margin-top: 20px;">
+                    <strong>💡 Analogía del Mundo Real:</strong> 
+                    Imagina el plano de un arquitecto para construir una casa (Clase). El plano solo dice dónde irá la cocina o cuántos pisos tendrá.
+                    La casa construida con ladrillo y cemento, pintada de azul en una calle real, es el <strong>Objeto</strong>. Puedes usar el mismo plano (Clase) para construir infinitas casas individuales (Objetos).
+                </div>
+            </div>
+
+            <!-- TAB 2: EL CONSTRUCTOR -->
+            <div id="panel-tab2" class="tab-panel">
+                <h2 class="section-title">Inicialización de Estados: El Constructor</h2>
+                <p>
+                    Un <strong>Constructor</strong> es un método especial que se invoca automáticamente con la palabra reservada <code>new</code> 
+                    para inicializar el estado del objeto en el momento exacto de su nacimiento.
+                </p>
+
+                <div class="info-box-note">
+                    🛠️ <strong>Reglas del Constructor:</strong>
+                    1. Debe tener **exactamente el mismo nombre** que la clase.
+                    2. **No define ningún tipo de retorno**, ni siquiera <code>void</code>.
+                </div>
+
+                <div class="accordion-v4">
+                    <div class="accordion-item-v4 open">
+                        <button class="accordion-header-v4" onclick="toggleAccordion(this)">
+                            <span>1. Constructor Personalizado y Palabra clave <code>this</code></span>
+                            <span class="icon-state">➖</span>
+                        </button>
+                        <div class="accordion-content-v4">
+                            <p>
+                                Usamos parámetros para obligar a que el objeto sea creado con sus datos iniciales. La palabra clave <code>this</code> 
+                                hace referencia a los atributos de la instancia actual para diferenciarlos de las variables locales o parámetros:
+                            </p>
+                            <pre><code>public class Coche {
+    private String marca;
+    private String modelo;
+
+    // Constructor con parámetros
+    public Coche(String marca, String modelo) {
+        this.marca = marca;   // this.marca apunta al atributo de la clase
+        this.modelo = modelo; // modelo apunta al parámetro recibido
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item-v4">
+                        <button class="accordion-header-v4" onclick="toggleAccordion(this)">
+                            <span>2. Constructor por Defecto</span>
+                            <span class="icon-state">➕</span>
+                        </button>
+                        <div class="accordion-content-v4">
+                            <p>
+                                Si no escribes ningún constructor en tu clase, el compilador de Java inserta automáticamente un 
+                                <strong>constructor vacío por defecto</strong> sin parámetros. 
+                                Sin embargo, si creas al menos un constructor personalizado, el compilador **no** insertará el constructor por defecto, 
+                                por lo que si necesitas uno vacío deberás declararlo explícitamente.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: GETTERS & SETTERS -->
+            <div id="panel-tab3" class="tab-panel">
+                <h2 class="section-title">Encapsulamiento: Getters y Setters</h2>
+                <p>
+                    El principio de **encapsulamiento** indica que los datos de un objeto deben protegerse del acceso y modificación directa 
+                    por parte de agentes externos. Por ello, declaramos los atributos como <code>private</code> y proveemos métodos públicos:
+                </p>
+
+                <div class="layer-grid-v4">
+                    <div class="layer-card-v4">
+                        <h3>🔑 Getter</h3>
+                        <p>Método de acceso público que retorna el valor de un atributo privado.</p>
+                        <pre><code>public String getMarca() {
+    return this.marca;
+}</code></pre>
+                    </div>
+
+                    <div class="layer-card-v4">
+                        <h3>⚙️ Setter</h3>
+                        <p>Método modificador público que permite cambiar el valor de un atributo privado bajo validación de reglas de negocio.</p>
+                        <pre><code>public void setAnio(int anio) {
+    if (anio > 1886) { // Año de invención del primer auto
+        this.anio = anio;
+    } else {
+        System.out.println("Año inválido");
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="info-box-warn">
+                    🛡️ <strong>¿Por qué es importante?</strong> Si dejamos los atributos como públicos (<code>public int anio;</code>), cualquier parte de la aplicación podría asignar un año absurdo como <code>miCoche.anio = -500;</code>. Al forzar el uso del Setter, podemos validar y denegar valores inconsistentes.
+                </div>
+            </div>
+
+            <!-- TAB 4: METODO TOSTRING() -->
+            <div id="panel-tab4" class="tab-panel">
+                <h2 class="section-title">Representación en Texto: El Método <code>toString()</code></h2>
+                <p>
+                    Por defecto, si intentas imprimir un objeto directamente (<code>System.out.println(miCoche);</code>), Java imprimirá su firma de referencia de memoria 
+                    (por ejemplo, <code>Coche@7a81197d</code>). Esto no es amigable para los desarrolladores.
+                </p>
+
+                <div class="layer-card-v4">
+                    <h3>Sobrescribir <code>toString()</code></h3>
+                    <p>
+                        Para resolver esto, sobrescribimos (<code>@Override</code>) el método heredado de la clase base <code>Object</code>, 
+                        retornando una cadena estructurada que muestre los valores reales del objeto:
+                    </p>
+                    <pre><code>@Override
+public String toString() {
+    return "Coche{" +
+            "marca='" + marca + '\'' +
+            ", modelo='" + modelo + '\'' +
+            ", anio=" + anio +
+            '}';
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- SIMULADOR INTERACTIVO DE CONSTRUCTOR Y OBJETO -->
+        <section class="simulator-container">
+            <h2 class="section-title">🛠️ Simulador: Instanciación e Inicialización</h2>
+            <p>Modifica los campos del formulario para observar cómo cambia el código Java de instanciación y la representación en texto del objeto:</p>
+
+            <div class="simulator-grid">
+                <div class="sim-form">
+                    <div class="sim-group">
+                        <label for="sim-brand">Marca del coche (String):</label>
+                        <input type="text" id="sim-brand" value="Tesla" placeholder="Ej. Toyota, Tesla" />
+                    </div>
+                    <div class="sim-group">
+                        <label for="sim-model">Modelo (String):</label>
+                        <input type="text" id="sim-model" value="Model 3" placeholder="Ej. Corolla, Model 3" />
+                    </div>
+                    <div class="sim-group">
+                        <label for="sim-year">Año de fabricación (int):</label>
+                        <input type="number" id="sim-year" value="2024" />
+                    </div>
+                    <div class="sim-group">
+                        <label for="sim-price">Precio USD (double):</label>
+                        <input type="number" id="sim-price" value="38990.00" step="100" />
+                    </div>
+                </div>
+
+                <div class="sim-outputs">
+                    <div class="sim-output-box">
+                        <h4>🔧 Invocación del Constructor en Main</h4>
+                        <pre><code id="sim-inst-code">Coche miCoche = new Coche("Tesla", "Model 3", 2024, 38990.00);</code></pre>
+                    </div>
+                    <div class="sim-output-box">
+                        <h4>🖥️ Salida de <code>miCoche.toString()</code></h4>
+                        <pre><code id="sim-tostring-output">Coche{marca='Tesla', modelo='Model 3', anio=2024, precio=38990.00}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUIZ DE RELACIÓN CONCEPTUAL -->
+        <section class="quiz-container" style="margin-top: 40px;">
+            <div class="quiz-header">
+                <h3>🧩 Desafío del Programador: Fundamentos de POO</h3>
+                <p>Empareja cada concepto técnico con su respectivo propósito o definición técnica en Java.</p>
+            </div>
+
+            <div class="match-game-v4">
+                <div class="match-column-v4" id="col-concepts">
+                    <div class="match-item-v4" data-id="1">📐 Clase</div>
+                    <div class="match-item-v4" data-id="2">🚗 Objeto</div>
+                    <div class="match-item-v4" data-id="3">⚙️ Constructor</div>
+                    <div class="match-item-v4" data-id="4">🔒 Getters / Setters</div>
+                    <div class="match-item-v4" data-id="5">📝 toString()</div>
+                </div>
+
+                <div class="match-column-v4" id="col-analogies">
+                    <div class="match-item-v4" data-match="3">Método especial sin retorno que establece el estado inicial del objeto al instanciarse.</div>
+                    <div class="match-item-v4" data-match="1">El molde, plano o definición abstracta que especifica atributos y comportamientos.</div>
+                    <div class="match-item-v4" data-match="5">Método de la clase Object que se redefine para representar el estado del objeto en texto legible.</div>
+                    <div class="match-item-v4" data-match="2">La instancia real que vive en la memoria y posee valores específicos para sus atributos.</div>
+                    <div class="match-item-v4" data-match="4">Métodos públicos para leer o modificar de manera controlada los datos privados encapsulados.</div>
+                </div>
+            </div>
+
+            <div class="quiz-result-card" id="quiz-result-v4">
+                <h4>🎉 ¡Felicidades! Has completado el cuestionario de Clases y Objetos</h4>
+                <div class="quiz-result-score">5/5</div>
+                <p>Has emparejado todos los conceptos de manera correcta. Ya entiendes la relación estructural entre clases, objetos, la protección del encapsulamiento y cómo inicializarlos y representarlos. ¡Listo para avanzar!</p>
+            </div>
+
+            <div class="quiz-action-bar">
+                <button type="button" class="btn-quiz btn-reset" onclick="resetMatchGame()">Reiniciar Desafío</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/menu.js"></script>
+    <script src="../js/m2clase4.js"></script>
+</body>
+
+</html>
